@@ -1,6 +1,7 @@
 import Navbar from "./components/layout/Navbar";
 import AboutSection from "./components/about/AboutSection";
 import ProjectsSection from "./components/projects/ProjectsSection";
+import SkillsSection from "./components/skills/SkillsSection";
 import Footer from "./components/layout/Footer";
 
 function App() {
@@ -23,8 +24,8 @@ function App() {
         </section>
 
         <AboutSection />
-
         <ProjectsSection />
+        <SkillsSection />
       </main>
 
       <Footer />
