@@ -3,6 +3,7 @@ import AboutSection from "./components/about/AboutSection";
 import ProjectsSection from "./components/projects/ProjectsSection";
 import SkillsSection from "./components/skills/SkillsSection";
 import ExperienceSection from "./components/experience/ExperienceSection";
+import ContactSection from "./components/contact/ContactSection";
 import Footer from "./components/layout/Footer";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <ProjectsSection />
         <SkillsSection />
         <ExperienceSection />
+        <ContactSection />
       </main>
 
       <Footer />
