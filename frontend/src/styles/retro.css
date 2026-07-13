@@ -1,108 +1,309 @@
+/* =========================================================
+   SHARED WINDOWS 95 / 98 COMPONENTS
+   ========================================================= */
+
 .retro-window {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+
   background: var(--retro-surface);
-  border: 2px solid var(--retro-black);
-  box-shadow: var(--retro-window-shadow);
+  color: var(--retro-black);
+
+  border-top: 2px solid var(--retro-white);
+  border-left: 2px solid var(--retro-white);
+  border-right: 2px solid var(--retro-black);
+  border-bottom: 2px solid var(--retro-black);
+
+  box-shadow:
+    inset 1px 1px 0 var(--retro-surface-light),
+    inset -1px -1px 0 var(--retro-border-medium),
+    2px 2px 0 rgba(0, 0, 0, 0.35);
+
+  font-family: var(--font-retro);
 }
 
+
+/* =========================================================
+   TITLE BAR
+   ========================================================= */
+
 .retro-window__titlebar {
-  min-height: var(--titlebar-height);
-  margin: 3px;
-  padding: 3px 5px 3px 9px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  background: var(--retro-title-active);
+  gap: 8px;
+
+  min-height: 25px;
+  margin: 2px;
+  padding: 2px 3px 2px 4px;
+
   color: var(--retro-title-text);
+  background: var(--retro-title-active);
+
+  font-family: var(--font-retro);
+  font-size: 13px;
   font-weight: 700;
   line-height: 1;
+
+  user-select: none;
 }
 
 .retro-window__title {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
+
   min-width: 0;
+  overflow: hidden;
 }
 
 .retro-window__title img,
 .retro-window__title svg {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  image-rendering: pixelated;
 }
 
 .retro-window__title span {
+  min-width: 0;
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
+
+/* =========================================================
+   WINDOW CONTROL BUTTONS
+   ========================================================= */
 
 .retro-window__controls {
   display: flex;
   align-items: center;
-  gap: 3px;
-  flex-shrink: 0;
+  gap: 2px;
+  flex: 0 0 auto;
 }
 
-.retro-window__controls button,
-.retro-button {
-  min-width: var(--control-button-size);
-  min-height: var(--control-button-size);
-  padding: 2px 7px;
-  background: var(--retro-surface);
+.retro-window__controls button {
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  width: 20px;
+  min-width: 20px;
+  height: 18px;
+  min-height: 18px;
+
+  margin: 0;
+  padding: 0;
+
   color: var(--retro-black);
-  border: 0;
-  box-shadow: var(--retro-raised-border);
-  font-family: var(--font-retro);
-  font-size: 14px;
-  font-weight: 700;
+  background: var(--retro-surface);
+
+  border-top: 1px solid var(--retro-white);
+  border-left: 1px solid var(--retro-white);
+  border-right: 1px solid var(--retro-black);
+  border-bottom: 1px solid var(--retro-black);
+
+  box-shadow:
+    inset 1px 1px 0 var(--retro-surface-light),
+    inset -1px -1px 0 var(--retro-border-medium);
+
+  border-radius: 0;
+
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+
   cursor: pointer;
 }
 
-.retro-window__controls button:active,
-.retro-button:active {
-  box-shadow: var(--retro-pressed-border);
-  transform: translate(1px, 1px);
+.retro-window__controls button:hover {
+  background: var(--retro-surface-light);
 }
 
-.retro-button:focus-visible,
+.retro-window__controls button:active {
+  padding-top: 1px;
+  padding-left: 1px;
+
+  border-top-color: var(--retro-black);
+  border-left-color: var(--retro-black);
+  border-right-color: var(--retro-white);
+  border-bottom-color: var(--retro-white);
+
+  box-shadow:
+    inset 1px 1px 0 var(--retro-border-medium),
+    inset -1px -1px 0 var(--retro-surface-light);
+
+  transform: none;
+}
+
 .retro-window__controls button:focus-visible {
+  outline: 1px dotted var(--retro-black);
+  outline-offset: -4px;
+}
+
+
+/* =========================================================
+   WINDOW BODY
+   Important: no large padding here.
+   Each section controls its own internal spacing.
+   ========================================================= */
+
+.retro-window__body {
+  min-width: 0;
+  padding: 0;
+  background: var(--retro-surface);
+}
+
+
+/* =========================================================
+   STANDARD RETRO BUTTON
+   ========================================================= */
+
+.retro-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  min-height: 28px;
+  padding: 4px 12px;
+
+  color: var(--retro-black);
+  background: var(--retro-surface);
+
+  border-top: 2px solid var(--retro-white);
+  border-left: 2px solid var(--retro-white);
+  border-right: 2px solid var(--retro-black);
+  border-bottom: 2px solid var(--retro-black);
+
+  box-shadow:
+    inset 1px 1px 0 var(--retro-surface-light),
+    inset -1px -1px 0 var(--retro-border-medium);
+
+  border-radius: 0;
+
+  font-family: var(--font-retro);
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+.retro-button:hover {
+  background: var(--retro-surface-light);
+}
+
+.retro-button:active {
+  padding-top: 5px;
+  padding-left: 13px;
+  padding-right: 11px;
+  padding-bottom: 3px;
+
+  border-top-color: var(--retro-black);
+  border-left-color: var(--retro-black);
+  border-right-color: var(--retro-white);
+  border-bottom-color: var(--retro-white);
+
+  box-shadow:
+    inset 1px 1px 0 var(--retro-border-medium),
+    inset -1px -1px 0 var(--retro-surface-light);
+
+  transform: none;
+}
+
+.retro-button:focus-visible {
   outline: 1px dotted var(--retro-black);
   outline-offset: -5px;
 }
 
-.retro-window__body {
-  padding: 18px;
-}
+
+/* =========================================================
+   PANELS
+   ========================================================= */
 
 .retro-panel {
+  min-width: 0;
   background: var(--retro-surface);
-  box-shadow: var(--retro-raised-border);
+
+  border-top: 2px solid var(--retro-white);
+  border-left: 2px solid var(--retro-white);
+  border-right: 2px solid var(--retro-black);
+  border-bottom: 2px solid var(--retro-black);
+
+  box-shadow:
+    inset 1px 1px 0 var(--retro-surface-light),
+    inset -1px -1px 0 var(--retro-border-medium);
 }
 
 .retro-panel--inset {
+  min-width: 0;
   background: var(--retro-white);
-  box-shadow: var(--retro-pressed-border);
+
+  border-top: 2px solid var(--retro-black);
+  border-left: 2px solid var(--retro-black);
+  border-right: 2px solid var(--retro-white);
+  border-bottom: 2px solid var(--retro-white);
+
+  box-shadow:
+    inset 1px 1px 0 var(--retro-border-medium),
+    inset -1px -1px 0 var(--retro-surface-light);
 }
 
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
 .retro-card {
-  padding: 16px;
-  background: var(--retro-surface-light);
-  border: 2px solid var(--retro-black);
-  box-shadow: var(--retro-card-shadow);
+  padding: 14px;
+
+  background: var(--retro-surface);
+
+  border-top: 2px solid var(--retro-white);
+  border-left: 2px solid var(--retro-white);
+  border-right: 2px solid var(--retro-black);
+  border-bottom: 2px solid var(--retro-black);
+
+  box-shadow:
+    inset 1px 1px 0 var(--retro-surface-light),
+    inset -1px -1px 0 var(--retro-border-medium);
+
+  border-radius: 0;
 }
+
+
+/* =========================================================
+   FORM CONTROLS
+   ========================================================= */
 
 .retro-input,
 .retro-textarea,
 .retro-select {
   width: 100%;
-  padding: 8px 10px;
-  background: var(--retro-white);
+  min-width: 0;
+
+  padding: 6px 8px;
+
   color: var(--retro-black);
-  border: 0;
-  box-shadow: var(--retro-pressed-border);
-  font-family: var(--font-retro);
+  background: var(--retro-white);
+
+  border-top: 2px solid var(--retro-black);
+  border-left: 2px solid var(--retro-black);
+  border-right: 2px solid var(--retro-white);
+  border-bottom: 2px solid var(--retro-white);
+
+  box-shadow:
+    inset 1px 1px 0 var(--retro-border-medium),
+    inset -1px -1px 0 var(--retro-surface-light);
+
+  border-radius: 0;
+
+  font-family: var(--font-document);
+  font-size: 13px;
 }
 
 .retro-textarea {
@@ -114,69 +315,194 @@
 .retro-textarea:focus,
 .retro-select:focus {
   outline: 1px dotted var(--retro-black);
-  outline-offset: -4px;
+  outline-offset: -5px;
 }
+
+
+/* =========================================================
+   MENU BAR
+   ========================================================= */
 
 .retro-menu {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2px;
-  padding: 3px 5px;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0;
+
+  min-width: 0;
+  min-height: 27px;
+  padding: 1px 4px;
+
+  overflow-x: auto;
+
+  background: var(--retro-surface);
   border-bottom: 1px solid var(--retro-border-medium);
+
+  scrollbar-width: thin;
 }
 
 .retro-menu button {
-  padding: 4px 8px;
-  border: 0;
-  background: transparent;
+  flex: 0 0 auto;
+
+  min-height: 23px;
+  padding: 3px 8px;
+
   color: var(--retro-black);
+  background: transparent;
+
+  border: 1px solid transparent;
+  border-radius: 0;
+
+  font-family: var(--font-retro);
+  font-size: 12px;
+
   cursor: pointer;
 }
 
 .retro-menu button:hover,
 .retro-menu button:focus-visible {
+  color: var(--retro-white);
   background: var(--retro-title-active);
-  color: var(--retro-title-text);
+
+  border-color: var(--retro-title-active);
   outline: none;
 }
 
+
+/* =========================================================
+   STATUS BAR
+   ========================================================= */
+
 .retro-statusbar {
   display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 3px;
-  margin-top: 4px;
+  grid-template-columns: minmax(120px, 1fr) minmax(0, 2fr) auto;
+  gap: 2px;
+
+  min-width: 0;
+  margin: 0;
+  padding: 3px;
+
+  background: var(--retro-surface);
+  border-top: 1px solid var(--retro-white);
 }
 
 .retro-statusbar span {
-  padding: 3px 8px;
-  box-shadow: var(--retro-pressed-border);
-  font-size: 12px;
+  min-width: 0;
+  min-height: 22px;
+  padding: 3px 6px;
+
+  overflow: hidden;
+
+  border-top: 1px solid var(--retro-border-medium);
+  border-left: 1px solid var(--retro-border-medium);
+  border-right: 1px solid var(--retro-white);
+  border-bottom: 1px solid var(--retro-white);
+
+  font-family: var(--font-document);
+  font-size: 11px;
+  line-height: 14px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
 
 .retro-divider {
   height: 2px;
-  margin: 16px 0;
+  margin: 14px 0;
+
   background: var(--retro-border-medium);
   border-bottom: 1px solid var(--retro-white);
 }
 
+
+/* =========================================================
+   SCROLLBARS
+   Works in Chrome, Edge and other WebKit browsers
+   ========================================================= */
+
+.retro-window *::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+.retro-window *::-webkit-scrollbar-track {
+  background:
+    repeating-conic-gradient(
+      var(--retro-white) 0% 25%,
+      var(--retro-surface-light) 0% 50%
+    )
+    0 0 / 2px 2px;
+}
+
+.retro-window *::-webkit-scrollbar-thumb {
+  background: var(--retro-surface);
+
+  border-top: 2px solid var(--retro-white);
+  border-left: 2px solid var(--retro-white);
+  border-right: 2px solid var(--retro-black);
+  border-bottom: 2px solid var(--retro-black);
+}
+
+.retro-window *::-webkit-scrollbar-button {
+  width: 16px;
+  height: 16px;
+
+  background: var(--retro-surface);
+
+  border-top: 1px solid var(--retro-white);
+  border-left: 1px solid var(--retro-white);
+  border-right: 1px solid var(--retro-black);
+  border-bottom: 1px solid var(--retro-black);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
 @media (max-width: 650px) {
-  .retro-window__body {
-    padding: 10px;
+  .retro-window {
+    box-shadow:
+      inset 1px 1px 0 var(--retro-surface-light),
+      inset -1px -1px 0 var(--retro-border-medium),
+      1px 1px 0 rgba(0, 0, 0, 0.3);
   }
 
   .retro-window__titlebar {
-    min-height: 30px;
-    font-size: 13px;
+    min-height: 25px;
+    margin: 2px;
+    padding-left: 4px;
+    font-size: 11px;
+  }
+
+  .retro-window__title {
+    gap: 4px;
+  }
+
+  .retro-window__title img,
+  .retro-window__title svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .retro-window__controls {
+    gap: 1px;
+  }
+
+  .retro-window__controls button {
+    width: 18px;
+    min-width: 18px;
+    height: 17px;
+    min-height: 17px;
+    font-size: 10px;
   }
 
   .retro-statusbar {
     grid-template-columns: 1fr;
-  }
-
-  .retro-window__controls button {
-    min-width: 22px;
-    min-height: 22px;
-    padding: 1px 5px;
   }
 }
