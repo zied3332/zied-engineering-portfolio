@@ -1,0 +1,76 @@
+:root {
+  /* Page */
+  --page-background: #e7e7e7;
+  --page-text: #111111;
+  --page-muted: #555555;
+
+  /* Classic Windows surfaces */
+  --retro-surface: #c0c0c0;
+  --retro-surface-light: #dfdfdf;
+  --retro-surface-dark: #808080;
+  --retro-white: #ffffff;
+  --retro-black: #000000;
+
+  /* Window title bars */
+  --retro-title-active: #000080;
+  --retro-title-inactive: #7f7f7f;
+  --retro-title-text: #ffffff;
+
+  /* Accent colors */
+  --retro-blue: #000080;
+  --retro-teal: #008080;
+  --retro-green: #008000;
+  --retro-red: #aa0000;
+  --retro-yellow: #ffff00;
+
+  /* Links */
+  --link-color: #0000ee;
+  --link-visited: #551a8b;
+
+  /* Borders */
+  --retro-border-light: #ffffff;
+  --retro-border-medium: #808080;
+  --retro-border-dark: #000000;
+
+  /* Classic raised border */
+  --retro-raised-border:
+    inset 2px 2px 0 var(--retro-border-light),
+    inset -2px -2px 0 var(--retro-border-dark),
+    inset 3px 3px 0 var(--retro-surface-light),
+    inset -3px -3px 0 var(--retro-border-medium);
+
+  /* Classic pressed border */
+  --retro-pressed-border:
+    inset 2px 2px 0 var(--retro-border-dark),
+    inset -2px -2px 0 var(--retro-border-light),
+    inset 3px 3px 0 var(--retro-border-medium),
+    inset -3px -3px 0 var(--retro-surface-light);
+
+  /* Shadows */
+  --retro-window-shadow: 7px 7px 0 rgba(0, 0, 0, 0.2);
+  --retro-card-shadow: 4px 4px 0 rgba(0, 0, 0, 0.18);
+
+  /* Typography */
+  --font-retro:
+    "MS Sans Serif",
+    "Tahoma",
+    "Arial",
+    sans-serif;
+
+  --font-document:
+    "Courier New",
+    "Lucida Console",
+    monospace;
+
+  /* Layout */
+  --page-width: 1120px;
+  --page-padding: 24px;
+  --section-spacing: 72px;
+
+  /* Sizes */
+  --titlebar-height: 32px;
+  --control-button-size: 24px;
+
+  /* Responsive */
+  --mobile-breakpoint: 650px;
+}

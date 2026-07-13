@@ -1,0 +1,143 @@
+@import "./variables.css";
+@import "./retro.css";
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+    var(--page-background);
+  background-size: 24px 24px;
+  color: var(--page-text);
+  font-family: var(--font-retro);
+  line-height: 1.6;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--link-color);
+}
+
+a:visited {
+  color: var(--link-visited);
+}
+
+p,
+h1,
+h2,
+h3,
+h4 {
+  margin-top: 0;
+}
+
+main {
+  width: min(
+    var(--page-width),
+    calc(100% - (var(--page-padding) * 2))
+  );
+  margin: 0 auto;
+  padding: 52px 0;
+}
+
+.section {
+  margin-bottom: var(--section-spacing);
+  scroll-margin-top: 90px;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.section-heading {
+  margin-bottom: 24px;
+}
+
+.section-heading h2 {
+  margin-bottom: 8px;
+  font-family: var(--font-document);
+  font-size: clamp(30px, 5vw, 48px);
+  line-height: 1.1;
+}
+
+.section-heading p {
+  margin-bottom: 0;
+  color: var(--page-muted);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+}
+
+@media (max-width: 650px) {
+  :root {
+    --page-padding: 12px;
+    --section-spacing: 42px;
+  }
+
+  main {
+    padding: 28px 0;
+  }
+
+  .section {
+    scroll-margin-top: 72px;
+  }
+}
+
+
+
+.temporary-intro {
+  padding: clamp(60px, 10vw, 110px) 0;
+  text-align: center;
+}
+
+.temporary-intro__label {
+  margin-bottom: 14px;
+  color: var(--retro-title-active);
+  font-family: var(--font-document);
+  font-weight: 700;
+}
+
+.temporary-intro h1 {
+  margin-bottom: 16px;
+  font-family: var(--font-document);
+  font-size: clamp(42px, 8vw, 78px);
+  line-height: 1;
+}
+
+.temporary-intro > p:last-child {
+  margin: 0;
+  color: var(--page-muted);
+}

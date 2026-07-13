@@ -1,0 +1,201 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 4px;
+  background: var(--retro-surface);
+  border-top: 2px solid var(--retro-white);
+  border-left: 2px solid var(--retro-white);
+  border-right: 2px solid var(--retro-black);
+  border-bottom: 2px solid var(--retro-black);
+}
+
+.navbar__inner {
+  width: min(
+    var(--page-width),
+    calc(100% - (var(--page-padding) * 2))
+  );
+  min-height: 48px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+  color: var(--retro-black);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.navbar__brand:visited {
+  color: var(--retro-black);
+}
+
+.navbar__brand-icon {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  background: var(--retro-title-active);
+  color: var(--retro-white);
+  border-top: 2px solid var(--retro-white);
+  border-left: 2px solid var(--retro-white);
+  border-right: 2px solid var(--retro-black);
+  border-bottom: 2px solid var(--retro-black);
+  font-family: var(--font-document);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.navbar__navigation {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.navbar__navigation a {
+  position: relative;
+  padding: 8px 11px;
+  color: var(--retro-black);
+  background: var(--retro-surface);
+  text-decoration: none;
+  border: 0;
+  box-shadow: var(--retro-raised-border);
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.navbar__navigation a:visited {
+  color: var(--retro-black);
+}
+
+.navbar__navigation a:hover {
+  background: var(--retro-surface-light);
+  color: var(--retro-black);
+}
+
+.navbar__navigation a:focus-visible {
+  outline: 1px dotted var(--retro-black);
+  outline-offset: -5px;
+}
+
+.navbar__navigation a:active {
+  padding-top: 9px;
+  padding-bottom: 7px;
+  box-shadow: var(--retro-pressed-border);
+  transform: translate(1px, 1px);
+}
+
+.navbar__navigation a.navbar__navigation-link--active {
+  padding-top: 9px;
+  padding-bottom: 7px;
+  background: var(--retro-surface);
+  color: var(--retro-black);
+  box-shadow: var(--retro-pressed-border);
+  transform: translate(1px, 1px);
+  font-weight: 700;
+}
+
+.navbar__navigation a.navbar__navigation-link--active::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 7px;
+  background: var(--retro-title-active);
+  vertical-align: middle;
+}
+
+.navbar__clock {
+  min-width: 76px;
+  padding: 6px 10px;
+  text-align: center;
+  background: var(--retro-surface);
+  box-shadow: var(--retro-pressed-border);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.navbar__menu-button {
+  display: none;
+  width: 38px;
+  height: 34px;
+  margin-left: auto;
+  padding: 7px;
+  background: var(--retro-surface);
+  border: 0;
+  box-shadow: var(--retro-raised-border);
+  cursor: pointer;
+}
+
+.navbar__menu-button:active,
+.navbar__menu-button--active {
+  box-shadow: var(--retro-pressed-border);
+  transform: translate(1px, 1px);
+}
+
+.navbar__menu-button span {
+  display: block;
+  height: 3px;
+  margin: 3px 0;
+  background: var(--retro-black);
+}
+
+@media (max-width: 850px) {
+  .navbar__inner {
+    position: relative;
+  }
+
+  .navbar__menu-button {
+    display: block;
+  }
+
+  .navbar__navigation {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    display: none;
+    padding: 6px;
+    background: var(--retro-surface);
+    border-top: 2px solid var(--retro-white);
+    border-left: 2px solid var(--retro-white);
+    border-right: 2px solid var(--retro-black);
+    border-bottom: 2px solid var(--retro-black);
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar__navigation--open {
+    display: grid;
+    gap: 4px;
+  }
+
+  .navbar__navigation a {
+    width: 100%;
+  }
+
+  .navbar__navigation a:active,
+  .navbar__navigation a.navbar__navigation-link--active {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+
+@media (max-width: 500px) {
+  .navbar__brand span:last-child {
+    display: none;
+  }
+
+  .navbar__clock {
+    min-width: 68px;
+    padding-inline: 6px;
+    font-size: 12px;
+  }
+}
