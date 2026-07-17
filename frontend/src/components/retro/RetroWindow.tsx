@@ -15,11 +15,20 @@ function RetroWindow({
   showControls = true,
 }: RetroWindowProps) {
   return (
-    <div className={`retro-window ${className}`}>
-      <RetroTitleBar title={title} showControls={showControls} />
+    <section
+      className={`retro-window ${className}`.trim()}
+      role="group"
+      aria-label={title}
+    >
+      <RetroTitleBar
+        title={title}
+        showControls={showControls}
+      />
 
-      <div className="retro-window__body">{children}</div>
-    </div>
+      <div className="retro-window__body">
+        {children}
+      </div>
+    </section>
   );
 }
 
