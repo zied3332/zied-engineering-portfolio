@@ -1,3 +1,4 @@
+
 type RetroTitleBarProps = {
   title: string;
   showControls?: boolean;
@@ -10,21 +11,40 @@ function RetroTitleBar({
   return (
     <div className="retro-window__titlebar">
       <div className="retro-window__title">
-        <span>{title}</span>
+        <span className="retro-window__title-text">{title}</span>
       </div>
 
       {showControls && (
-        <div className="retro-window__controls" aria-hidden="true">
-          <button type="button" tabIndex={-1}>
-            _
+        <div
+          className="retro-window__controls"
+          aria-hidden="true"
+          role="presentation"
+        >
+          <button
+            className="retro-window__control retro-window__control--minimize"
+            type="button"
+            tabIndex={-1}
+            aria-label="Minimize window"
+          >
+            <span className="retro-window__control-icon" />
           </button>
 
-          <button type="button" tabIndex={-1}>
-            □
+          <button
+            className="retro-window__control retro-window__control--maximize"
+            type="button"
+            tabIndex={-1}
+            aria-label="Maximize window"
+          >
+            <span className="retro-window__control-icon" />
           </button>
 
-          <button type="button" tabIndex={-1}>
-            ×
+          <button
+            className="retro-window__control retro-window__control--close"
+            type="button"
+            tabIndex={-1}
+            aria-label="Close window"
+          >
+            <span className="retro-window__control-icon" />
           </button>
         </div>
       )}
