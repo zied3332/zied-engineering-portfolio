@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useMemo, useState } from "react";
 import RetroWindow from "../retro/RetroWindow";
 import ExperienceCard from "./ExperienceCard";
 import {
@@ -8,383 +9,462 @@ import {
 } from "../../data/experience";
 import "./experience-section.css";
 
-const toolbarItems = [
-  {
-    id: "back",
-    label: "Back",
-    icon: "←",
-  },
-  {
-    id: "forward",
-    label: "Forward",
-    icon: "→",
-  },
-  {
-    id: "properties",
-    label: "Properties",
-    icon: "▤",
-  },
-  {
-    id: "refresh",
-    label: "Refresh",
-    icon: "↻",
-  },
-] as const;
+type ExperienceTab = "Overview" | "Achievements" | "Technologies";
 
 function getStatusClassName(status: ExperienceStatus): string {
-  return `experience-details__status experience-details__status--${status.toLowerCase()}`;
+  return `experience-viewer__status experience-viewer__status--${status.toLowerCase()}`;
 }
 
 function ExperienceSection() {
   const [selectedExperienceId, setSelectedExperienceId] = useState(
-    experiences[0].id,
+    experiences[0]?.id ?? 0
   );
 
-  const selectedExperience =
-    experiences.find(
-      (experience) => experience.id === selectedExperienceId,
-    ) ?? experiences[0];
+  const [activeTab, setActiveTab] =
+    useState<ExperienceTab>("Overview");
+
+  const selectedExperience = useMemo(
+    () =>
+      experiences.find(
+        (experience) => experience.id === selectedExperienceId
+      ) ?? experiences[0],
+    [selectedExperienceId]
+  );
 
   const selectedIndex = experiences.findIndex(
-    (experience) => experience.id === selectedExperience.id,
+    (experience) => experience.id === selectedExperience?.id
   );
 
-  const handlePreviousExperience = () => {
-    const previousIndex =
-      selectedIndex <= 0 ? experiences.length - 1 : selectedIndex - 1;
+  const activeExperiences = experiences.filter(
+    (experience) => experience.status === "Active"
+  ).length;
 
-    setSelectedExperienceId(experiences[previousIndex].id);
+  const handleSelectExperience = (experienceId: number) => {
+    setSelectedExperienceId(experienceId);
+    setActiveTab("Overview");
+  };
+
+  const handlePreviousExperience = () => {
+    if (experiences.length === 0) {
+      return;
+    }
+
+    const previousIndex =
+      selectedIndex <= 0
+        ? experiences.length - 1
+        : selectedIndex - 1;
+
+    handleSelectExperience(experiences[previousIndex].id);
   };
 
   const handleNextExperience = () => {
-    const nextIndex =
-      selectedIndex >= experiences.length - 1 ? 0 : selectedIndex + 1;
-
-    setSelectedExperienceId(experiences[nextIndex].id);
-  };
-
-  const handleRefresh = () => {
-    setSelectedExperienceId(experiences[0].id);
-  };
-
-  const handleToolbarAction = (
-    action: (typeof toolbarItems)[number]["id"],
-  ) => {
-    switch (action) {
-      case "back":
-        handlePreviousExperience();
-        break;
-
-      case "forward":
-        handleNextExperience();
-        break;
-
-      case "refresh":
-        handleRefresh();
-        break;
-
-      case "properties":
-        document
-          .getElementById("experience-details-panel")
-          ?.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest",
-          });
-        break;
-
-      default:
-        break;
+    if (experiences.length === 0) {
+      return;
     }
+
+    const nextIndex =
+      selectedIndex >= experiences.length - 1
+        ? 0
+        : selectedIndex + 1;
+
+    handleSelectExperience(experiences[nextIndex].id);
   };
 
   return (
     <section
       id="experience"
       className="section experience-section"
-      aria-labelledby="experience-section-title"
+      aria-labelledby="experience-heading"
     >
-      <div className="experience-section__container">
-        <header className="experience-section__heading">
-          <p className="experience-section__eyebrow">
-            04 — Career Timeline
-          </p>
+      <header className="experience-section__heading">
+        <span className="experience-section__label">
+          04 — Career Timeline
+        </span>
 
-          <h2 id="experience-section-title">Experience</h2>
+        <h2 id="experience-heading">Experience</h2>
 
-          <p className="experience-section__description">
-            A system log of my professional work, internships, client
-            projects, and long-term engineering direction.
-          </p>
-        </header>
+        <p>
+          A chronological record of internships, freelance work,
+          engineering projects, and professional development.
+        </p>
+      </header>
 
-        <div className="experience-section__window">
-          <RetroWindow title="CAREER_HISTORY.EXE - Professional Experience">
-            <div className="career-history">
-              <nav
-                className="career-history__menu"
-                aria-label="Career history menu"
+      <RetroWindow
+        title="Career Event Viewer - Read Only"
+        className="experience-viewer"
+      >
+        <nav
+          className="experience-viewer__menu"
+          aria-label="Career Event Viewer menu"
+        >
+          <button type="button">
+            <span>F</span>ile
+          </button>
+
+          <button type="button">
+            <span>A</span>ction
+          </button>
+
+          <button type="button">
+            <span>V</span>iew
+          </button>
+
+          <button type="button">
+            <span>H</span>elp
+          </button>
+        </nav>
+
+        <div
+          className="experience-viewer__toolbar"
+          role="toolbar"
+          aria-label="Experience navigation"
+        >
+          <button
+            type="button"
+            className="experience-viewer__toolbar-button"
+            onClick={handlePreviousExperience}
+          >
+            <span
+              className="experience-viewer__toolbar-icon experience-viewer__toolbar-icon--previous"
+              aria-hidden="true"
+            />
+
+            <span>Previous</span>
+          </button>
+
+          <button
+            type="button"
+            className="experience-viewer__toolbar-button"
+            onClick={handleNextExperience}
+          >
+            <span
+              className="experience-viewer__toolbar-icon experience-viewer__toolbar-icon--next"
+              aria-hidden="true"
+            />
+
+            <span>Next</span>
+          </button>
+
+          <span
+            className="experience-viewer__toolbar-separator"
+            aria-hidden="true"
+          />
+
+          <div className="experience-viewer__toolbar-title">
+            <span
+              className="experience-viewer__log-icon"
+              aria-hidden="true"
+            />
+
+            <div>
+              <strong>Professional Experience Log</strong>
+              <span>Local Computer</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="experience-viewer__workspace">
+          <aside
+            className="experience-viewer__log-panel"
+            aria-label="Career log entries"
+          >
+            <div className="experience-viewer__log-header">
+              <div>
+                <strong>Career Log</strong>
+                <span>{experiences.length} entries</span>
+              </div>
+
+              <span
+                className="experience-viewer__read-only"
+                aria-label="Read-only log"
               >
-                {["File", "Action", "View", "Help"].map((menuItem) => (
-                  <button
-                    key={menuItem}
-                    type="button"
-                    className="career-history__menu-button"
-                  >
-                    {menuItem}
-                  </button>
-                ))}
-              </nav>
+                Read Only
+              </span>
+            </div>
 
-              <div
-                className="career-history__toolbar"
-                role="toolbar"
-                aria-label="Career history controls"
-              >
-                {toolbarItems.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className="career-history__toolbar-button"
-                    onClick={() => handleToolbarAction(item.id)}
-                    aria-label={item.label}
-                  >
+            <div className="experience-viewer__column-header">
+              <span>Entry</span>
+              <span>Status</span>
+            </div>
+
+            <div className="experience-viewer__log-list">
+              {experiences.map((experience, index) => (
+                <ExperienceCard
+                  key={experience.id}
+                  experience={experience}
+                  entryNumber={experiences.length - index}
+                  isSelected={
+                    selectedExperience?.id === experience.id
+                  }
+                  onSelect={handleSelectExperience}
+                />
+              ))}
+            </div>
+
+            <div className="experience-viewer__log-summary">
+              <div>
+                <span>Total roles</span>
+                <strong>{experiences.length}</strong>
+              </div>
+
+              <div>
+                <span>Active</span>
+                <strong>{activeExperiences}</strong>
+              </div>
+
+              <div>
+                <span>Freelance jobs</span>
+                <strong>
+                  {careerSummary.freelanceJobsCompleted}
+                </strong>
+              </div>
+            </div>
+          </aside>
+
+          <main
+            className="experience-viewer__entry-panel"
+            aria-live="polite"
+          >
+            {selectedExperience ? (
+              <>
+                <header className="experience-viewer__entry-header">
+                  <div className="experience-viewer__entry-identity">
                     <span
-                      className="career-history__toolbar-icon"
+                      className="experience-viewer__entry-icon"
                       aria-hidden="true"
-                    >
-                      {item.icon}
-                    </span>
+                    />
 
-                    <span>{item.label}</span>
-                  </button>
-                ))}
-              </div>
+                    <div>
+                      <span className="experience-viewer__entry-label">
+                        Selected log entry
+                      </span>
 
-              <div className="career-history__address-bar">
-                <span className="career-history__address-label">
-                  Address
-                </span>
+                      <h3>{selectedExperience.title}</h3>
 
-                <div className="career-history__address-field">
+                      <p>{selectedExperience.organization}</p>
+                    </div>
+                  </div>
+
                   <span
-                    className="career-history__address-icon"
-                    aria-hidden="true"
+                    className={getStatusClassName(
+                      selectedExperience.status
+                    )}
                   >
-                    ▣
+                    {selectedExperience.status}
                   </span>
+                </header>
 
-                  <span>C:\Zied\Career\Experience</span>
-                </div>
-              </div>
-
-              <div className="career-history__workspace">
-                <aside
-                  className="career-history__sidebar"
-                  aria-label="Career summary"
+                <div
+                  className="experience-viewer__tabs"
+                  role="tablist"
+                  aria-label="Experience information"
                 >
-                  <div className="career-history__sidebar-header">
-                    Career Summary
-                  </div>
+                  {(
+                    [
+                      "Overview",
+                      "Achievements",
+                      "Technologies",
+                    ] as ExperienceTab[]
+                  ).map((tab) => (
+                    <button
+                      key={tab}
+                      type="button"
+                      role="tab"
+                      className={
+                        activeTab === tab
+                          ? "experience-viewer__tab experience-viewer__tab--active"
+                          : "experience-viewer__tab"
+                      }
+                      aria-selected={activeTab === tab}
+                      onClick={() => setActiveTab(tab)}
+                    >
+                      {tab}
+                    </button>
+                  ))}
+                </div>
 
-                  <dl className="career-history__summary-list">
-                    <div className="career-history__summary-item">
-                      <dt>Total roles</dt>
-                      <dd>{experiences.length}</dd>
-                    </div>
+                <div className="experience-viewer__entry-content">
+                  {activeTab === "Overview" && (
+                    <div className="experience-viewer__overview">
+                      <dl className="experience-viewer__properties">
+                        <div>
+                          <dt>Log file</dt>
+                          <dd>{selectedExperience.fileName}</dd>
+                        </div>
 
-                    <div className="career-history__summary-item">
-                      <dt>Freelance jobs completed</dt>
-                      <dd>{careerSummary.freelanceJobsCompleted}</dd>
-                    </div>
+                        <div>
+                          <dt>Organization</dt>
+                          <dd>{selectedExperience.organization}</dd>
+                        </div>
 
-                    <div className="career-history__summary-item">
-                      <dt>Current status</dt>
-                      <dd>{careerSummary.currentStatus}</dd>
-                    </div>
+                        <div>
+                          <dt>Period</dt>
+                          <dd>{selectedExperience.period}</dd>
+                        </div>
 
-                    <div className="career-history__summary-item">
-                      <dt>Main direction</dt>
-                      <dd>{careerSummary.mainDirection}</dd>
-                    </div>
-                  </dl>
+                        <div>
+                          <dt>Location</dt>
+                          <dd>{selectedExperience.location}</dd>
+                        </div>
 
-                  <div className="career-history__sidebar-note">
-                    <span aria-hidden="true">ⓘ</span>
+                        <div>
+                          <dt>Experience type</dt>
+                          <dd>{selectedExperience.type}</dd>
+                        </div>
 
-                    <p>
-                      Select a log file to inspect its complete professional
-                      record.
-                    </p>
-                  </div>
-                </aside>
+                        <div>
+                          <dt>Access</dt>
+                          <dd>Read only</dd>
+                        </div>
+                      </dl>
 
-                <main className="career-history__main">
-                  <section
-                    className="career-history__file-panel"
-                    aria-labelledby="experience-files-title"
-                  >
-                    <div className="career-history__panel-header">
-                      <h3 id="experience-files-title">
-                        Experience Log Files
-                      </h3>
+                      <fieldset className="experience-viewer__group">
+                        <legend>Entry description</legend>
 
-                      <span>{experiences.length} object(s)</span>
-                    </div>
-
-                    <div className="career-history__file-columns">
-                      <span>Name</span>
-                      <span>Role</span>
-                      <span>Period</span>
-                    </div>
-
-                    <div className="career-history__file-list">
-                      {experiences.map((experience) => (
-                        <ExperienceCard
-                          key={experience.id}
-                          experience={experience}
-                          isSelected={
-                            selectedExperience.id === experience.id
-                          }
-                          onSelect={setSelectedExperienceId}
-                        />
-                      ))}
-                    </div>
-                  </section>
-
-                  <section
-                    id="experience-details-panel"
-                    className="experience-details"
-                    aria-live="polite"
-                    aria-labelledby="selected-experience-title"
-                  >
-                    <div className="experience-details__title-bar">
-                      <div>
-                        <span
-                          className="experience-details__document-icon"
-                          aria-hidden="true"
-                        >
-                          ▤
-                        </span>
-
-                        <span>Log Entry Properties</span>
-                      </div>
-
-                      <span>Read Only</span>
-                    </div>
-
-                    <div className="experience-details__file-heading">
-                      <div
-                        className="experience-details__large-icon"
-                        aria-hidden="true"
-                      >
-                        <span className="experience-details__large-icon-fold" />
-                        <span className="experience-details__large-icon-line" />
-                        <span className="experience-details__large-icon-line" />
-                        <span className="experience-details__large-icon-line" />
-                      </div>
-
-                      <div>
-                        <p className="experience-details__file-name">
-                          {selectedExperience.fileName}
-                        </p>
-
-                        <h3 id="selected-experience-title">
-                          {selectedExperience.title}
-                        </h3>
-
-                        <p className="experience-details__organization">
-                          {selectedExperience.organization}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="experience-details__separator" />
-
-                    <dl className="experience-details__metadata">
-                      <div className="experience-details__metadata-row">
-                        <dt>Period:</dt>
-                        <dd>{selectedExperience.period}</dd>
-                      </div>
-
-                      <div className="experience-details__metadata-row">
-                        <dt>Location:</dt>
-                        <dd>{selectedExperience.location}</dd>
-                      </div>
-
-                      <div className="experience-details__metadata-row">
-                        <dt>Type:</dt>
-                        <dd>{selectedExperience.type}</dd>
-                      </div>
-
-                      <div className="experience-details__metadata-row">
-                        <dt>Status:</dt>
-                        <dd>
-                          <span
-                            className={getStatusClassName(
-                              selectedExperience.status,
-                            )}
-                          >
-                            {selectedExperience.status}
-                          </span>
-                        </dd>
-                      </div>
-                    </dl>
-
-                    <div className="experience-details__group">
-                      <h4>Summary</h4>
-
-                      <div className="experience-details__document">
                         <p>{selectedExperience.summary}</p>
-                      </div>
+                      </fieldset>
+
+                      <fieldset className="experience-viewer__group">
+                        <legend>Career context</legend>
+
+                        <dl className="experience-viewer__career-context">
+                          <div>
+                            <dt>Current status</dt>
+                            <dd>{careerSummary.currentStatus}</dd>
+                          </div>
+
+                          <div>
+                            <dt>Main direction</dt>
+                            <dd>{careerSummary.mainDirection}</dd>
+                          </div>
+                        </dl>
+                      </fieldset>
                     </div>
+                  )}
 
-                    <div className="experience-details__group">
-                      <h4>Achievements and Responsibilities</h4>
+                  {activeTab === "Achievements" && (
+                    <div className="experience-viewer__tab-content">
+                      <div className="experience-viewer__content-heading">
+                        <span
+                          className="experience-viewer__list-icon"
+                          aria-hidden="true"
+                        />
 
-                      <div className="experience-details__document">
-                        <ul className="experience-details__achievement-list">
-                          {selectedExperience.achievements.map(
-                            (achievement) => (
-                              <li key={achievement}>{achievement}</li>
-                            ),
-                          )}
-                        </ul>
+                        <div>
+                          <h4>
+                            Achievements and Responsibilities
+                          </h4>
+
+                          <p>
+                            Recorded outcomes from this experience.
+                          </p>
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="experience-details__group">
-                      <h4>Technologies and Systems</h4>
-
-                      <ul
-                        className="experience-details__technology-list"
-                        aria-label="Technologies used"
-                      >
-                        {selectedExperience.technologies.map(
-                          (technology) => (
-                            <li key={technology}>{technology}</li>
-                          ),
+                      <ul className="experience-viewer__achievement-list">
+                        {selectedExperience.achievements.map(
+                          (achievement, index) => (
+                            <li key={achievement}>
+                              <span>{index + 1}</span>
+                              <p>{achievement}</p>
+                            </li>
+                          )
                         )}
                       </ul>
                     </div>
-                  </section>
-                </main>
+                  )}
+
+                  {activeTab === "Technologies" && (
+                    <div className="experience-viewer__tab-content">
+                      <div className="experience-viewer__content-heading">
+                        <span
+                          className="experience-viewer__system-icon"
+                          aria-hidden="true"
+                        />
+
+                        <div>
+                          <h4>Technologies and Systems</h4>
+
+                          <p>
+                            Tools associated with this professional
+                            entry.
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="experience-viewer__technology-list">
+                        {selectedExperience.technologies.map(
+                          (technology) => (
+                            <div
+                              key={technology}
+                              className="experience-viewer__technology"
+                            >
+                              <span
+                                className="experience-viewer__technology-icon"
+                                aria-hidden="true"
+                              />
+
+                              <div>
+                                <strong>{technology}</strong>
+                                <span>
+                                  Installed career component
+                                </span>
+                              </div>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="experience-viewer__entry-actions">
+                  <button
+                    type="button"
+                    className="retro-button"
+                    onClick={handlePreviousExperience}
+                  >
+                    Previous
+                  </button>
+
+                  <button
+                    type="button"
+                    className="retro-button"
+                    onClick={handleNextExperience}
+                  >
+                    Next
+                  </button>
+
+                  <button
+                    type="button"
+                    className="retro-button"
+                    onClick={() => setActiveTab("Overview")}
+                  >
+                    Properties
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="experience-viewer__empty">
+                No career log entry selected.
               </div>
-
-              <footer className="career-history__status-bar">
-                <span>
-                  {experiences.length} object(s)
-                </span>
-
-                <span>
-                  Selected: {selectedExperience.fileName}
-                </span>
-
-                <span>System ready</span>
-              </footer>
-            </div>
-          </RetroWindow>
+            )}
+          </main>
         </div>
-      </div>
+
+        <footer
+          className="experience-viewer__statusbar"
+          role="status"
+        >
+          <span>{experiences.length} log entries</span>
+
+          <span>
+            Selected: {selectedExperience?.fileName ?? "None"}
+          </span>
+
+          <span>Career log ready</span>
+        </footer>
+      </RetroWindow>
     </section>
   );
 }

@@ -1,3 +1,4 @@
+
 import type {
   Experience,
   ExperienceStatus,
@@ -5,56 +6,72 @@ import type {
 
 type ExperienceCardProps = {
   experience: Experience;
+  entryNumber: number;
   isSelected: boolean;
   onSelect: (experienceId: number) => void;
 };
 
-function getStatusClassName(status: ExperienceStatus): string {
-  return `experience-card__status experience-card__status--${status.toLowerCase()}`;
+function getStatusClassName(
+  status: ExperienceStatus
+): string {
+  return `experience-card__status-indicator experience-card__status-indicator--${status.toLowerCase()}`;
 }
 
 function ExperienceCard({
   experience,
+  entryNumber,
   isSelected,
   onSelect,
 }: ExperienceCardProps) {
-  const handleSelect = () => {
-    onSelect(experience.id);
-  };
-
   return (
     <button
       type="button"
-      className={`experience-card ${
-        isSelected ? "experience-card--selected" : ""
-      }`}
-      onClick={handleSelect}
+      className={
+        isSelected
+          ? "experience-card experience-card--selected"
+          : "experience-card"
+      }
+      onClick={() => onSelect(experience.id)}
       aria-pressed={isSelected}
-      aria-label={`Open experience file ${experience.fileName}`}
+      aria-label={`Open ${experience.title} at ${experience.organization}`}
     >
-      <span className="experience-card__icon" aria-hidden="true">
-        <span className="experience-card__icon-fold" />
-        <span className="experience-card__icon-line" />
-        <span className="experience-card__icon-line" />
-        <span className="experience-card__icon-line" />
+      <span
+        className="experience-card__timeline"
+        aria-hidden="true"
+      >
+        <span className="experience-card__timeline-line" />
+
+        <span
+          className={getStatusClassName(experience.status)}
+        />
       </span>
 
-      <span className="experience-card__content">
+      <span className="experience-card__main">
+        <span className="experience-card__top-row">
+          <span className="experience-card__entry-number">
+            Entry {String(entryNumber).padStart(2, "0")}
+          </span>
+
+          <span className="experience-card__period">
+            {experience.period}
+          </span>
+        </span>
+
+        <strong className="experience-card__title">
+          {experience.title}
+        </strong>
+
+        <span className="experience-card__organization">
+          {experience.organization}
+        </span>
+
         <span className="experience-card__file-name">
           {experience.fileName}
         </span>
+      </span>
 
-        <span className="experience-card__role">
-          {experience.title}
-        </span>
-
-        <span className="experience-card__metadata">
-          <span>{experience.period}</span>
-
-          <span className={getStatusClassName(experience.status)}>
-            {experience.status}
-          </span>
-        </span>
+      <span className="experience-card__state">
+        {experience.status}
       </span>
     </button>
   );
