@@ -2,27 +2,25 @@ import { useEffect, useMemo, useState } from "react";
 import RetroWindow from "../retro/RetroWindow";
 import ProjectCard from "./ProjectCard";
 import { projects } from "../../data/projects";
-
-import backIcon from "../../assets/icons/back.png";
-import forwardIcon from "../../assets/icons/forward.png";
-import upIcon from "../../assets/icons/up.png";
-import cutIcon from "../../assets/icons/cut.png";
-import copyIcon from "../../assets/icons/copy.png";
-import pasteIcon from "../../assets/icons/paste.png";
-import undoIcon from "../../assets/icons/undo.png";
-import deleteIcon from "../../assets/icons/delete.png";
-import propertiesIcon from "../../assets/icons/properties.png";
-import viewsIcon from "../../assets/icons/views.png";
-import folderIcon from "../../assets/icons/folder.png";
-import documentIcon from "../../assets/icons/document.png";
-
 import "./projects-section.css";
 
 type ProjectFilter = "All" | "Full-Stack" | "Automation";
 
+type ToolbarIcon =
+  | "back"
+  | "forward"
+  | "up"
+  | "cut"
+  | "copy"
+  | "paste"
+  | "undo"
+  | "delete"
+  | "properties"
+  | "views";
+
 type ToolbarButton = {
   label: string;
-  icon: string;
+  icon: ToolbarIcon;
   disabled?: boolean;
 };
 
@@ -35,31 +33,31 @@ const filters: ProjectFilter[] = [
 const navigationButtons: ToolbarButton[] = [
   {
     label: "Back",
-    icon: backIcon,
+    icon: "back",
   },
   {
     label: "Forward",
-    icon: forwardIcon,
+    icon: "forward",
     disabled: true,
   },
   {
     label: "Up",
-    icon: upIcon,
+    icon: "up",
   },
 ];
 
 const fileButtons: ToolbarButton[] = [
   {
     label: "Cut",
-    icon: cutIcon,
+    icon: "cut",
   },
   {
     label: "Copy",
-    icon: copyIcon,
+    icon: "copy",
   },
   {
     label: "Paste",
-    icon: pasteIcon,
+    icon: "paste",
     disabled: true,
   },
 ];
@@ -67,18 +65,31 @@ const fileButtons: ToolbarButton[] = [
 const actionButtons: ToolbarButton[] = [
   {
     label: "Undo",
-    icon: undoIcon,
+    icon: "undo",
     disabled: true,
   },
   {
     label: "Delete",
-    icon: deleteIcon,
+    icon: "delete",
   },
   {
     label: "Properties",
-    icon: propertiesIcon,
+    icon: "properties",
   },
 ];
+
+function ToolbarIconElement({
+  icon,
+}: {
+  icon: ToolbarIcon;
+}) {
+  return (
+    <span
+      className={`projects-explorer__toolbar-icon projects-explorer__toolbar-icon--${icon}`}
+      aria-hidden="true"
+    />
+  );
+}
 
 function ProjectsSection() {
   const [activeFilter, setActiveFilter] =
@@ -132,6 +143,20 @@ function ProjectsSection() {
         ?.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const renderToolbarButton = (button: ToolbarButton) => (
+    <button
+      key={button.label}
+      type="button"
+      className="retro-toolbar__button projects-explorer__toolbar-button"
+      disabled={button.disabled}
+      aria-label={button.label}
+      onClick={() => handleToolbarAction(button.label)}
+    >
+      <ToolbarIconElement icon={button.icon} />
+      <span>{button.label}</span>
+    </button>
+  );
 
   return (
     <section
@@ -216,64 +241,21 @@ function ProjectsSection() {
           role="toolbar"
           aria-label="Projects Explorer toolbar"
         >
-          {navigationButtons.map((button) => (
-            <button
-              key={button.label}
-              type="button"
-              className="retro-toolbar__button"
-              disabled={button.disabled}
-              onClick={() => handleToolbarAction(button.label)}
-            >
-              <img
-                src={button.icon}
-                alt=""
-                aria-hidden="true"
-              />
-              <span>{button.label}</span>
-            </button>
-          ))}
+          {navigationButtons.map(renderToolbarButton)}
 
           <span
             className="retro-toolbar__separator"
             aria-hidden="true"
           />
 
-          {fileButtons.map((button) => (
-            <button
-              key={button.label}
-              type="button"
-              className="retro-toolbar__button"
-              disabled={button.disabled}
-            >
-              <img
-                src={button.icon}
-                alt=""
-                aria-hidden="true"
-              />
-              <span>{button.label}</span>
-            </button>
-          ))}
+          {fileButtons.map(renderToolbarButton)}
 
           <span
             className="retro-toolbar__separator"
             aria-hidden="true"
           />
 
-          {actionButtons.map((button) => (
-            <button
-              key={button.label}
-              type="button"
-              className="retro-toolbar__button"
-              disabled={button.disabled}
-            >
-              <img
-                src={button.icon}
-                alt=""
-                aria-hidden="true"
-              />
-              <span>{button.label}</span>
-            </button>
-          ))}
+          {actionButtons.map(renderToolbarButton)}
 
           <span
             className="retro-toolbar__separator"
@@ -282,16 +264,26 @@ function ProjectsSection() {
 
           <button
             type="button"
-            className="retro-toolbar__button"
+            className="retro-toolbar__button projects-explorer__toolbar-button"
             aria-label="Change project view"
           >
-            <img src={viewsIcon} alt="" aria-hidden="true" />
+            <ToolbarIconElement icon="views" />
             <span>Views</span>
+          </button>
+
+          <button
+            type="button"
+            className="projects-explorer__toolbar-dropdown"
+            aria-label="Open view options"
+          >
+            <span aria-hidden="true" />
           </button>
         </div>
 
         <div className="retro-addressbar projects-explorer__address">
-          <span className="retro-addressbar__label">Address</span>
+          <span className="retro-addressbar__label">
+            Address
+          </span>
 
           <div
             className="retro-addressbar__field"
@@ -299,9 +291,8 @@ function ProjectsSection() {
             aria-label="Current folder address"
             aria-readonly="true"
           >
-            <img
-              src={folderIcon}
-              alt=""
+            <span
+              className="projects-explorer__folder-icon"
               aria-hidden="true"
             />
 
@@ -309,10 +300,13 @@ function ProjectsSection() {
               {String.raw`C:\Zied\Portfolio\Projects`}
             </span>
 
-            <span
-              className="projects-explorer__address-arrow"
-              aria-hidden="true"
-            />
+            <button
+              type="button"
+              className="projects-explorer__address-dropdown"
+              aria-label="Open address history"
+            >
+              <span aria-hidden="true" />
+            </button>
           </div>
 
           <button
@@ -334,9 +328,8 @@ function ProjectsSection() {
 
             <div className="projects-explorer__sidebar-content">
               <div className="projects-explorer__task-heading">
-                <img
-                  src={folderIcon}
-                  alt=""
+                <span
+                  className="projects-explorer__folder-icon"
                   aria-hidden="true"
                 />
 
@@ -359,9 +352,8 @@ function ProjectsSection() {
                       aria-pressed={isActive}
                       onClick={() => setActiveFilter(filter)}
                     >
-                      <img
-                        src={documentIcon}
-                        alt=""
+                      <span
+                        className="projects-explorer__document-icon"
                         aria-hidden="true"
                       />
 
@@ -377,9 +369,8 @@ function ProjectsSection() {
               />
 
               <div className="projects-explorer__summary">
-                <img
-                  src={folderIcon}
-                  alt=""
+                <span
+                  className="projects-explorer__folder-icon"
                   aria-hidden="true"
                 />
 
@@ -415,9 +406,8 @@ function ProjectsSection() {
               </div>
             ) : (
               <div className="projects-explorer__empty">
-                <img
-                  src={folderIcon}
-                  alt=""
+                <span
+                  className="projects-explorer__folder-icon projects-explorer__folder-icon--large"
                   aria-hidden="true"
                 />
 
