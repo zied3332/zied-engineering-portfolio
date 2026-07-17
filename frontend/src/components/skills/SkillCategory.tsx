@@ -1,3 +1,4 @@
+
 import type {
   Skill,
   SkillCategoryType,
@@ -11,9 +12,9 @@ type SkillCategoryProps = {
 };
 
 const levelLabels: Record<SkillLevel, string> = {
-  Strong: "Strong",
-  "Working Knowledge": "Used",
-  Learning: "Learning",
+  Strong: "Ready",
+  "Working Knowledge": "Installed",
+  Learning: "Updating",
 };
 
 function getSkillLevelClass(level: SkillLevel) {
@@ -22,24 +23,32 @@ function getSkillLevelClass(level: SkillLevel) {
 
 function SkillRow({ skill }: { skill: Skill }) {
   return (
-    <div className="skill-category__skill">
-      <div className="skill-category__skill-info">
-        <span className="skill-category__skill-name">
-          {skill.name}
-        </span>
-
+    <div className="skill-category__row">
+      <div className="skill-category__component">
         <span
-          className={`skill-category__level skill-category__level--${getSkillLevelClass(
-            skill.level
-          )}`}
-        >
-          {levelLabels[skill.level]}
-        </span>
+          className="skill-category__component-icon"
+          aria-hidden="true"
+        />
+
+        <div className="skill-category__component-info">
+          <strong>{skill.name}</strong>
+
+          {skill.description && (
+            <p>{skill.description}</p>
+          )}
+        </div>
       </div>
 
-      {skill.description && (
-        <p>{skill.description}</p>
-      )}
+      <div className="skill-category__status">
+        <span
+          className={`skill-category__status-indicator skill-category__status-indicator--${getSkillLevelClass(
+            skill.level
+          )}`}
+          aria-hidden="true"
+        />
+
+        <span>{levelLabels[skill.level]}</span>
+      </div>
     </div>
   );
 }
@@ -50,45 +59,34 @@ function SkillCategory({
   onSelect,
 }: SkillCategoryProps) {
   return (
-    <article
-      className={`skill-category ${
-        isActive ? "skill-category--active" : ""
-      }`}
+    <section
+      className={
+        isActive
+          ? "skill-category skill-category--active"
+          : "skill-category"
+      }
+      aria-label={`${category.title} skills`}
     >
       <button
         type="button"
-        className="skill-category__header"
+        className="skill-category__category-button"
         onClick={() => onSelect(category.id)}
-        aria-expanded={isActive}
+        aria-pressed={isActive}
       >
-        <span className="skill-category__icon" aria-hidden="true">
-          {category.icon}
-        </span>
+        <span
+          className="skill-category__category-icon"
+          aria-hidden="true"
+        />
 
-        <span className="skill-category__header-text">
-          <strong>{category.title}</strong>
-          <small>{category.skills.length} installed items</small>
-        </span>
-
-        <span className="skill-category__arrow" aria-hidden="true">
-          {isActive ? "▼" : "▶"}
-        </span>
+        <span>{category.title}</span>
       </button>
 
-      {isActive && (
-        <div className="skill-category__content">
-          <p className="skill-category__description">
-            {category.description}
-          </p>
-
-          <div className="skill-category__skills">
-            {category.skills.map((skill) => (
-              <SkillRow key={skill.name} skill={skill} />
-            ))}
-          </div>
-        </div>
-      )}
-    </article>
+      <div className="skill-category__rows">
+        {category.skills.map((skill) => (
+          <SkillRow key={skill.name} skill={skill} />
+        ))}
+      </div>
+    </section>
   );
 }
 

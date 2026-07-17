@@ -1,3 +1,4 @@
+
 import { useMemo, useState } from "react";
 import RetroWindow from "../retro/RetroWindow";
 import SkillCategory from "./SkillCategory";
@@ -52,183 +53,267 @@ function SkillsSection() {
     []
   );
 
-  const learningSkills = totalSkills - strongSkills - workingSkills;
+  const learningSkills =
+    totalSkills - strongSkills - workingSkills;
 
   const handleSelectCategory = (categoryId: string) => {
-    setActiveCategoryId((currentCategoryId) =>
-      currentCategoryId === categoryId
-        ? currentCategoryId
-        : categoryId
-    );
+    setActiveCategoryId(categoryId);
   };
 
   return (
-    <section id="skills" className="section skills-section">
+    <section
+      id="skills"
+      className="section skills-section"
+      aria-labelledby="skills-heading"
+    >
       <div className="skills-section__heading">
         <span className="skills-section__label">
           03 — Technical Toolbox
         </span>
 
-        <h2>Skills</h2>
+        <h2 id="skills-heading">Skills</h2>
 
         <p>
-          Technologies I have used in academic, personal, and
-          freelance projects, together with tools I am actively
-          learning.
+          Technologies used across academic, personal, and
+          freelance projects, presented as installed development
+          components.
         </p>
       </div>
 
       <RetroWindow
-        title="CONTROL PANEL - Technical Skills"
-        className="skills-control-panel"
+        title="System Properties - Zied Engineering Workstation"
+        className="skills-system-properties"
       >
-        <div className="skills-control-panel__menu">
-          <button type="button">File</button>
-          <button type="button">Edit</button>
-          <button type="button">View</button>
-          <button type="button">Help</button>
-        </div>
+        <nav
+          className="skills-system-properties__menu"
+          aria-label="System Properties menu"
+        >
+          <button type="button">
+            <span>F</span>ile
+          </button>
 
-        <div className="skills-control-panel__toolbar">
+          <button type="button">
+            <span>V</span>iew
+          </button>
+
+          <button type="button">
+            <span>H</span>elp
+          </button>
+        </nav>
+
+        <div
+          className="skills-system-properties__tabs"
+          role="tablist"
+          aria-label="System Properties sections"
+        >
           <button
             type="button"
-            className="skills-control-panel__toolbar-button"
+            className="skills-system-properties__tab"
           >
-            <span aria-hidden="true">←</span>
-            Back
+            General
           </button>
 
           <button
             type="button"
-            className="skills-control-panel__toolbar-button"
+            className="skills-system-properties__tab"
           >
-            <span aria-hidden="true">↑</span>
-            Up
+            Performance
           </button>
 
-          <div className="skills-control-panel__toolbar-divider" />
+          <button
+            type="button"
+            className="skills-system-properties__tab skills-system-properties__tab--active"
+            aria-selected="true"
+          >
+            Device Manager
+          </button>
 
-          <div className="skills-control-panel__toolbar-location">
-            <span aria-hidden="true">⚙</span>
-            <strong>Technical Skills</strong>
-          </div>
+          <button
+            type="button"
+            className="skills-system-properties__tab"
+          >
+            Hardware Profiles
+          </button>
         </div>
 
-        <div className="skills-control-panel__address">
-          <span>Address</span>
+        <div className="skills-system-properties__panel">
+          <div className="skills-system-properties__intro">
+            <span
+              className="skills-system-properties__computer-icon"
+              aria-hidden="true"
+            />
 
-          <div className="skills-control-panel__address-field">
-            <span aria-hidden="true">⚙</span>
-            <span>
-              Control Panel\Portfolio\Technical Skills
-            </span>
+            <div>
+              <strong>ZIED-ENGINEERING-PC</strong>
+
+              <p>
+                View technical categories and inspect the
+                technologies installed in this portfolio system.
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div className="skills-control-panel__layout">
-          <aside className="skills-control-panel__sidebar">
-            <div className="skills-control-panel__sidebar-box">
-              <div className="skills-control-panel__sidebar-title">
-                Control Panel
-              </div>
+          <div className="skills-system-properties__workspace">
+            <aside
+              className="skills-system-properties__tree-panel"
+              aria-label="Technical skill categories"
+            >
+              <div className="skills-system-properties__tree">
+                <div className="skills-system-properties__tree-root">
+                  <span
+                    className="skills-system-properties__tree-toggle"
+                    aria-hidden="true"
+                  >
+                    −
+                  </span>
 
-              <div className="skills-control-panel__sidebar-content">
-                <p>
-                  Select a category to view its installed
-                  technologies.
-                </p>
+                  <span
+                    className="skills-system-properties__computer-small-icon"
+                    aria-hidden="true"
+                  />
 
-                <div className="skills-control-panel__stats">
-                  <div>
-                    <strong>{totalSkills}</strong>
-                    <span>Total skills</span>
-                  </div>
+                  <strong>ZIED-ENGINEERING-PC</strong>
+                </div>
 
-                  <div>
-                    <strong>{strongSkills}</strong>
-                    <span>Strong</span>
-                  </div>
+                <div className="skills-system-properties__tree-children">
+                  {skillCategories.map((category) => {
+                    const isActive =
+                      activeCategoryId === category.id;
 
-                  <div>
-                    <strong>{workingSkills}</strong>
-                    <span>Used</span>
-                  </div>
+                    return (
+                      <button
+                        key={category.id}
+                        type="button"
+                        className={
+                          isActive
+                            ? "skills-system-properties__tree-item skills-system-properties__tree-item--active"
+                            : "skills-system-properties__tree-item"
+                        }
+                        aria-pressed={isActive}
+                        onClick={() =>
+                          handleSelectCategory(category.id)
+                        }
+                      >
+                        <span
+                          className="skills-system-properties__tree-branch"
+                          aria-hidden="true"
+                        />
 
-                  <div>
-                    <strong>{learningSkills}</strong>
-                    <span>Learning</span>
-                  </div>
+                        <span
+                          className="skills-system-properties__device-icon"
+                          aria-hidden="true"
+                        />
+
+                        <span>{category.title}</span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
+            </aside>
+
+            <main className="skills-system-properties__details-panel">
+              {activeCategory ? (
+                <>
+                  <header className="skills-system-properties__details-header">
+                    <div className="skills-system-properties__details-title">
+                      <span
+                        className="skills-system-properties__category-icon"
+                        aria-hidden="true"
+                      >
+                        {activeCategory.icon}
+                      </span>
+
+                      <div>
+                        <h3>{activeCategory.title}</h3>
+
+                        <p>{activeCategory.description}</p>
+                      </div>
+                    </div>
+
+                    <div className="skills-system-properties__category-count">
+                      <strong>
+                        {activeCategory.skills.length}
+                      </strong>
+
+                      <span>installed items</span>
+                    </div>
+                  </header>
+
+                  <div className="skills-system-properties__column-headings">
+                    <span>Component</span>
+                    <span>Status</span>
+                  </div>
+
+                  <SkillCategory
+                    category={activeCategory}
+                    isActive
+                    onSelect={handleSelectCategory}
+                  />
+                </>
+              ) : (
+                <div className="skills-system-properties__empty">
+                  No technical category selected.
+                </div>
+              )}
+            </main>
+          </div>
+
+          <div className="skills-system-properties__summary">
+            <div>
+              <span>Total components</span>
+              <strong>{totalSkills}</strong>
             </div>
 
-            {activeCategory && (
-              <div className="skills-control-panel__details">
-                <span
-                  className="skills-control-panel__details-icon"
-                  aria-hidden="true"
-                >
-                  {activeCategory.icon}
-                </span>
-
-                <strong>{activeCategory.title}</strong>
-
-                <p>{activeCategory.description}</p>
-              </div>
-            )}
-          </aside>
-
-          <div className="skills-control-panel__content">
-            <div className="skills-control-panel__content-header">
-              <div>
-                <h3>Technical Skills</h3>
-                <p>
-                  Select a category below to inspect its tools and
-                  technologies.
-                </p>
-              </div>
-
-              <span>
-                {skillCategories.length} categories
-              </span>
+            <div>
+              <span>Strong</span>
+              <strong>{strongSkills}</strong>
             </div>
 
-            <div className="skills-control-panel__categories">
-              {skillCategories.map((category) => (
-                <SkillCategory
-                  key={category.id}
-                  category={category}
-                  isActive={activeCategoryId === category.id}
-                  onSelect={handleSelectCategory}
-                />
-              ))}
+            <div>
+              <span>Working knowledge</span>
+              <strong>{workingSkills}</strong>
+            </div>
+
+            <div>
+              <span>Currently learning</span>
+              <strong>{learningSkills}</strong>
             </div>
           </div>
         </div>
 
-        <div className="skills-control-panel__legend">
-          <div>
-            <span className="skills-control-panel__legend-color skills-control-panel__legend-color--strong" />
-            Strong
-          </div>
+        <div className="skills-system-properties__actions">
+          <button type="button" className="retro-button">
+            Properties
+          </button>
 
-          <div>
-            <span className="skills-control-panel__legend-color skills-control-panel__legend-color--used" />
-            Working knowledge
-          </div>
+          <button type="button" className="retro-button">
+            Refresh
+          </button>
 
-          <div>
-            <span className="skills-control-panel__legend-color skills-control-panel__legend-color--learning" />
-            Currently learning
-          </div>
+          <span className="skills-system-properties__actions-spacer" />
+
+          <button type="button" className="retro-button">
+            OK
+          </button>
+
+          <button type="button" className="retro-button">
+            Cancel
+          </button>
+
+          <button type="button" className="retro-button" disabled>
+            Apply
+          </button>
         </div>
 
-        <div className="skills-control-panel__statusbar">
-          <span>{totalSkills} installed technologies</span>
+        <div className="skills-system-properties__statusbar">
           <span>
             Selected: {activeCategory?.title ?? "None"}
           </span>
-          <span>Zied Skills Manager</span>
+
+          <span>{totalSkills} components detected</span>
+
+          <span>System operating normally</span>
         </div>
       </RetroWindow>
     </section>
