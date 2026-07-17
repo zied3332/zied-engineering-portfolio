@@ -1,26 +1,26 @@
-/* =========================================================
-   SHARED WINDOWS 95 / 98 COMPONENTS
-   ========================================================= */
+
 
 .retro-window {
   width: 100%;
   min-width: 0;
   overflow: hidden;
 
-  background: var(--retro-surface);
   color: var(--retro-black);
+  background: var(--retro-surface);
 
-  border-top: 2px solid var(--retro-white);
-  border-left: 2px solid var(--retro-white);
-  border-right: 2px solid var(--retro-black);
-  border-bottom: 2px solid var(--retro-black);
+  border-top: 1px solid var(--retro-white);
+  border-left: 1px solid var(--retro-white);
+  border-right: 1px solid var(--retro-black);
+  border-bottom: 1px solid var(--retro-black);
 
   box-shadow:
     inset 1px 1px 0 var(--retro-surface-light),
-    inset -1px -1px 0 var(--retro-border-medium),
-    2px 2px 0 rgba(0, 0, 0, 0.35);
+    inset -1px -1px 0 var(--retro-border-medium);
+
+  border-radius: 0;
 
   font-family: var(--font-retro);
+  font-size: 13px;
 }
 
 
@@ -32,19 +32,20 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 4px;
 
-  min-height: 25px;
+  height: 22px;
+  min-height: 22px;
   margin: 2px;
-  padding: 2px 3px 2px 4px;
+  padding: 2px 2px 2px 3px;
 
   color: var(--retro-title-text);
   background: var(--retro-title-active);
 
   font-family: var(--font-retro);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  line-height: 1;
+  line-height: 16px;
 
   user-select: none;
 }
@@ -52,7 +53,7 @@
 .retro-window__title {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
 
   min-width: 0;
   overflow: hidden;
@@ -63,12 +64,15 @@
   width: 16px;
   height: 16px;
   flex: 0 0 auto;
+
   image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .retro-window__title span {
   min-width: 0;
   overflow: hidden;
+
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -82,19 +86,21 @@
   display: flex;
   align-items: center;
   gap: 2px;
+
   flex: 0 0 auto;
 }
 
 .retro-window__controls button {
   position: relative;
 
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  width: 20px;
-  min-width: 20px;
-  height: 18px;
-  min-height: 18px;
+  width: 16px;
+  min-width: 16px;
+  height: 14px;
+  min-height: 14px;
 
   margin: 0;
   padding: 0;
@@ -113,16 +119,16 @@
 
   border-radius: 0;
 
-  font-family: Arial, sans-serif;
-  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
   font-weight: 900;
   line-height: 1;
 
-  cursor: pointer;
+  cursor: default;
 }
 
 .retro-window__controls button:hover {
-  background: var(--retro-surface-light);
+  background: var(--retro-surface);
 }
 
 .retro-window__controls button:active {
@@ -137,25 +143,22 @@
   box-shadow:
     inset 1px 1px 0 var(--retro-border-medium),
     inset -1px -1px 0 var(--retro-surface-light);
-
-  transform: none;
 }
 
 .retro-window__controls button:focus-visible {
   outline: 1px dotted var(--retro-black);
-  outline-offset: -4px;
+  outline-offset: -3px;
 }
 
 
 /* =========================================================
    WINDOW BODY
-   Important: no large padding here.
-   Each section controls its own internal spacing.
    ========================================================= */
 
 .retro-window__body {
   min-width: 0;
   padding: 0;
+
   background: var(--retro-surface);
 }
 
@@ -168,18 +171,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 5px;
 
-  min-height: 28px;
-  padding: 4px 12px;
+  min-height: 24px;
+  padding: 3px 10px;
 
   color: var(--retro-black);
   background: var(--retro-surface);
 
-  border-top: 2px solid var(--retro-white);
-  border-left: 2px solid var(--retro-white);
-  border-right: 2px solid var(--retro-black);
-  border-bottom: 2px solid var(--retro-black);
+  border-top: 1px solid var(--retro-white);
+  border-left: 1px solid var(--retro-white);
+  border-right: 1px solid var(--retro-black);
+  border-bottom: 1px solid var(--retro-black);
 
   box-shadow:
     inset 1px 1px 0 var(--retro-surface-light),
@@ -189,19 +192,21 @@
 
   font-family: var(--font-retro);
   font-size: 12px;
+  line-height: 16px;
 
   cursor: pointer;
 }
 
 .retro-button:hover {
-  background: var(--retro-surface-light);
+  background: var(--retro-surface);
 }
 
-.retro-button:active {
-  padding-top: 5px;
-  padding-left: 13px;
-  padding-right: 11px;
-  padding-bottom: 3px;
+.retro-button:active,
+.retro-button[aria-pressed="true"] {
+  padding-top: 4px;
+  padding-right: 9px;
+  padding-bottom: 2px;
+  padding-left: 11px;
 
   border-top-color: var(--retro-black);
   border-left-color: var(--retro-black);
@@ -211,13 +216,18 @@
   box-shadow:
     inset 1px 1px 0 var(--retro-border-medium),
     inset -1px -1px 0 var(--retro-surface-light);
-
-  transform: none;
 }
 
 .retro-button:focus-visible {
   outline: 1px dotted var(--retro-black);
-  outline-offset: -5px;
+  outline-offset: -4px;
+}
+
+.retro-button:disabled {
+  color: var(--retro-border-medium);
+  text-shadow: 1px 1px 0 var(--retro-white);
+
+  cursor: default;
 }
 
 
@@ -227,30 +237,36 @@
 
 .retro-panel {
   min-width: 0;
+
   background: var(--retro-surface);
 
-  border-top: 2px solid var(--retro-white);
-  border-left: 2px solid var(--retro-white);
-  border-right: 2px solid var(--retro-black);
-  border-bottom: 2px solid var(--retro-black);
+  border-top: 1px solid var(--retro-white);
+  border-left: 1px solid var(--retro-white);
+  border-right: 1px solid var(--retro-black);
+  border-bottom: 1px solid var(--retro-black);
 
   box-shadow:
     inset 1px 1px 0 var(--retro-surface-light),
     inset -1px -1px 0 var(--retro-border-medium);
+
+  border-radius: 0;
 }
 
 .retro-panel--inset {
   min-width: 0;
+
   background: var(--retro-white);
 
-  border-top: 2px solid var(--retro-black);
-  border-left: 2px solid var(--retro-black);
-  border-right: 2px solid var(--retro-white);
-  border-bottom: 2px solid var(--retro-white);
+  border-top: 1px solid var(--retro-black);
+  border-left: 1px solid var(--retro-black);
+  border-right: 1px solid var(--retro-white);
+  border-bottom: 1px solid var(--retro-white);
 
   box-shadow:
     inset 1px 1px 0 var(--retro-border-medium),
     inset -1px -1px 0 var(--retro-surface-light);
+
+  border-radius: 0;
 }
 
 
@@ -259,14 +275,14 @@
    ========================================================= */
 
 .retro-card {
-  padding: 14px;
+  padding: 10px;
 
   background: var(--retro-surface);
 
-  border-top: 2px solid var(--retro-white);
-  border-left: 2px solid var(--retro-white);
-  border-right: 2px solid var(--retro-black);
-  border-bottom: 2px solid var(--retro-black);
+  border-top: 1px solid var(--retro-white);
+  border-left: 1px solid var(--retro-white);
+  border-right: 1px solid var(--retro-black);
+  border-bottom: 1px solid var(--retro-black);
 
   box-shadow:
     inset 1px 1px 0 var(--retro-surface-light),
@@ -286,15 +302,15 @@
   width: 100%;
   min-width: 0;
 
-  padding: 6px 8px;
+  padding: 3px 5px;
 
   color: var(--retro-black);
   background: var(--retro-white);
 
-  border-top: 2px solid var(--retro-black);
-  border-left: 2px solid var(--retro-black);
-  border-right: 2px solid var(--retro-white);
-  border-bottom: 2px solid var(--retro-white);
+  border-top: 1px solid var(--retro-black);
+  border-left: 1px solid var(--retro-black);
+  border-right: 1px solid var(--retro-white);
+  border-bottom: 1px solid var(--retro-white);
 
   box-shadow:
     inset 1px 1px 0 var(--retro-border-medium),
@@ -302,12 +318,18 @@
 
   border-radius: 0;
 
-  font-family: var(--font-document);
-  font-size: 13px;
+  font-family: var(--font-retro);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.retro-input,
+.retro-select {
+  min-height: 22px;
 }
 
 .retro-textarea {
-  min-height: 140px;
+  min-height: 120px;
   resize: vertical;
 }
 
@@ -315,7 +337,16 @@
 .retro-textarea:focus,
 .retro-select:focus {
   outline: 1px dotted var(--retro-black);
-  outline-offset: -5px;
+  outline-offset: -4px;
+}
+
+.retro-input:disabled,
+.retro-textarea:disabled,
+.retro-select:disabled {
+  color: var(--retro-border-medium);
+  background: var(--retro-surface-light);
+
+  text-shadow: 1px 1px 0 var(--retro-white);
 }
 
 
@@ -329,13 +360,17 @@
   flex-wrap: nowrap;
   gap: 0;
 
+  width: 100%;
   min-width: 0;
-  min-height: 27px;
-  padding: 1px 4px;
+  min-height: 24px;
+  padding: 1px 2px;
 
   overflow-x: auto;
+  overflow-y: hidden;
 
   background: var(--retro-surface);
+
+  border-top: 1px solid var(--retro-white);
   border-bottom: 1px solid var(--retro-border-medium);
 
   scrollbar-width: thin;
@@ -344,8 +379,8 @@
 .retro-menu button {
   flex: 0 0 auto;
 
-  min-height: 23px;
-  padding: 3px 8px;
+  min-height: 20px;
+  padding: 2px 7px;
 
   color: var(--retro-black);
   background: transparent;
@@ -355,17 +390,203 @@
 
   font-family: var(--font-retro);
   font-size: 12px;
+  line-height: 14px;
 
-  cursor: pointer;
+  cursor: default;
 }
 
 .retro-menu button:hover,
 .retro-menu button:focus-visible {
-  color: var(--retro-white);
+  color: var(--retro-title-text);
   background: var(--retro-title-active);
 
   border-color: var(--retro-title-active);
   outline: none;
+}
+
+.retro-menu button:active,
+.retro-menu button[aria-expanded="true"] {
+  color: var(--retro-black);
+  background: var(--retro-surface);
+
+  border-top-color: var(--retro-black);
+  border-left-color: var(--retro-black);
+  border-right-color: var(--retro-white);
+  border-bottom-color: var(--retro-white);
+}
+
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+.retro-toolbar {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  gap: 1px;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 2px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  background: var(--retro-surface);
+
+  border-top: 1px solid var(--retro-white);
+  border-bottom: 1px solid var(--retro-border-medium);
+
+  scrollbar-width: thin;
+}
+
+.retro-toolbar__button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+
+  min-width: 44px;
+  min-height: 42px;
+  padding: 2px 4px;
+
+  color: var(--retro-black);
+  background: transparent;
+
+  border: 1px solid transparent;
+  border-radius: 0;
+
+  font-family: var(--font-retro);
+  font-size: 10px;
+  line-height: 12px;
+
+  cursor: default;
+}
+
+.retro-toolbar__button img {
+  width: 20px;
+  height: 20px;
+
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.retro-toolbar__button:hover {
+  border-top-color: var(--retro-white);
+  border-left-color: var(--retro-white);
+  border-right-color: var(--retro-black);
+  border-bottom-color: var(--retro-black);
+
+  box-shadow:
+    inset 1px 1px 0 var(--retro-surface-light),
+    inset -1px -1px 0 var(--retro-border-medium);
+}
+
+.retro-toolbar__button:active,
+.retro-toolbar__button[aria-pressed="true"] {
+  padding-top: 3px;
+  padding-left: 5px;
+
+  border-top-color: var(--retro-black);
+  border-left-color: var(--retro-black);
+  border-right-color: var(--retro-white);
+  border-bottom-color: var(--retro-white);
+
+  box-shadow:
+    inset 1px 1px 0 var(--retro-border-medium),
+    inset -1px -1px 0 var(--retro-surface-light);
+}
+
+.retro-toolbar__button:focus-visible {
+  outline: 1px dotted var(--retro-black);
+  outline-offset: -4px;
+}
+
+.retro-toolbar__separator {
+  width: 2px;
+  min-width: 2px;
+  margin: 3px 2px;
+
+  border-left: 1px solid var(--retro-border-medium);
+  border-right: 1px solid var(--retro-white);
+}
+
+
+/* =========================================================
+   ADDRESS BAR
+   ========================================================= */
+
+.retro-addressbar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 5px;
+
+  min-width: 0;
+  padding: 3px 4px;
+
+  background: var(--retro-surface);
+
+  border-top: 1px solid var(--retro-white);
+  border-bottom: 1px solid var(--retro-border-medium);
+}
+
+.retro-addressbar__label {
+  flex: 0 0 auto;
+
+  font-family: var(--font-retro);
+  font-size: 11px;
+  line-height: 18px;
+}
+
+.retro-addressbar__field {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  min-width: 0;
+  height: 22px;
+  padding: 1px 3px;
+
+  overflow: hidden;
+
+  color: var(--retro-black);
+  background: var(--retro-white);
+
+  border-top: 1px solid var(--retro-black);
+  border-left: 1px solid var(--retro-black);
+  border-right: 1px solid var(--retro-white);
+  border-bottom: 1px solid var(--retro-white);
+
+  box-shadow:
+    inset 1px 1px 0 var(--retro-border-medium),
+    inset -1px -1px 0 var(--retro-surface-light);
+}
+
+.retro-addressbar__field img {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.retro-addressbar__path {
+  min-width: 0;
+  overflow: hidden;
+
+  font-family: var(--font-retro);
+  font-size: 11px;
+  line-height: 16px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 
@@ -375,21 +596,24 @@
 
 .retro-statusbar {
   display: grid;
-  grid-template-columns: minmax(120px, 1fr) minmax(0, 2fr) auto;
+  grid-template-columns:
+    minmax(90px, 1fr)
+    minmax(120px, 2fr)
+    minmax(90px, auto);
   gap: 2px;
 
   min-width: 0;
-  margin: 0;
-  padding: 3px;
+  padding: 2px;
 
   background: var(--retro-surface);
+
   border-top: 1px solid var(--retro-white);
 }
 
 .retro-statusbar span {
   min-width: 0;
-  min-height: 22px;
-  padding: 3px 6px;
+  min-height: 19px;
+  padding: 2px 4px;
 
   overflow: hidden;
 
@@ -398,9 +622,9 @@
   border-right: 1px solid var(--retro-white);
   border-bottom: 1px solid var(--retro-white);
 
-  font-family: var(--font-document);
+  font-family: var(--font-retro);
   font-size: 11px;
-  line-height: 14px;
+  line-height: 13px;
 
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -408,22 +632,81 @@
 
 
 /* =========================================================
-   DIVIDER
+   DIVIDERS
    ========================================================= */
 
 .retro-divider {
+  width: 100%;
   height: 2px;
-  margin: 14px 0;
+  margin: 10px 0;
 
-  background: var(--retro-border-medium);
+  background: transparent;
+
+  border-top: 1px solid var(--retro-border-medium);
   border-bottom: 1px solid var(--retro-white);
+}
+
+.retro-divider--vertical {
+  width: 2px;
+  height: auto;
+  min-height: 20px;
+  margin: 2px 4px;
+
+  border-top: 0;
+  border-bottom: 0;
+  border-left: 1px solid var(--retro-border-medium);
+  border-right: 1px solid var(--retro-white);
+}
+
+
+/* =========================================================
+   SELECTION STATES
+   ========================================================= */
+
+.retro-selected {
+  color: var(--retro-title-text);
+  background: var(--retro-title-active);
+}
+
+.retro-selected:focus {
+  outline: 1px dotted var(--retro-white);
+  outline-offset: -2px;
+}
+
+
+/* =========================================================
+   ICON HELPERS
+   ========================================================= */
+
+.retro-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.retro-icon--small {
+  width: 12px;
+  height: 12px;
+}
+
+.retro-icon--large {
+  width: 32px;
+  height: 32px;
 }
 
 
 /* =========================================================
    SCROLLBARS
-   Works in Chrome, Edge and other WebKit browsers
    ========================================================= */
+
+.retro-window * {
+  scrollbar-color: var(--retro-border-medium) var(--retro-surface-light);
+  scrollbar-width: auto;
+}
 
 .retro-window *::-webkit-scrollbar {
   width: 16px;
@@ -440,12 +723,23 @@
 }
 
 .retro-window *::-webkit-scrollbar-thumb {
+  min-width: 16px;
+  min-height: 16px;
+
   background: var(--retro-surface);
 
-  border-top: 2px solid var(--retro-white);
-  border-left: 2px solid var(--retro-white);
-  border-right: 2px solid var(--retro-black);
-  border-bottom: 2px solid var(--retro-black);
+  border-top: 1px solid var(--retro-white);
+  border-left: 1px solid var(--retro-white);
+  border-right: 1px solid var(--retro-black);
+  border-bottom: 1px solid var(--retro-black);
+
+  box-shadow:
+    inset 1px 1px 0 var(--retro-surface-light),
+    inset -1px -1px 0 var(--retro-border-medium);
+}
+
+.retro-window *::-webkit-scrollbar-corner {
+  background: var(--retro-surface);
 }
 
 .retro-window *::-webkit-scrollbar-button {
@@ -458,6 +752,10 @@
   border-left: 1px solid var(--retro-white);
   border-right: 1px solid var(--retro-black);
   border-bottom: 1px solid var(--retro-black);
+
+  box-shadow:
+    inset 1px 1px 0 var(--retro-surface-light),
+    inset -1px -1px 0 var(--retro-border-medium);
 }
 
 
@@ -466,22 +764,17 @@
    ========================================================= */
 
 @media (max-width: 650px) {
-  .retro-window {
-    box-shadow:
-      inset 1px 1px 0 var(--retro-surface-light),
-      inset -1px -1px 0 var(--retro-border-medium),
-      1px 1px 0 rgba(0, 0, 0, 0.3);
-  }
-
   .retro-window__titlebar {
-    min-height: 25px;
+    height: 22px;
+    min-height: 22px;
     margin: 2px;
-    padding-left: 4px;
+    padding-left: 3px;
+
     font-size: 11px;
   }
 
   .retro-window__title {
-    gap: 4px;
+    gap: 3px;
   }
 
   .retro-window__title img,
@@ -495,14 +788,61 @@
   }
 
   .retro-window__controls button {
-    width: 18px;
-    min-width: 18px;
-    height: 17px;
-    min-height: 17px;
+    width: 15px;
+    min-width: 15px;
+    height: 14px;
+    min-height: 14px;
+
+    font-size: 9px;
+  }
+
+  .retro-menu {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .retro-menu button {
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+
+  .retro-toolbar {
+    min-height: 46px;
+  }
+
+  .retro-toolbar__button {
+    min-width: 42px;
+
     font-size: 10px;
   }
 
-  .retro-statusbar {
+  .retro-addressbar {
     grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .retro-addressbar__label {
+    display: none;
+  }
+
+  .retro-statusbar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .retro-statusbar span:nth-child(n + 2) {
+    display: none;
+  }
+
+  .retro-card {
+    padding: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .retro-button,
+  .retro-window__controls button,
+  .retro-menu button,
+  .retro-toolbar__button {
+    transition: none;
   }
 }
