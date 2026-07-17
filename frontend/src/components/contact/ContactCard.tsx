@@ -14,25 +14,16 @@ function ContactIconGraphic({
 }: {
   icon: ContactIcon;
 }) {
-  switch (icon) {
-    case "email":
-      return <span aria-hidden="true">✉</span>;
-
-    case "linkedin":
-      return <span aria-hidden="true">in</span>;
-
-    case "github":
-      return <span aria-hidden="true">GH</span>;
-
-    case "upwork":
-      return <span aria-hidden="true">UP</span>;
-
-    case "location":
-      return <span aria-hidden="true">⌖</span>;
-
-    default:
-      return <span aria-hidden="true">■</span>;
-  }
+  return (
+    <span
+      className={`contact-card__graphic contact-card__graphic--${icon}`}
+      aria-hidden="true"
+    >
+      {icon === "linkedin" && "in"}
+      {icon === "github" && "GH"}
+      {icon === "upwork" && "up"}
+    </span>
+  );
 }
 
 function ContactCard({
@@ -43,26 +34,35 @@ function ContactCard({
   return (
     <button
       type="button"
-      className={`contact-card ${
-        isSelected ? "contact-card--selected" : ""
-      }`}
+      className={
+        isSelected
+          ? "contact-card contact-card--selected"
+          : "contact-card"
+      }
       onClick={() => onSelect(contact.id)}
       aria-pressed={isSelected}
-      aria-label={`Open ${contact.type} contact record`}
+      aria-label={`Select ${contact.type} contact`}
     >
       <span className="contact-card__icon">
-        <ContactIconGraphic icon={contact.icon} />
+        <ContactIconGraphic
+          icon={contact.icon}
+        />
       </span>
 
       <span className="contact-card__content">
-        <span className="contact-card__title">
+        <strong className="contact-card__title">
           {contact.type}
-        </span>
+        </strong>
 
         <span className="contact-card__subtitle">
           {contact.subtitle}
         </span>
       </span>
+
+      <span
+        className="contact-card__selection-arrow"
+        aria-hidden="true"
+      />
     </button>
   );
 }

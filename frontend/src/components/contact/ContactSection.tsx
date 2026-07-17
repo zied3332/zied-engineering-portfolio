@@ -1,4 +1,5 @@
 import {
+  useMemo,
   useState,
   type FormEvent,
 } from "react";
@@ -10,173 +11,148 @@ import {
 } from "../../data/contact";
 import "./contact-section.css";
 
-const toolbarItems = [
-  {
-    id: "new",
-    label: "New",
-    icon: "✦",
-  },
-  {
-    id: "send",
-    label: "Send",
-    icon: "✉",
-  },
-  {
-    id: "copy",
-    label: "Copy",
-    icon: "▣",
-  },
-  {
-    id: "print",
-    label: "Print",
-    icon: "▤",
-  },
-  {
-    id: "properties",
-    label: "Properties",
-    icon: "☷",
-  },
-] as const;
+type ComposerStatus =
+  | "Message ready"
+  | "Opening email application"
+  | "Contact copied"
+  | "Copy failed";
 
 function ContactSection() {
   const [selectedContactId, setSelectedContactId] = useState(
-    contactRecords[0].id,
-  );
-  const [copyStatus, setCopyStatus] = useState(
-    "Ready",
-  );
-  const [formStatus, setFormStatus] = useState(
-    "Message form ready",
+    contactRecords[0]?.id ?? 0
   );
 
-  const selectedContact =
+  const [composerStatus, setComposerStatus] =
+    useState<ComposerStatus>("Message ready");
+
+  const selectedContact = useMemo(
+    () =>
+      contactRecords.find(
+        (contact) => contact.id === selectedContactId
+      ) ?? contactRecords[0],
+    [selectedContactId]
+  );
+
+  const emailContact =
     contactRecords.find(
-      (contact) => contact.id === selectedContactId,
+      (contact) => contact.icon === "email"
     ) ?? contactRecords[0];
 
-  const handleCopyText = async (
-    value: string,
-    successMessage: string,
+  const recipientEmail =
+    emailContact?.action?.type === "copy"
+      ? emailContact.action.value
+      : emailContact?.details[0]?.value ??
+        "ziedalimi2244@gmail.com";
+
+  const handleSelectContact = (contactId: number) => {
+    setSelectedContactId(contactId);
+    setComposerStatus("Message ready");
+  };
+
+  const handleCopyContact = async (
+    contact: ContactRecord
   ) => {
+    const value =
+      contact.action?.type === "copy"
+        ? contact.action.value
+        : contact.details[0]?.value;
+
+    if (!value) {
+      return;
+    }
+
     try {
       await navigator.clipboard.writeText(value);
-      setCopyStatus(successMessage);
+      setComposerStatus("Contact copied");
     } catch {
-      setCopyStatus(
-        "Copy failed. Please copy the value manually.",
-      );
+      setComposerStatus("Copy failed");
     }
   };
 
-  const handleContactAction = (
-    contact: ContactRecord,
+  const handleOpenContact = (
+    contact: ContactRecord
   ) => {
     if (!contact.action) {
       return;
     }
 
     if (contact.action.type === "copy") {
-      void handleCopyText(
-        contact.action.value,
-        "Email copied to clipboard",
-      );
-
+      void handleCopyContact(contact);
       return;
     }
 
     window.open(
       contact.action.href,
       "_blank",
-      "noopener,noreferrer",
+      "noopener,noreferrer"
     );
   };
 
-  const handleToolbarAction = (
-    action: (typeof toolbarItems)[number]["id"],
-  ) => {
-    switch (action) {
-      case "new":
-        document
-          .getElementById("contact-message-form")
-          ?.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-        break;
+  const handleNewMessage = () => {
+    const form =
+      document.getElementById("contact-compose-form");
 
-      case "send":
-        document
-          .getElementById("contact-message-form")
-          ?.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-        break;
+    form?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
 
-      case "copy": {
-        const copyValue =
-          selectedContact.action?.type === "copy"
-            ? selectedContact.action.value
-            : selectedContact.details[0]?.value;
+    const subjectInput =
+      document.getElementById("contact-subject");
 
-        if (copyValue) {
-          void handleCopyText(
-            copyValue,
-            `${selectedContact.type} information copied`,
-          );
-        }
-
-        break;
-      }
-
-      case "print":
-        window.print();
-        break;
-
-      case "properties":
-        document
-          .getElementById("contact-record-properties")
-          ?.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest",
-          });
-        break;
-
-      default:
-        break;
+    if (subjectInput instanceof HTMLInputElement) {
+      subjectInput.focus();
     }
+
+    setComposerStatus("Message ready");
   };
 
   const handleSubmit = (
-    event: FormEvent<HTMLFormElement>,
+    event: FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
 
-    const form = event.currentTarget;
-    const formData = new FormData(form);
+    const formData = new FormData(
+      event.currentTarget
+    );
 
-    const name = String(formData.get("name") ?? "");
-    const email = String(formData.get("email") ?? "");
-    const subject = String(formData.get("subject") ?? "");
-    const message = String(formData.get("message") ?? "");
+    const name = String(
+      formData.get("name") ?? ""
+    ).trim();
+
+    const email = String(
+      formData.get("email") ?? ""
+    ).trim();
+
+    const subject = String(
+      formData.get("subject") ?? ""
+    ).trim();
+
+    const message = String(
+      formData.get("message") ?? ""
+    ).trim();
 
     const emailSubject = encodeURIComponent(
-      subject || `Portfolio inquiry from ${name}`,
+      subject || `Portfolio inquiry from ${name}`
     );
 
     const emailBody = encodeURIComponent(
       [
-        `Name: ${name}`,
-        `Email: ${email}`,
+        `Hello Zied,`,
         "",
         message,
-      ].join("\n"),
+        "",
+        `From: ${name}`,
+        `Reply email: ${email}`,
+      ].join("\n")
     );
 
-    setFormStatus("Opening default email application");
+    setComposerStatus(
+      "Opening email application"
+    );
 
     window.location.href =
-      `mailto:ziedalimi2244@gmail.com` +
+      `mailto:${recipientEmail}` +
       `?subject=${emailSubject}` +
       `&body=${emailBody}`;
   };
@@ -185,344 +161,370 @@ function ContactSection() {
     <section
       id="contact"
       className="section contact-section"
-      aria-labelledby="contact-section-title"
+      aria-labelledby="contact-heading"
     >
-      <div className="contact-section__container">
-        <header className="contact-section__heading">
-          <p className="contact-section__eyebrow">
-            05 — Get In Touch
-          </p>
+      <header className="contact-section__heading">
+        <span className="contact-section__label">
+          05 — Communication
+        </span>
 
-          <h2 id="contact-section-title">
-            Contact
-          </h2>
+        <h2 id="contact-heading">
+          Contact
+        </h2>
 
-          <p className="contact-section__description">
-            Open a contact record or send a message about
-            software projects, freelance work, internships,
-            and engineering opportunities.
-          </p>
-        </header>
+        <p>
+          Send a message about freelance projects,
+          internships, software development, or
+          engineering opportunities.
+        </p>
+      </header>
 
-        <div className="contact-section__window">
-          <RetroWindow title="CONTACT_MANAGER.EXE - Zied Alimi">
-            <div className="contact-manager">
-              <nav
-                className="contact-manager__menu"
-                aria-label="Contact manager menu"
-              >
-                {["File", "Edit", "View", "Tools", "Help"].map(
-                  (menuItem) => (
-                    <button
-                      key={menuItem}
-                      type="button"
-                      className="contact-manager__menu-button"
-                    >
-                      {menuItem}
-                    </button>
-                  ),
-                )}
-              </nav>
+      <RetroWindow
+        title="New Message - Outlook Express"
+        className="contact-mail"
+      >
+        <nav
+          className="contact-mail__menu"
+          aria-label="Message menu"
+        >
+          <button type="button">
+            <span>F</span>ile
+          </button>
 
-              <div
-                className="contact-manager__toolbar"
-                role="toolbar"
-                aria-label="Contact manager controls"
-              >
-                {toolbarItems.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className="contact-manager__toolbar-button"
-                    onClick={() =>
-                      handleToolbarAction(item.id)
-                    }
-                    aria-label={item.label}
-                  >
-                    <span
-                      className="contact-manager__toolbar-icon"
-                      aria-hidden="true"
-                    >
-                      {item.icon}
-                    </span>
+          <button type="button">
+            <span>E</span>dit
+          </button>
 
-                    <span>{item.label}</span>
-                  </button>
-                ))}
+          <button type="button">
+            <span>V</span>iew
+          </button>
+
+          <button type="button">
+            <span>I</span>nsert
+          </button>
+
+          <button type="button">
+            <span>H</span>elp
+          </button>
+        </nav>
+
+        <div
+          className="contact-mail__toolbar"
+          role="toolbar"
+          aria-label="Message controls"
+        >
+          <button
+            type="button"
+            className="contact-mail__toolbar-button"
+            onClick={handleNewMessage}
+          >
+            <span
+              className="contact-mail__toolbar-icon contact-mail__toolbar-icon--new"
+              aria-hidden="true"
+            />
+
+            <span>New</span>
+          </button>
+
+          <button
+            type="submit"
+            form="contact-compose-form"
+            className="contact-mail__toolbar-button"
+          >
+            <span
+              className="contact-mail__toolbar-icon contact-mail__toolbar-icon--send"
+              aria-hidden="true"
+            />
+
+            <span>Send</span>
+          </button>
+
+          <span
+            className="contact-mail__toolbar-separator"
+            aria-hidden="true"
+          />
+
+          <button
+            type="button"
+            className="contact-mail__toolbar-button"
+            onClick={() =>
+              selectedContact &&
+              void handleCopyContact(
+                selectedContact
+              )
+            }
+          >
+            <span
+              className="contact-mail__toolbar-icon contact-mail__toolbar-icon--copy"
+              aria-hidden="true"
+            />
+
+            <span>Copy</span>
+          </button>
+
+          <button
+            type="button"
+            className="contact-mail__toolbar-button"
+            onClick={() =>
+              selectedContact &&
+              handleOpenContact(selectedContact)
+            }
+            disabled={!selectedContact?.action}
+          >
+            <span
+              className="contact-mail__toolbar-icon contact-mail__toolbar-icon--open"
+              aria-hidden="true"
+            />
+
+            <span>Open</span>
+          </button>
+        </div>
+
+        <div className="contact-mail__workspace">
+          <aside
+            className="contact-mail__address-book"
+            aria-labelledby="contact-address-book-title"
+          >
+            <header className="contact-mail__address-header">
+              <span
+                className="contact-mail__address-icon"
+                aria-hidden="true"
+              />
+
+              <div>
+                <h3 id="contact-address-book-title">
+                  Address Book
+                </h3>
+
+                <span>
+                  {contactRecords.length} contacts
+                </span>
               </div>
+            </header>
 
-              <div className="contact-manager__address-bar">
-                <span className="contact-manager__address-label">
-                  Address
+            <div className="contact-mail__contact-list">
+              {contactRecords.map((contact) => (
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  isSelected={
+                    selectedContact?.id ===
+                    contact.id
+                  }
+                  onSelect={handleSelectContact}
+                />
+              ))}
+            </div>
+
+            {selectedContact && (
+              <section
+                className="contact-mail__selected-contact"
+                aria-live="polite"
+              >
+                <span className="contact-mail__selected-label">
+                  Selected contact
                 </span>
 
-                <div className="contact-manager__address-field">
-                  <span aria-hidden="true">📁</span>
+                <strong>
+                  {selectedContact.title}
+                </strong>
 
-                  <span>
-                    C:\Users\Zied\Contacts
-                  </span>
+                <p>
+                  {selectedContact.description}
+                </p>
+
+                <dl>
+                  {selectedContact.details
+                    .slice(0, 2)
+                    .map((detail) => (
+                      <div key={detail.label}>
+                        <dt>{detail.label}</dt>
+                        <dd>{detail.value}</dd>
+                      </div>
+                    ))}
+                </dl>
+
+                {selectedContact.action && (
+                  <button
+                    type="button"
+                    className="retro-button"
+                    onClick={() =>
+                      handleOpenContact(
+                        selectedContact
+                      )
+                    }
+                  >
+                    {selectedContact.action.label}
+                  </button>
+                )}
+              </section>
+            )}
+          </aside>
+
+          <main className="contact-mail__composer">
+            <div className="contact-mail__message-fields">
+              <div className="contact-mail__field-row">
+                <label htmlFor="contact-recipient">
+                  To:
+                </label>
+
+                <div className="contact-mail__recipient-field">
+                  <span
+                    className="contact-mail__recipient-icon"
+                    aria-hidden="true"
+                  />
+
+                  <input
+                    id="contact-recipient"
+                    type="email"
+                    value={recipientEmail}
+                    readOnly
+                    aria-readonly="true"
+                  />
                 </div>
               </div>
 
-              <div className="contact-manager__workspace">
-                <aside
-                  className="contact-manager__sidebar"
-                  aria-labelledby="contact-record-list-title"
-                >
-                  <div className="contact-manager__sidebar-title">
-                    <span aria-hidden="true">▦</span>
+              <div className="contact-mail__field-row">
+                <label htmlFor="contact-subject">
+                  Subject:
+                </label>
 
-                    <h3 id="contact-record-list-title">
-                      Contact List
-                    </h3>
-                  </div>
+                <input
+                  id="contact-subject"
+                  name="subject"
+                  form="contact-compose-form"
+                  className="retro-input"
+                  type="text"
+                  placeholder="Project inquiry"
+                  required
+                />
+              </div>
+            </div>
 
-                  <div className="contact-manager__contact-list">
-                    {contactRecords.map((contact) => (
-                      <ContactCard
-                        key={contact.id}
-                        contact={contact}
-                        isSelected={
-                          selectedContact.id === contact.id
-                        }
-                        onSelect={setSelectedContactId}
-                      />
-                    ))}
-                  </div>
+            <form
+              id="contact-compose-form"
+              className="contact-compose"
+              onSubmit={handleSubmit}
+            >
+              <div className="contact-compose__sender-fields">
+                <div className="contact-compose__field">
+                  <label htmlFor="contact-name">
+                    Your name
+                  </label>
 
-                  <div className="contact-manager__sidebar-summary">
-                    <strong>
-                      {contactRecords.length} records
-                    </strong>
+                  <input
+                    id="contact-name"
+                    name="name"
+                    className="retro-input"
+                    type="text"
+                    autoComplete="name"
+                    required
+                  />
+                </div>
 
-                    <span>
-                      Professional contact directory
-                    </span>
-                  </div>
-                </aside>
+                <div className="contact-compose__field">
+                  <label htmlFor="contact-email">
+                    Your email
+                  </label>
 
-                <main className="contact-manager__main">
-                  <section
-                    id="contact-record-properties"
-                    className="contact-properties"
-                    aria-live="polite"
-                    aria-labelledby="selected-contact-title"
-                  >
-                    <div className="contact-properties__titlebar">
-                      <span>
-                        Contact Record Properties
-                      </span>
-
-                      <span>Read Only</span>
-                    </div>
-
-                    <div className="contact-properties__heading">
-                      <div
-                        className="contact-properties__large-icon"
-                        aria-hidden="true"
-                      >
-                        <span>
-                          {selectedContact.type === "Email" && "✉"}
-                          {selectedContact.type ===
-                            "LinkedIn" && "in"}
-                          {selectedContact.type ===
-                            "GitHub" && "GH"}
-                          {selectedContact.type ===
-                            "Upwork" && "UP"}
-                          {selectedContact.type ===
-                            "Location" && "⌖"}
-                        </span>
-                      </div>
-
-                      <div>
-                        <p className="contact-properties__file-name">
-                          {selectedContact.fileName}
-                        </p>
-
-                        <h3 id="selected-contact-title">
-                          {selectedContact.title}
-                        </h3>
-
-                        <p>
-                          {selectedContact.subtitle}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="contact-properties__divider" />
-
-                    <div className="contact-properties__content">
-                      <div className="contact-properties__group">
-                        <h4>Description</h4>
-
-                        <div className="contact-properties__document">
-                          <p>
-                            {selectedContact.description}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="contact-properties__group">
-                        <h4>Record Information</h4>
-
-                        <dl className="contact-properties__details">
-                          {selectedContact.details.map(
-                            (detail) => (
-                              <div
-                                key={detail.label}
-                                className="contact-properties__detail-row"
-                              >
-                                <dt>{detail.label}</dt>
-                                <dd>{detail.value}</dd>
-                              </div>
-                            ),
-                          )}
-                        </dl>
-                      </div>
-
-                      <div className="contact-properties__group">
-                        <h4>
-                          Availability and Services
-                        </h4>
-
-                        <ul className="contact-properties__highlights">
-                          {selectedContact.highlights.map(
-                            (highlight) => (
-                              <li key={highlight}>
-                                <span aria-hidden="true">
-                                  ✓
-                                </span>
-
-                                <span>{highlight}</span>
-                              </li>
-                            ),
-                          )}
-                        </ul>
-                      </div>
-
-                      {selectedContact.action && (
-                        <div className="contact-properties__actions">
-                          <button
-                            type="button"
-                            className="retro-button"
-                            onClick={() =>
-                              handleContactAction(
-                                selectedContact,
-                              )
-                            }
-                          >
-                            {selectedContact.action.label}
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  </section>
-
-                  <section
-                    id="contact-message-form"
-                    className="contact-form-panel"
-                    aria-labelledby="contact-form-title"
-                  >
-                    <div className="contact-form-panel__titlebar">
-                      <span aria-hidden="true">✉</span>
-
-                      <h3 id="contact-form-title">
-                        Send New Message
-                      </h3>
-                    </div>
-
-                    <form
-                      className="contact-form"
-                      onSubmit={handleSubmit}
-                    >
-                      <div className="contact-form__row">
-                        <label htmlFor="contact-name">
-                          Name
-                        </label>
-
-                        <input
-                          id="contact-name"
-                          name="name"
-                          className="retro-input"
-                          type="text"
-                          autoComplete="name"
-                          required
-                        />
-                      </div>
-
-                      <div className="contact-form__row">
-                        <label htmlFor="contact-email">
-                          Email
-                        </label>
-
-                        <input
-                          id="contact-email"
-                          name="email"
-                          className="retro-input"
-                          type="email"
-                          autoComplete="email"
-                          required
-                        />
-                      </div>
-
-                      <div className="contact-form__row">
-                        <label htmlFor="contact-subject">
-                          Subject
-                        </label>
-
-                        <input
-                          id="contact-subject"
-                          name="subject"
-                          className="retro-input"
-                          type="text"
-                          required
-                        />
-                      </div>
-
-                      <div className="contact-form__row">
-                        <label htmlFor="contact-message">
-                          Message
-                        </label>
-
-                        <textarea
-                          id="contact-message"
-                          name="message"
-                          className="retro-textarea"
-                          required
-                        />
-                      </div>
-
-                      <div className="contact-form__footer">
-                        <span>{formStatus}</span>
-
-                        <button
-                          type="submit"
-                          className="retro-button contact-form__submit"
-                        >
-                          Send Message
-                        </button>
-                      </div>
-                    </form>
-                  </section>
-                </main>
+                  <input
+                    id="contact-email"
+                    name="email"
+                    className="retro-input"
+                    type="email"
+                    autoComplete="email"
+                    required
+                  />
+                </div>
               </div>
 
-              <footer className="contact-manager__statusbar">
+              <div className="contact-compose__formatbar">
+                <select
+                  aria-label="Message font"
+                  defaultValue="Arial"
+                >
+                  <option>Arial</option>
+                  <option>Times New Roman</option>
+                  <option>Courier New</option>
+                </select>
+
+                <select
+                  aria-label="Message font size"
+                  defaultValue="10"
+                >
+                  <option>8</option>
+                  <option>10</option>
+                  <option>12</option>
+                  <option>14</option>
+                </select>
+
+                <button
+                  type="button"
+                  aria-label="Bold"
+                >
+                  <strong>B</strong>
+                </button>
+
+                <button
+                  type="button"
+                  aria-label="Italic"
+                >
+                  <em>I</em>
+                </button>
+
+                <button
+                  type="button"
+                  aria-label="Underline"
+                >
+                  <u>U</u>
+                </button>
+              </div>
+
+              <textarea
+                id="contact-message"
+                name="message"
+                className="contact-compose__message"
+                placeholder={[
+                  "Hello Zied,",
+                  "",
+                  "I would like to discuss...",
+                ].join("\n")}
+                required
+              />
+
+              <footer className="contact-compose__footer">
                 <span>
-                  {contactRecords.length} contact record(s)
+                  Messages open in your default
+                  email application.
                 </span>
 
-                <span>{copyStatus}</span>
-
-                <span>
-                  Selected: {selectedContact.type}
-                </span>
+                <button
+                  type="submit"
+                  className="retro-button contact-compose__send"
+                >
+                  Send Message
+                </button>
               </footer>
-            </div>
-          </RetroWindow>
+            </form>
+          </main>
         </div>
-      </div>
+
+        <footer
+          className="contact-mail__statusbar"
+          role="status"
+        >
+          <span>
+            {contactRecords.length} contacts
+          </span>
+
+          <span>{composerStatus}</span>
+
+          <span>
+            Selected:{" "}
+            {selectedContact?.type ?? "None"}
+          </span>
+        </footer>
+      </RetroWindow>
     </section>
   );
 }
