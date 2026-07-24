@@ -2,6 +2,7 @@ import type {
   KeyboardEvent,
   MouseEvent,
 } from "react";
+
 import type { Project } from "../../data/projects";
 
 type ProjectCardProps = {
@@ -94,18 +95,17 @@ function ProjectCard({
 
         <dl className="project-card__details">
           <div>
-            <dt>Type:</dt>
+            <dt>Category</dt>
             <dd>{project.category}</dd>
           </div>
 
           <div>
-            <dt>Modified:</dt>
+            <dt>Year</dt>
             <dd>{project.year}</dd>
           </div>
 
           <div>
-            <dt>Technologies:</dt>
-
+            <dt>Stack</dt>
             <dd>
               {project.technologies.join(", ")}
             </dd>
@@ -130,7 +130,7 @@ function ProjectCard({
               href={project.demo}
               target="_blank"
               rel="noreferrer"
-              className="retro-button project-card__button"
+              className="retro-button project-card__button project-card__button--primary"
               onClick={handleLinkClick}
             >
               Live Demo

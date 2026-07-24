@@ -1,28 +1,20 @@
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+
 import RetroWindow from "../retro/RetroWindow";
 import ProjectCard from "./ProjectCard";
+
 import { projects } from "../../data/projects";
+
 import "./projects-section.css";
 
-type ProjectFilter = "All" | "Full-Stack" | "Automation";
-
-type ToolbarIcon =
-  | "back"
-  | "forward"
-  | "up"
-  | "cut"
-  | "copy"
-  | "paste"
-  | "undo"
-  | "delete"
-  | "properties"
-  | "views";
-
-type ToolbarButton = {
-  label: string;
-  icon: ToolbarIcon;
-  disabled?: boolean;
-};
+type ProjectFilter =
+  | "All"
+  | "Full-Stack"
+  | "Automation";
 
 const filters: ProjectFilter[] = [
   "All",
@@ -30,74 +22,12 @@ const filters: ProjectFilter[] = [
   "Automation",
 ];
 
-const navigationButtons: ToolbarButton[] = [
-  {
-    label: "Back",
-    icon: "back",
-  },
-  {
-    label: "Forward",
-    icon: "forward",
-    disabled: true,
-  },
-  {
-    label: "Up",
-    icon: "up",
-  },
-];
-
-const fileButtons: ToolbarButton[] = [
-  {
-    label: "Cut",
-    icon: "cut",
-  },
-  {
-    label: "Copy",
-    icon: "copy",
-  },
-  {
-    label: "Paste",
-    icon: "paste",
-    disabled: true,
-  },
-];
-
-const actionButtons: ToolbarButton[] = [
-  {
-    label: "Undo",
-    icon: "undo",
-    disabled: true,
-  },
-  {
-    label: "Delete",
-    icon: "delete",
-  },
-  {
-    label: "Properties",
-    icon: "properties",
-  },
-];
-
-function ToolbarIconElement({
-  icon,
-}: {
-  icon: ToolbarIcon;
-}) {
-  return (
-    <span
-      className={`projects-explorer__toolbar-icon projects-explorer__toolbar-icon--${icon}`}
-      aria-hidden="true"
-    />
-  );
-}
-
 function ProjectsSection() {
   const [activeFilter, setActiveFilter] =
     useState<ProjectFilter>("All");
 
-  const [selectedProjectId, setSelectedProjectId] = useState(
-    projects[0]?.id ?? 0
-  );
+  const [selectedProjectId, setSelectedProjectId] =
+    useState(projects[0]?.id ?? 0);
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === "All") {
@@ -116,14 +46,18 @@ function ProjectsSection() {
       (project) =>
         project.category.includes("Automation") ||
         project.technologies.some((technology) =>
-          technology.toLowerCase().includes("python")
+          technology
+            .toLowerCase()
+            .includes("python")
         )
     );
   }, [activeFilter]);
 
-  const selectedProjectIsVisible = filteredProjects.some(
-    (project) => project.id === selectedProjectId
-  );
+  const selectedProjectIsVisible =
+    filteredProjects.some(
+      (project) =>
+        project.id === selectedProjectId
+    );
 
   useEffect(() => {
     if (filteredProjects.length === 0) {
@@ -132,31 +66,14 @@ function ProjectsSection() {
     }
 
     if (!selectedProjectIsVisible) {
-      setSelectedProjectId(filteredProjects[0].id);
+      setSelectedProjectId(
+        filteredProjects[0].id
+      );
     }
-  }, [filteredProjects, selectedProjectIsVisible]);
-
-  const handleToolbarAction = (label: string) => {
-    if (label === "Back" || label === "Up") {
-      document
-        .querySelector("#projects")
-        ?.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const renderToolbarButton = (button: ToolbarButton) => (
-    <button
-      key={button.label}
-      type="button"
-      className="retro-toolbar__button projects-explorer__toolbar-button"
-      disabled={button.disabled}
-      aria-label={button.label}
-      onClick={() => handleToolbarAction(button.label)}
-    >
-      <ToolbarIconElement icon={button.icon} />
-      <span>{button.label}</span>
-    </button>
-  );
+  }, [
+    filteredProjects,
+    selectedProjectIsVisible,
+  ]);
 
   return (
     <section
@@ -169,11 +86,13 @@ function ProjectsSection() {
           02 — Selected Work
         </span>
 
-        <h2 id="projects-heading">Projects</h2>
+        <h2 id="projects-heading">
+          Projects
+        </h2>
 
         <p>
-          Full-stack applications, automation tools, and practical
-          software projects.
+          Full-stack applications, automation
+          tools, and practical software projects.
         </p>
       </div>
 
@@ -208,77 +127,11 @@ function ProjectsSection() {
 
           <button type="button">
             <span className="projects-explorer__menu-shortcut">
-              G
-            </span>
-            o
-          </button>
-
-          <button type="button">
-            F
-            <span className="projects-explorer__menu-shortcut">
-              a
-            </span>
-            vorites
-          </button>
-
-          <button type="button">
-            <span className="projects-explorer__menu-shortcut">
-              T
-            </span>
-            ools
-          </button>
-
-          <button type="button">
-            <span className="projects-explorer__menu-shortcut">
               H
             </span>
             elp
           </button>
         </nav>
-
-        <div
-          className="retro-toolbar projects-explorer__toolbar"
-          role="toolbar"
-          aria-label="Projects Explorer toolbar"
-        >
-          {navigationButtons.map(renderToolbarButton)}
-
-          <span
-            className="retro-toolbar__separator"
-            aria-hidden="true"
-          />
-
-          {fileButtons.map(renderToolbarButton)}
-
-          <span
-            className="retro-toolbar__separator"
-            aria-hidden="true"
-          />
-
-          {actionButtons.map(renderToolbarButton)}
-
-          <span
-            className="retro-toolbar__separator"
-            aria-hidden="true"
-          />
-
-          <button
-            type="button"
-            className="retro-toolbar__button projects-explorer__toolbar-button"
-            aria-label="Change project view"
-          >
-            <ToolbarIconElement icon="views" />
-            <span>Views</span>
-          </button>
-
-          <button
-            type="button"
-            className="projects-explorer__toolbar-dropdown"
-            aria-label="Open view options"
-          >
-            <span aria-hidden="true" />
-          </button>
-        </div>
 
         <div className="retro-addressbar projects-explorer__address">
           <span className="retro-addressbar__label">
@@ -299,22 +152,7 @@ function ProjectsSection() {
             <span className="retro-addressbar__path">
               {String.raw`C:\Zied\Portfolio\Projects`}
             </span>
-
-            <button
-              type="button"
-              className="projects-explorer__address-dropdown"
-              aria-label="Open address history"
-            >
-              <span aria-hidden="true" />
-            </button>
           </div>
-
-          <button
-            type="button"
-            className="projects-explorer__go-button retro-button"
-          >
-            Go
-          </button>
         </div>
 
         <div className="projects-explorer__layout">
@@ -323,7 +161,7 @@ function ProjectsSection() {
             aria-label="Project filters"
           >
             <div className="projects-explorer__sidebar-title">
-              Project Tasks
+              Project Categories
             </div>
 
             <div className="projects-explorer__sidebar-content">
@@ -333,12 +171,13 @@ function ProjectsSection() {
                   aria-hidden="true"
                 />
 
-                <span>Filter projects by category</span>
+                <span>Browse project folders</span>
               </div>
 
               <div className="projects-explorer__filters">
                 {filters.map((filter) => {
-                  const isActive = activeFilter === filter;
+                  const isActive =
+                    activeFilter === filter;
 
                   return (
                     <button
@@ -350,7 +189,9 @@ function ProjectsSection() {
                           : "projects-explorer__filter"
                       }
                       aria-pressed={isActive}
-                      onClick={() => setActiveFilter(filter)}
+                      onClick={() =>
+                        setActiveFilter(filter)
+                      }
                     >
                       <span
                         className="projects-explorer__document-icon"
@@ -375,34 +216,58 @@ function ProjectsSection() {
                 />
 
                 <div>
-                  <strong>{filteredProjects.length}</strong>
+                  <strong>
+                    {filteredProjects.length}
+                  </strong>
 
                   <span>
                     {filteredProjects.length === 1
-                      ? " project displayed"
-                      : " projects displayed"}
+                      ? " project"
+                      : " projects"}
                   </span>
                 </div>
               </div>
             </div>
           </aside>
 
-          <div
+          <main
             className="projects-explorer__content"
             aria-live="polite"
           >
+            <header className="projects-explorer__content-header">
+              <div>
+                <span>
+                  Current folder
+                </span>
+
+                <strong>{activeFilter}</strong>
+              </div>
+
+              <span>
+                {filteredProjects.length} item
+                {filteredProjects.length === 1
+                  ? ""
+                  : "s"}
+              </span>
+            </header>
+
             {filteredProjects.length > 0 ? (
               <div className="projects-grid">
-                {filteredProjects.map((project) => (
-                  <ProjectCard
-                    key={project.id}
-                    project={project}
-                    isSelected={
-                      selectedProjectId === project.id
-                    }
-                    onSelect={setSelectedProjectId}
-                  />
-                ))}
+                {filteredProjects.map(
+                  (project) => (
+                    <ProjectCard
+                      key={project.id}
+                      project={project}
+                      isSelected={
+                        selectedProjectId ===
+                        project.id
+                      }
+                      onSelect={
+                        setSelectedProjectId
+                      }
+                    />
+                  )
+                )}
               </div>
             ) : (
               <div className="projects-explorer__empty">
@@ -411,10 +276,13 @@ function ProjectsSection() {
                   aria-hidden="true"
                 />
 
-                <p>No projects found in this category.</p>
+                <p>
+                  No projects found in this
+                  category.
+                </p>
               </div>
             )}
-          </div>
+          </main>
         </div>
 
         <div
@@ -423,14 +291,19 @@ function ProjectsSection() {
         >
           <span>
             {filteredProjects.length} object
-            {filteredProjects.length === 1 ? "" : "s"}
+            {filteredProjects.length === 1
+              ? ""
+              : "s"}
           </span>
 
           <span>
-            Selected: {selectedProjectIsVisible ? 1 : 0}
+            Selected:{" "}
+            {selectedProjectIsVisible ? 1 : 0}
           </span>
 
-          <span>Portfolio Projects</span>
+          <span>
+            {activeFilter} Projects
+          </span>
         </div>
       </RetroWindow>
     </section>
