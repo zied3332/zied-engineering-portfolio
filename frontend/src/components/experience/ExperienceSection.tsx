@@ -45,7 +45,7 @@ function ExperienceSection() {
   );
 
   const activeExperiences = experiences.filter(
-    (experience) => experience.status === "Active"
+    (experience) => experience.status === "Current"
   ).length;
 
   const handleSelectExperience = (
