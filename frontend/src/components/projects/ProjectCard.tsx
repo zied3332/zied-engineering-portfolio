@@ -1,3 +1,7 @@
+import type {
+  KeyboardEvent,
+  MouseEvent,
+} from "react";
 import type { Project } from "../../data/projects";
 
 type ProjectCardProps = {
@@ -11,56 +15,102 @@ function ProjectCard({
   isSelected,
   onSelect,
 }: ProjectCardProps) {
+  const statusClass = project.status
+    .toLowerCase()
+    .replace(/\s+/g, "-");
+
+  const handleKeyDown = (
+    event: KeyboardEvent<HTMLElement>
+  ) => {
+    if (
+      event.key === "Enter" ||
+      event.key === " "
+    ) {
+      event.preventDefault();
+      onSelect(project.id);
+    }
+  };
+
+  const handleLinkClick = (
+    event: MouseEvent<HTMLAnchorElement>
+  ) => {
+    event.stopPropagation();
+  };
+
   return (
     <article
-      className={`project-card ${
-        isSelected ? "project-card--selected" : ""
-      }`}
+      className={
+        isSelected
+          ? "project-card project-card--selected"
+          : "project-card"
+      }
+      role="button"
+      tabIndex={0}
+      aria-pressed={isSelected}
+      aria-label={`Select ${project.title}`}
       onClick={() => onSelect(project.id)}
+      onKeyDown={handleKeyDown}
     >
+      <div className="project-card__top">
+        <div
+          className="project-card__folder"
+          aria-hidden="true"
+        >
+          <span className="project-card__folder-front" />
+          <span className="project-card__folder-paper" />
+        </div>
+
+        <div className="project-card__file-info">
+          <span className="project-card__filename">
+            {project.fileName}
+          </span>
+
+          <span className="project-card__file-type">
+            Project Folder
+          </span>
+        </div>
+      </div>
+
       <div className="project-card__preview">
-        <img src={project.image} alt={project.title} />
+        <img
+          src={project.image}
+          alt={`${project.title} project preview`}
+          loading="lazy"
+        />
 
         <span
-          className={`project-card__status project-card__status--${project.status
-            .toLowerCase()
-            .replace(" ", "-")}`}
+          className={`project-card__status project-card__status--${statusClass}`}
         >
           {project.status}
         </span>
       </div>
 
       <div className="project-card__content">
-        <div className="project-card__file">
-          <span className="project-card__folder-icon" aria-hidden="true">
-            📁
-          </span>
-
-          <div>
-            <span className="project-card__filename">
-              {project.fileName}
-            </span>
-
-            <span className="project-card__type">
-              Project Folder
-            </span>
-          </div>
-        </div>
-
         <h3>{project.title}</h3>
 
-        <p>{project.description}</p>
+        <p className="project-card__description">
+          {project.description}
+        </p>
 
-        <div className="project-card__technologies">
-          {project.technologies.map((technology) => (
-            <span key={technology}>{technology}</span>
-          ))}
-        </div>
+        <dl className="project-card__details">
+          <div>
+            <dt>Type:</dt>
+            <dd>{project.category}</dd>
+          </div>
 
-        <div className="project-card__metadata">
-          <span>{project.category}</span>
-          <span>{project.year}</span>
-        </div>
+          <div>
+            <dt>Modified:</dt>
+            <dd>{project.year}</dd>
+          </div>
+
+          <div>
+            <dt>Technologies:</dt>
+
+            <dd>
+              {project.technologies.join(", ")}
+            </dd>
+          </div>
+        </dl>
 
         <div className="project-card__actions">
           {project.github && (
@@ -69,7 +119,7 @@ function ProjectCard({
               target="_blank"
               rel="noreferrer"
               className="retro-button project-card__button"
-              onClick={(event) => event.stopPropagation()}
+              onClick={handleLinkClick}
             >
               View Code
             </a>
@@ -81,7 +131,7 @@ function ProjectCard({
               target="_blank"
               rel="noreferrer"
               className="retro-button project-card__button"
-              onClick={(event) => event.stopPropagation()}
+              onClick={handleLinkClick}
             >
               Live Demo
             </a>

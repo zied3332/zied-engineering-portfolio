@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./navbar.css";
-
+import appIcon from "../../assets/icons/app-icon.png";
 const navigationItems = [
   { label: "Home", href: "#home", id: "home" },
   { label: "About", href: "#about", id: "about" },
@@ -76,7 +76,11 @@ function Navbar() {
           href="#home"
           onClick={() => handleNavigationClick("home")}
         >
-          <span className="navbar__brand-icon">Z</span>
+          <img
+  src={appIcon}
+  alt="Portfolio application icon"
+  className="navbar__brand-icon"
+/>
           <span>Zied Portfolio</span>
         </a>
 

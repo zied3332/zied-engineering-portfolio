@@ -37,21 +37,13 @@
 }
 
 .navbar__brand-icon {
-  width: 30px;
-  height: 30px;
-  display: grid;
-  place-items: center;
-  background: var(--retro-title-active);
-  color: var(--retro-white);
-  border-top: 2px solid var(--retro-white);
-  border-left: 2px solid var(--retro-white);
-  border-right: 2px solid var(--retro-black);
-  border-bottom: 2px solid var(--retro-black);
-  font-family: var(--font-document);
-  font-size: 18px;
-  font-weight: 700;
+  width: 35px;
+  height: 35px;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  object-fit: contain;
 }
-
 .navbar__navigation {
   display: flex;
   align-items: center;
