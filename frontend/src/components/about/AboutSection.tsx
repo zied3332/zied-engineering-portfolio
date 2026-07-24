@@ -1,6 +1,10 @@
 import { useState } from "react";
 
 import aboutMeFileIcon from "../../assets/icons/about-me-file.png";
+import profileUserIcon from "../../assets/icons/profile-user.png";
+import systemComputerIcon from "../../assets/icons/system-computer.png";
+import statusCheckIcon from "../../assets/icons/status-check.png";
+
 import RetroWindow from "../retro/RetroWindow";
 
 import "./about-section.css";
@@ -207,8 +211,10 @@ function AboutSection() {
                     className="about-properties__profile-icon"
                     aria-hidden="true"
                   >
-                    <span className="about-properties__profile-head" />
-                    <span className="about-properties__profile-body" />
+                    <img
+                      src={profileUserIcon}
+                      alt=""
+                    />
                   </div>
 
                   <div className="about-properties__identity">
@@ -261,7 +267,12 @@ function AboutSection() {
                   <span
                     className="about-properties__status-icon"
                     aria-hidden="true"
-                  />
+                  >
+                    <img
+                      src={statusCheckIcon}
+                      alt=""
+                    />
+                  </span>
 
                   <p>
                     Profile loaded successfully. Currently
@@ -283,8 +294,10 @@ function AboutSection() {
                     className="about-properties__details-icon"
                     aria-hidden="true"
                   >
-                    <span className="about-properties__details-screen" />
-                    <span className="about-properties__details-base" />
+                    <img
+                      src={systemComputerIcon}
+                      alt=""
+                    />
                   </span>
 
                   <div>
