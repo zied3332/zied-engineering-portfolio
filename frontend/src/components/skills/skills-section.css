@@ -27,10 +27,9 @@
 
 .skills-system-properties .retro-window__body {
   padding: 0;
-  background: var(--retro-surface);
   color: var(--retro-black);
+  background: var(--retro-surface);
 }
-
 
 /* =========================================================
    MENU
@@ -38,9 +37,9 @@
 
 .skills-system-properties__menu {
   display: flex;
+  min-height: 25px;
   align-items: center;
   gap: 1px;
-  min-height: 25px;
   padding: 2px 4px;
   border-bottom: 1px solid var(--retro-border-medium);
 }
@@ -48,8 +47,8 @@
 .skills-system-properties__menu button {
   min-height: 20px;
   padding: 2px 7px;
-  background: transparent;
   color: var(--retro-black);
+  background: transparent;
   border: 0;
   border-radius: 0;
   font-family: var(--font-retro);
@@ -63,11 +62,10 @@
 
 .skills-system-properties__menu button:hover,
 .skills-system-properties__menu button:focus-visible {
-  background: var(--retro-title-active);
   color: var(--retro-white);
+  background: var(--retro-title-active);
   outline: none;
 }
-
 
 /* =========================================================
    TABS
@@ -86,8 +84,8 @@
   position: relative;
   min-height: 27px;
   padding: 4px 12px 5px;
-  white-space: nowrap;
   color: var(--retro-black);
+  white-space: nowrap;
   background: var(--retro-surface);
   border-top: 1px solid var(--retro-white);
   border-left: 1px solid var(--retro-white);
@@ -113,11 +111,10 @@
   min-height: 30px;
   margin-bottom: -1px;
   padding-top: 5px;
+  font-weight: 700;
   background: var(--retro-surface);
   border-bottom-color: var(--retro-surface);
-  font-weight: 700;
 }
-
 
 /* =========================================================
    MAIN PANEL
@@ -127,10 +124,10 @@
   margin: 0 8px;
   padding: 14px;
   background: var(--retro-surface);
-  border-top: 1px solid var(--retro-white);
-  border-left: 1px solid var(--retro-white);
-  border-right: 1px solid var(--retro-black);
-  border-bottom: 1px solid var(--retro-black);
+  border-top: 2px solid var(--retro-white);
+  border-left: 2px solid var(--retro-white);
+  border-right: 2px solid var(--retro-black);
+  border-bottom: 2px solid var(--retro-black);
   box-shadow:
     inset 1px 1px 0 var(--retro-surface-light),
     inset -1px -1px 0 var(--retro-border-medium);
@@ -162,72 +159,45 @@
   line-height: 1.45;
 }
 
-
 /* =========================================================
-   COMPUTER ICONS
+   IMPORTED COMPUTER ICONS
    ========================================================= */
 
 .skills-system-properties__computer-icon,
 .skills-system-properties__computer-small-icon {
-  position: relative;
-  display: inline-block;
+  display: flex;
   flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
 }
 
 .skills-system-properties__computer-icon {
   width: 46px;
-  height: 39px;
+  height: 42px;
+}
+
+.skills-system-properties__computer-icon img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .skills-system-properties__computer-small-icon {
-  width: 17px;
-  height: 15px;
+  width: 18px;
+  height: 18px;
 }
 
-.skills-system-properties__computer-icon::before,
-.skills-system-properties__computer-small-icon::before {
-  content: "";
-  position: absolute;
-  background: #d4d0c8;
-  border-top: 2px solid #ffffff;
-  border-left: 2px solid #ffffff;
-  border-right: 2px solid #404040;
-  border-bottom: 2px solid #404040;
+.skills-system-properties__computer-small-icon img {
+  display: block;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
-
-.skills-system-properties__computer-icon::after,
-.skills-system-properties__computer-small-icon::after {
-  content: "";
-  position: absolute;
-  background: #000080;
-  box-shadow:
-    inset 1px 1px 0 #1084d0,
-    inset -1px -1px 0 #000040;
-}
-
-.skills-system-properties__computer-icon::before {
-  inset: 0 4px 7px;
-}
-
-.skills-system-properties__computer-icon::after {
-  top: 5px;
-  right: 9px;
-  bottom: 13px;
-  left: 9px;
-}
-
-.skills-system-properties__computer-small-icon::before {
-  inset: 0 1px 3px;
-  border-width: 1px;
-}
-
-.skills-system-properties__computer-small-icon::after {
-  top: 3px;
-  right: 4px;
-  bottom: 6px;
-  left: 4px;
-}
-
 
 /* =========================================================
    WORKSPACE
@@ -239,7 +209,13 @@
   min-height: 500px;
   margin-top: 12px;
   background: var(--retro-white);
-  box-shadow: var(--retro-pressed-border);
+  border-top: 2px solid #404040;
+  border-left: 2px solid #404040;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  box-shadow:
+    inset 1px 1px 0 #808080,
+    inset -1px -1px 0 #dfdfdf;
 }
 
 .skills-system-properties__tree-panel {
@@ -257,7 +233,6 @@
   background: var(--retro-white);
 }
 
-
 /* =========================================================
    DEVICE TREE
    ========================================================= */
@@ -270,9 +245,9 @@
 
 .skills-system-properties__tree-root {
   display: flex;
+  min-height: 22px;
   align-items: center;
   gap: 5px;
-  min-height: 22px;
   white-space: nowrap;
 }
 
@@ -283,10 +258,10 @@
 
 .skills-system-properties__tree-toggle {
   display: grid;
-  place-items: center;
   width: 11px;
   height: 11px;
   flex: 0 0 auto;
+  place-items: center;
   background: var(--retro-white);
   border: 1px solid var(--retro-black);
   font-family: monospace;
@@ -303,31 +278,31 @@
 }
 
 .skills-system-properties__tree-children::before {
-  content: "";
   position: absolute;
   top: 0;
   bottom: 11px;
   left: 3px;
   width: 1px;
+  content: "";
   border-left: 1px dotted #808080;
 }
 
 .skills-system-properties__tree-item {
   position: relative;
   display: flex;
-  align-items: center;
-  gap: 5px;
   width: 100%;
   min-height: 22px;
+  align-items: center;
+  gap: 5px;
   padding: 2px 4px 2px 0;
   overflow: hidden;
   color: var(--retro-black);
+  text-align: left;
   background: transparent;
   border: 0;
   border-radius: 0;
   font-family: var(--font-retro);
   font-size: 11px;
-  text-align: left;
   cursor: pointer;
 }
 
@@ -364,40 +339,25 @@
   border-top: 1px dotted #808080;
 }
 
+/* Category icons only */
+
 .skills-system-properties__device-icon {
-  position: relative;
-  display: inline-block;
-  width: 15px;
-  height: 13px;
-  flex: 0 0 auto;
-  background: #c0c0c0;
-  border-top: 1px solid #ffffff;
-  border-left: 1px solid #ffffff;
-  border-right: 1px solid #404040;
-  border-bottom: 1px solid #404040;
+  display: flex;
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+  align-items: center;
+  justify-content: center;
 }
 
-.skills-system-properties__device-icon::before {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 3px;
-  width: 7px;
-  height: 5px;
-  background: #000080;
-  border: 1px solid #000040;
+.skills-system-properties__device-icon img {
+  display: block;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
-
-.skills-system-properties__device-icon::after {
-  content: "";
-  position: absolute;
-  right: 2px;
-  bottom: 1px;
-  width: 3px;
-  height: 3px;
-  background: #008000;
-}
-
 
 /* =========================================================
    DETAILS HEADER
@@ -413,9 +373,9 @@
 
 .skills-system-properties__details-title {
   display: flex;
+  min-width: 0;
   align-items: flex-start;
   gap: 10px;
-  min-width: 0;
 }
 
 .skills-system-properties__details-title > div {
@@ -437,12 +397,11 @@
 
 .skills-system-properties__category-icon {
   display: grid;
-  place-items: center;
   width: 38px;
   height: 38px;
   flex: 0 0 auto;
+  place-items: center;
   overflow: hidden;
-  color: var(--retro-title-active);
   background: var(--retro-surface);
   border-top: 1px solid var(--retro-white);
   border-left: 1px solid var(--retro-white);
@@ -451,15 +410,21 @@
   box-shadow:
     inset 1px 1px 0 var(--retro-surface-light),
     inset -1px -1px 0 var(--retro-border-medium);
-  font-family: var(--font-document);
-  font-size: 18px;
-  font-weight: 700;
+}
+
+.skills-system-properties__category-icon img {
+  display: block;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .skills-system-properties__category-count {
   display: grid;
-  justify-items: end;
   flex: 0 0 auto;
+  justify-items: end;
   font-size: 10px;
 }
 
@@ -492,9 +457,8 @@
   border-left: 1px solid var(--retro-border-medium);
 }
 
-
 /* =========================================================
-   SKILL CATEGORY
+   INDIVIDUAL SKILLS
    ========================================================= */
 
 .skill-category {
@@ -522,11 +486,13 @@
 
 .skill-category__component {
   display: flex;
+  min-width: 0;
   align-items: flex-start;
   gap: 8px;
-  min-width: 0;
   padding: 7px;
 }
+
+/* Keep the original Windows device icon for Git, SSH, etc. */
 
 .skill-category__component-icon {
   position: relative;
@@ -543,23 +509,23 @@
 }
 
 .skill-category__component-icon::before {
-  content: "";
   position: absolute;
   top: 3px;
   left: 3px;
   width: 8px;
   height: 6px;
+  content: "";
   background: #000080;
   border: 1px solid #000040;
 }
 
 .skill-category__component-icon::after {
-  content: "";
   position: absolute;
   right: 2px;
   bottom: 1px;
   width: 4px;
   height: 4px;
+  content: "";
   background: #008000;
   border-top: 1px solid #00ff00;
   border-left: 1px solid #00ff00;
@@ -618,20 +584,18 @@
   box-shadow: inset 1px 1px 0 #ffff80;
 }
 
-
 /* =========================================================
    EMPTY STATE
    ========================================================= */
 
 .skills-system-properties__empty {
   display: grid;
-  place-items: center;
   min-height: 350px;
+  place-items: center;
   color: #505050;
   font-family: var(--font-retro);
   font-size: 11px;
 }
-
 
 /* =========================================================
    SUMMARY
@@ -646,8 +610,8 @@
 
 .skills-system-properties__summary div {
   display: grid;
-  gap: 3px;
   min-width: 0;
+  gap: 3px;
   padding: 7px 8px;
   background: var(--retro-surface);
   box-shadow: var(--retro-pressed-border);
@@ -666,9 +630,8 @@
   font-size: 18px;
 }
 
-
 /* =========================================================
-   ACTION BUTTONS
+   ACTIONS
    ========================================================= */
 
 .skills-system-properties__actions {
@@ -693,7 +656,6 @@
   cursor: default;
 }
 
-
 /* =========================================================
    STATUS BAR
    ========================================================= */
@@ -717,7 +679,6 @@
   white-space: nowrap;
 }
 
-
 /* =========================================================
    TABLET
    ========================================================= */
@@ -731,7 +692,6 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-
 
 /* =========================================================
    MOBILE
@@ -758,10 +718,13 @@
   }
 
   .skills-system-properties__computer-icon {
-    transform: scale(0.8);
-    transform-origin: top left;
-    margin-right: -7px;
-    margin-bottom: -7px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .skills-system-properties__computer-icon img {
+    width: 32px;
+    height: 32px;
   }
 
   .skills-system-properties__workspace {
@@ -786,11 +749,6 @@
   .skills-system-properties__category-count {
     justify-items: start;
     margin-top: 9px;
-  }
-
-  .skills-system-properties__category-count strong,
-  .skills-system-properties__category-count span {
-    display: inline;
   }
 
   .skills-system-properties__column-headings {
@@ -831,7 +789,6 @@
   }
 }
 
-
 /* =========================================================
    SMALL MOBILE
    ========================================================= */
@@ -853,7 +810,11 @@
   .skills-system-properties__category-icon {
     width: 32px;
     height: 32px;
-    font-size: 15px;
+  }
+
+  .skills-system-properties__category-icon img {
+    width: 24px;
+    height: 24px;
   }
 
   .skills-system-properties__details-title h3 {
@@ -882,4 +843,3 @@
     grid-template-columns: 1fr 1fr;
   }
 }
-

@@ -1,9 +1,47 @@
-
 import { useMemo, useState } from "react";
+
 import RetroWindow from "../retro/RetroWindow";
 import SkillCategory from "./SkillCategory";
 import { skillCategories } from "../../data/skills";
+
+import computerIcon from "../../assets/icons/computer.png";
+import folderToolsIcon from "../../assets/icons/folder-tools.png";
+import folderCodeIcon from "../../assets/icons/folder-code.png";
+import folderDatabaseIcon from "../../assets/icons/folder-database.png";
+import folderLinuxIcon from "../../assets/icons/folder-linux.png";
+
+
 import "./skills-section.css";
+
+function getCategoryIcon(categoryTitle: string) {
+  const normalizedTitle = categoryTitle.toLowerCase();
+
+  if (
+    normalizedTitle.includes("tool") ||
+    normalizedTitle.includes("collaboration")
+  ) {
+    return folderToolsIcon;
+  }
+
+  if (
+    normalizedTitle.includes("database") ||
+    normalizedTitle.includes("automation") ||
+    normalizedTitle.includes("data")
+  ) {
+    return folderDatabaseIcon;
+  }
+
+  if (
+    normalizedTitle.includes("linux") ||
+    normalizedTitle.includes("system") ||
+    normalizedTitle.includes("devops") ||
+    normalizedTitle.includes("infrastructure")
+  ) {
+    return folderLinuxIcon;
+  }
+
+  return folderCodeIcon;
+}
 
 function SkillsSection() {
   const [activeCategoryId, setActiveCategoryId] = useState(
@@ -141,7 +179,9 @@ function SkillsSection() {
             <span
               className="skills-system-properties__computer-icon"
               aria-hidden="true"
-            />
+            >
+              <img src={computerIcon} alt="" />
+            </span>
 
             <div>
               <strong>ZIED-ENGINEERING-PC</strong>
@@ -170,7 +210,9 @@ function SkillsSection() {
                   <span
                     className="skills-system-properties__computer-small-icon"
                     aria-hidden="true"
-                  />
+                  >
+                    <img src={computerIcon} alt="" />
+                  </span>
 
                   <strong>ZIED-ENGINEERING-PC</strong>
                 </div>
@@ -202,7 +244,12 @@ function SkillsSection() {
                         <span
                           className="skills-system-properties__device-icon"
                           aria-hidden="true"
-                        />
+                        >
+                          <img
+                            src={getCategoryIcon(category.title)}
+                            alt=""
+                          />
+                        </span>
 
                         <span>{category.title}</span>
                       </button>
@@ -221,7 +268,10 @@ function SkillsSection() {
                         className="skills-system-properties__category-icon"
                         aria-hidden="true"
                       >
-                        {activeCategory.icon}
+                        <img
+                          src={getCategoryIcon(activeCategory.title)}
+                          alt=""
+                        />
                       </span>
 
                       <div>

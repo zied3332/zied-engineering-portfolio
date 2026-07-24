@@ -1,4 +1,3 @@
-
 import type {
   Skill,
   SkillCategoryType,
@@ -33,9 +32,7 @@ function SkillRow({ skill }: { skill: Skill }) {
         <div className="skill-category__component-info">
           <strong>{skill.name}</strong>
 
-          {skill.description && (
-            <p>{skill.description}</p>
-          )}
+          {skill.description && <p>{skill.description}</p>}
         </div>
       </div>
 
@@ -73,11 +70,6 @@ function SkillCategory({
         onClick={() => onSelect(category.id)}
         aria-pressed={isActive}
       >
-        <span
-          className="skill-category__category-icon"
-          aria-hidden="true"
-        />
-
         <span>{category.title}</span>
       </button>
 
