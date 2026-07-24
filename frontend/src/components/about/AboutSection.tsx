@@ -1,34 +1,69 @@
 import { useState } from "react";
+
+import aboutMeFileIcon from "../../assets/icons/about-me-file.png";
 import RetroWindow from "../retro/RetroWindow";
-import { personalInfo } from "../../data/personal";
+
 import "./about-section.css";
 
-type AboutTab = "general" | "details";
+type PropertiesTab = "general" | "details";
+
+const profileDetails = [
+  {
+    property: "Full name",
+    value: "Zied Alimi",
+  },
+  {
+    property: "Current role",
+    value: "Full-Stack Developer",
+  },
+  {
+    property: "Education",
+    value: "Computer Engineering at ESPRIT",
+  },
+  {
+    property: "Specialization",
+    value: "Full-Stack Development",
+  },
+  {
+    property: "Current work",
+    value: "Full-Stack Development Internship",
+  },
+  {
+    property: "Experience",
+    value: "Freelance projects with real clients",
+  },
+  {
+    property: "Location",
+    value: "Tunisia",
+  },
+  {
+    property: "Availability",
+    value: "Selected freelance projects and collaborations",
+  },
+];
 
 function AboutSection() {
   const [activeTab, setActiveTab] =
-    useState<AboutTab>("general");
+    useState<PropertiesTab>("general");
 
   return (
     <section
       id="about"
       className="section about-section"
-      aria-labelledby="about-section-title"
+      aria-labelledby="about-heading"
     >
-      <header className="about-section__heading">
+      <div className="about-section__heading">
         <span className="about-section__label">
           01 — Personal Information
         </span>
 
-        <h2 id="about-section-title">
-          About Me
-        </h2>
+        <h2 id="about-heading">About Me</h2>
 
         <p>
-          A quick introduction, current engineering
-          direction, and professional profile.
+          A quick introduction, my current work, and my
+          direction as a Full-Stack Developer.
         </p>
-      </header>
+      </div>
 
       <div className="about-section__layout">
         <RetroWindow
@@ -56,10 +91,12 @@ function AboutSection() {
             </button>
           </nav>
 
-          <article className="about-notepad__document">
+          <div className="about-notepad__document">
             <div className="about-notepad__document-header">
-              <span
+              <img
                 className="about-notepad__file-icon"
+                src={aboutMeFileIcon}
+                alt=""
                 aria-hidden="true"
               />
 
@@ -70,29 +107,45 @@ function AboutSection() {
             </div>
 
             <div className="about-notepad__text">
-              {personalInfo.introduction.map(
-                (paragraph) => (
-                  <p key={paragraph}>
-                    {paragraph}
-                  </p>
-                )
-              )}
+              <p>Hello, my name is Zied Alimi.</p>
 
-              <p className="about-notepad__command">
-                <span>
-                  C:\PORTFOLIO\ABOUT&gt;
-                </span>
+              <p>
+                I am a Computer Engineering student at ESPRIT
+                and a Full-Stack Developer based in Tunisia.
+              </p>
 
-                <span
-                  className="about-notepad__cursor"
-                  aria-hidden="true"
-                />
+              <p>
+                I am currently completing a full-stack
+                development internship, where I am building a
+                real web platform from its public interface to
+                its administration dashboard and backend
+                services.
+              </p>
+
+              <p>
+                Alongside my studies, I have worked with
+                freelance clients on data extraction,
+                automation, and web-related projects. These
+                experiences helped me learn how to understand
+                practical requirements, communicate clearly,
+                and deliver reliable results.
+              </p>
+
+              <p>
+                My current focus is full-stack development. I
+                am continuing to strengthen my frontend,
+                backend, database, and software engineering
+                skills by building complete projects and
+                working on real-world problems.
               </p>
             </div>
-          </article>
+          </div>
 
-          <footer className="about-notepad__statusbar">
-            <span>Ln 18, Col 1</span>
+          <footer
+            className="about-notepad__statusbar"
+            aria-label="Document status"
+          >
+            <span>Ln 1, Col 1</span>
             <span>100%</span>
             <span>Windows (CRLF)</span>
             <span>UTF-8</span>
@@ -109,54 +162,53 @@ function AboutSection() {
             aria-label="Profile information"
           >
             <button
+              id="about-general-tab"
               type="button"
               role="tab"
-              aria-selected={
+              className={`about-properties__tab ${
                 activeTab === "general"
-              }
-              className={
-                activeTab === "general"
-                  ? "about-properties__tab about-properties__tab--active"
-                  : "about-properties__tab"
-              }
-              onClick={() =>
-                setActiveTab("general")
-              }
+                  ? "about-properties__tab--active"
+                  : ""
+              }`}
+              aria-selected={activeTab === "general"}
+              aria-controls="about-general-panel"
+              onClick={() => setActiveTab("general")}
             >
               General
             </button>
 
             <button
+              id="about-details-tab"
               type="button"
               role="tab"
-              aria-selected={
+              className={`about-properties__tab ${
                 activeTab === "details"
-              }
-              className={
-                activeTab === "details"
-                  ? "about-properties__tab about-properties__tab--active"
-                  : "about-properties__tab"
-              }
-              onClick={() =>
-                setActiveTab("details")
-              }
+                  ? "about-properties__tab--active"
+                  : ""
+              }`}
+              aria-selected={activeTab === "details"}
+              aria-controls="about-details-panel"
+              onClick={() => setActiveTab("details")}
             >
               Details
             </button>
           </div>
 
           <div className="about-properties__content">
-            {activeTab === "general" && (
+            {activeTab === "general" ? (
               <div
+                id="about-general-panel"
                 className="about-properties__panel"
                 role="tabpanel"
+                aria-labelledby="about-general-tab"
               >
                 <div className="about-properties__profile">
                   <div
-                    className="about-properties__avatar"
+                    className="about-properties__profile-icon"
                     aria-hidden="true"
                   >
-                    <span>ZA</span>
+                    <span className="about-properties__profile-head" />
+                    <span className="about-properties__profile-body" />
                   </div>
 
                   <div className="about-properties__identity">
@@ -164,96 +216,82 @@ function AboutSection() {
                       Registered profile
                     </span>
 
-                    <h3>{personalInfo.name}</h3>
+                    <h3>Zied Alimi</h3>
 
-                    <p>{personalInfo.role}</p>
+                    <p>Full-Stack Developer</p>
                   </div>
                 </div>
 
-                <div
-                  className="about-properties__divider"
-                  aria-hidden="true"
-                />
+                <div className="about-properties__divider" />
 
                 <fieldset className="about-properties__group">
-                  <legend>
-                    System information
-                  </legend>
+                  <legend>System information</legend>
 
                   <dl className="about-properties__list">
                     <div>
                       <dt>Location:</dt>
-                      <dd>
-                        {personalInfo.location}
-                      </dd>
+                      <dd>Tunisia</dd>
                     </div>
 
                     <div>
                       <dt>Education:</dt>
                       <dd>
-                        {
-                          personalInfo.details
-                            .education
-                        }
+                        ESPRIT — Computer Engineering
                       </dd>
                     </div>
 
                     <div>
-                      <dt>Track:</dt>
-                      <dd>
-                        {
-                          personalInfo.details
-                            .track
-                        }
-                      </dd>
+                      <dt>Specialization:</dt>
+                      <dd>Full-Stack Development</dd>
                     </div>
 
                     <div>
                       <dt>Status:</dt>
                       <dd>
-                        {
-                          personalInfo.details
-                            .availability
-                        }
+                        Full-Stack Development Intern
                       </dd>
                     </div>
                   </dl>
                 </fieldset>
 
-                <div className="about-properties__status">
+                <div
+                  className="about-properties__status"
+                  role="status"
+                >
                   <span
                     className="about-properties__status-icon"
                     aria-hidden="true"
                   />
 
                   <p>
-                    Profile loaded successfully.
-                    Available for software,
-                    automation, and engineering
-                    opportunities.
+                    Profile loaded successfully. Currently
+                    building a complete full-stack web platform
+                    and available for selected freelance
+                    projects and collaborations.
                   </p>
                 </div>
               </div>
-            )}
-
-            {activeTab === "details" && (
+            ) : (
               <div
+                id="about-details-panel"
                 className="about-properties__panel"
                 role="tabpanel"
+                aria-labelledby="about-details-tab"
               >
                 <div className="about-properties__details-header">
                   <span
                     className="about-properties__details-icon"
                     aria-hidden="true"
-                  />
+                  >
+                    <span className="about-properties__details-screen" />
+                    <span className="about-properties__details-base" />
+                  </span>
 
                   <div>
-                    <h3>
-                      Engineering Profile
-                    </h3>
+                    <h3>Engineering Profile</h3>
 
                     <p>
-                      Extended system and career
+                      Professional, education, and current work
                       information.
                     </p>
                   </div>
@@ -266,70 +304,33 @@ function AboutSection() {
                   </div>
 
                   <dl>
-                    <div>
-                      <dt>Full name</dt>
-                      <dd>
-                        {personalInfo.name}
-                      </dd>
-                    </div>
-
-                    <div>
-                      <dt>Current role</dt>
-                      <dd>
-                        {personalInfo.role}
-                      </dd>
-                    </div>
-
-                    <div>
-                      <dt>Languages</dt>
-                      <dd>
-                        {
-                          personalInfo.details
-                            .languages
-                        }
-                      </dd>
-                    </div>
-
-                    <div>
-                      <dt>Main focus</dt>
-                      <dd>
-                        {
-                          personalInfo.details
-                            .focus
-                        }
-                      </dd>
-                    </div>
-
-                    <div>
-                      <dt>Availability</dt>
-                      <dd>
-                        {
-                          personalInfo.details
-                            .availability
-                        }
-                      </dd>
-                    </div>
+                    {profileDetails.map((detail) => (
+                      <div key={detail.property}>
+                        <dt>{detail.property}</dt>
+                        <dd>{detail.value}</dd>
+                      </div>
+                    ))}
                   </dl>
                 </div>
               </div>
             )}
 
-            <footer className="about-properties__actions">
+            <div className="about-properties__actions">
               <a
-                href={personalInfo.links.resume}
                 className="retro-button about-properties__button"
+                href="/Zied-Alimi-CV.pdf"
                 download
               >
                 Download CV
               </a>
 
               <a
-                href={personalInfo.links.email}
                 className="retro-button about-properties__button"
+                href="#contact"
               >
                 Contact Me
               </a>
-            </footer>
+            </div>
           </div>
         </RetroWindow>
       </div>
