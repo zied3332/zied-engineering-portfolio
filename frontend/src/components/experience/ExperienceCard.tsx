@@ -1,8 +1,13 @@
-
 import type {
   Experience,
   ExperienceStatus,
 } from "../../data/experience";
+
+import folderCodeIcon from "../../assets/icons/folder-code.png";
+import folderToolsIcon from "../../assets/icons/folder-tools.png";
+import folderDatabaseIcon from "../../assets/icons/folder-database.png";
+import folderLinuxIcon from "../../assets/icons/folder-linux.png";
+import profileUserIcon from "../../assets/icons/profile-user.png";
 
 type ExperienceCardProps = {
   experience: Experience;
@@ -15,6 +20,47 @@ function getStatusClassName(
   status: ExperienceStatus
 ): string {
   return `experience-card__status-indicator experience-card__status-indicator--${status.toLowerCase()}`;
+}
+
+function getExperienceIcon(experience: Experience): string {
+  const searchableText = [
+    experience.title,
+    experience.organization,
+    experience.type,
+  ]
+    .join(" ")
+    .toLowerCase();
+
+  if (
+    searchableText.includes("full-stack") ||
+    searchableText.includes("developer") ||
+    searchableText.includes("internship")
+  ) {
+    return folderCodeIcon;
+  }
+
+  if (
+    searchableText.includes("automation") ||
+    searchableText.includes("freelance")
+  ) {
+    return folderToolsIcon;
+  }
+
+  if (
+    searchableText.includes("business") ||
+    searchableText.includes("data")
+  ) {
+    return folderDatabaseIcon;
+  }
+
+  if (
+    searchableText.includes("system") ||
+    searchableText.includes("engineering")
+  ) {
+    return folderLinuxIcon;
+  }
+
+  return profileUserIcon;
 }
 
 function ExperienceCard({
@@ -43,6 +89,13 @@ function ExperienceCard({
 
         <span
           className={getStatusClassName(experience.status)}
+        />
+      </span>
+
+      <span className="experience-card__role-icon" aria-hidden="true">
+        <img
+          src={getExperienceIcon(experience)}
+          alt=""
         />
       </span>
 

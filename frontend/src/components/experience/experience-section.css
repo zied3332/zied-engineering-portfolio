@@ -38,14 +38,13 @@
 
 .experience-viewer .retro-window__body {
   padding: 0;
-  background: var(--retro-surface);
   color: var(--retro-black);
+  background: var(--retro-surface);
 }
 
 .experience-viewer button {
   font: inherit;
 }
-
 
 /* =========================================================
    MENU
@@ -53,9 +52,9 @@
 
 .experience-viewer__menu {
   display: flex;
+  min-height: 26px;
   align-items: center;
   gap: 1px;
-  min-height: 26px;
   padding: 2px 5px;
   overflow-x: auto;
   background: var(--retro-surface);
@@ -85,177 +84,85 @@
   outline: none;
 }
 
-
 /* =========================================================
    TOOLBAR
    ========================================================= */
 
 .experience-viewer__toolbar {
   display: flex;
+  min-height: 58px;
   align-items: center;
-  gap: 4px;
-  min-height: 52px;
-  padding: 5px 7px;
-  overflow-x: auto;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 7px 10px;
+  overflow: hidden;
   background: var(--retro-surface);
   border-top: 1px solid var(--retro-white);
   border-bottom: 1px solid var(--retro-border-medium);
 }
 
-.experience-viewer__toolbar-button {
-  display: grid;
-  justify-items: center;
-  gap: 2px;
-  min-width: 54px;
-  min-height: 40px;
-  padding: 3px 6px;
-  color: var(--retro-black);
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 0;
-  font-family: var(--font-retro);
-  font-size: 10px;
-  cursor: pointer;
-}
-
-.experience-viewer__toolbar-button:hover {
-  background: var(--retro-surface-light);
-  border-top-color: var(--retro-white);
-  border-left-color: var(--retro-white);
-  border-right-color: var(--retro-border-medium);
-  border-bottom-color: var(--retro-border-medium);
-}
-
-.experience-viewer__toolbar-button:active {
-  transform: translate(1px, 1px);
-  border-top-color: var(--retro-border-medium);
-  border-left-color: var(--retro-border-medium);
-  border-right-color: var(--retro-white);
-  border-bottom-color: var(--retro-white);
-}
-
-.experience-viewer__toolbar-button:focus-visible {
-  outline: 1px dotted var(--retro-black);
-  outline-offset: -5px;
-}
-
-.experience-viewer__toolbar-icon {
-  position: relative;
-  display: block;
-  width: 22px;
-  height: 18px;
-}
-
-.experience-viewer__toolbar-icon::before {
-  content: "";
-  position: absolute;
-  top: 5px;
-  width: 12px;
-  height: 8px;
-  background: #f4d447;
-  border-top: 1px solid #fff6a1;
-  border-left: 1px solid #fff6a1;
-  border-right: 1px solid #404040;
-  border-bottom: 1px solid #404040;
-}
-
-.experience-viewer__toolbar-icon::after {
-  content: "";
-  position: absolute;
-  top: 7px;
-  width: 0;
-  height: 0;
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-}
-
-.experience-viewer__toolbar-icon--previous::before {
-  right: 1px;
-}
-
-.experience-viewer__toolbar-icon--previous::after {
-  left: 0;
-  border-right: 7px solid #000080;
-}
-
-.experience-viewer__toolbar-icon--next::before {
-  left: 1px;
-}
-
-.experience-viewer__toolbar-icon--next::after {
-  right: 0;
-  border-left: 7px solid #000080;
-}
-
-.experience-viewer__toolbar-separator {
-  width: 2px;
-  height: 36px;
-  flex: 0 0 auto;
-  margin-inline: 4px;
-  background: var(--retro-border-medium);
-  border-right: 1px solid var(--retro-white);
-}
-
 .experience-viewer__toolbar-title {
   display: flex;
+  min-width: 0;
   align-items: center;
-  gap: 8px;
-  min-width: 220px;
-  padding-left: 3px;
+  gap: 10px;
 }
 
 .experience-viewer__toolbar-title > div {
   display: grid;
-  gap: 2px;
+  min-width: 0;
+  gap: 3px;
 }
 
 .experience-viewer__toolbar-title strong {
+  overflow: hidden;
   font-family: var(--font-retro);
   font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.experience-viewer__toolbar-title span {
+.experience-viewer__toolbar-title > div > span {
   color: #555555;
   font-family: var(--font-document);
-  font-size: 10px;
+  font-size: 9px;
 }
 
-.experience-viewer__log-icon {
-  position: relative;
+.experience-viewer__toolbar-image {
+  display: flex;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  align-items: center;
+  justify-content: center;
+}
+
+.experience-viewer__toolbar-image img {
   display: block;
-  width: 28px;
-  height: 31px;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.experience-viewer__toolbar-details {
+  display: grid;
   flex: 0 0 auto;
-  background: #fff7ad;
-  border: 1px solid var(--retro-black);
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.45);
+  gap: 3px;
+  text-align: right;
 }
 
-.experience-viewer__log-icon::before {
-  content: "";
-  position: absolute;
-  top: 6px;
-  left: 5px;
-  width: 16px;
-  height: 2px;
-  background: #000080;
-  box-shadow:
-    0 5px 0 #000080,
-    0 10px 0 #000080;
+.experience-viewer__toolbar-details span {
+  color: #555555;
+  font-family: var(--font-document);
+  font-size: 9px;
 }
 
-.experience-viewer__log-icon::after {
-  content: "";
-  position: absolute;
-  top: -1px;
-  right: -1px;
-  width: 8px;
-  height: 8px;
-  background: var(--retro-surface);
-  border-left: 1px solid var(--retro-black);
-  border-bottom: 1px solid var(--retro-black);
+.experience-viewer__toolbar-details strong {
+  font-family: var(--font-retro);
+  font-size: 9px;
 }
-
 
 /* =========================================================
    MAIN WORKSPACE
@@ -263,10 +170,12 @@
 
 .experience-viewer__workspace {
   display: grid;
-  grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.55fr);
+  grid-template-columns:
+    minmax(280px, 0.85fr)
+    minmax(0, 1.55fr);
   min-height: 610px;
-  padding: 5px;
   gap: 5px;
+  padding: 5px;
   background: var(--retro-surface);
 }
 
@@ -277,31 +186,30 @@
   box-shadow: var(--retro-pressed-border);
 }
 
-
 /* =========================================================
    LOG PANEL
    ========================================================= */
 
 .experience-viewer__log-panel {
   display: flex;
-  flex-direction: column;
   min-height: 0;
+  flex-direction: column;
 }
 
 .experience-viewer__log-header {
   display: flex;
+  min-height: 48px;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  min-height: 48px;
   padding: 8px 9px;
   background: var(--retro-surface);
   border-bottom: 1px solid var(--retro-border-medium);
 }
 
 .experience-viewer__log-header > div {
-  min-width: 0;
   display: grid;
+  min-width: 0;
   gap: 3px;
 }
 
@@ -357,7 +265,6 @@
   background: var(--retro-white);
 }
 
-
 /* =========================================================
    EXPERIENCE CARD
    ========================================================= */
@@ -365,11 +272,15 @@
 .experience-card {
   position: relative;
   display: grid;
-  grid-template-columns: 25px minmax(0, 1fr) 72px;
-  gap: 8px;
+  grid-template-columns:
+    25px
+    28px
+    minmax(0, 1fr)
+    72px;
   width: 100%;
   min-width: 0;
   min-height: 92px;
+  gap: 8px;
   padding: 9px 7px;
   color: var(--retro-black);
   text-align: left;
@@ -397,9 +308,9 @@
 .experience-card__timeline {
   position: relative;
   display: flex;
-  justify-content: center;
   width: 25px;
   height: 100%;
+  justify-content: center;
 }
 
 .experience-card__timeline-line {
@@ -445,8 +356,32 @@
   box-shadow: inset 1px 1px 0 #ffff80;
 }
 
-.experience-card--selected .experience-card__status-indicator {
+.experience-card--selected
+  .experience-card__status-indicator {
   border-color: var(--retro-white);
+}
+
+.experience-card__role-icon {
+  display: flex;
+  width: 26px;
+  height: 26px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+.experience-card__role-icon img {
+  display: block;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.experience-card--selected .experience-card__role-icon {
+  background: var(--retro-white);
+  outline: 1px solid var(--retro-white);
 }
 
 .experience-card__main {
@@ -536,7 +471,6 @@
   border-color: var(--retro-white);
 }
 
-
 /* =========================================================
    LOG SUMMARY
    ========================================================= */
@@ -552,8 +486,8 @@
 
 .experience-viewer__log-summary div {
   display: grid;
-  gap: 2px;
   min-width: 0;
+  gap: 2px;
   padding: 6px;
   background: var(--retro-surface);
   box-shadow: var(--retro-pressed-border);
@@ -574,15 +508,14 @@
   font-size: 16px;
 }
 
-
 /* =========================================================
    ENTRY PANEL
    ========================================================= */
 
 .experience-viewer__entry-panel {
   display: flex;
-  flex-direction: column;
   min-height: 0;
+  flex-direction: column;
 }
 
 .experience-viewer__entry-header {
@@ -597,9 +530,9 @@
 
 .experience-viewer__entry-identity {
   display: flex;
+  min-width: 0;
   align-items: flex-start;
   gap: 11px;
-  min-width: 0;
 }
 
 .experience-viewer__entry-identity > div {
@@ -607,39 +540,26 @@
 }
 
 .experience-viewer__entry-icon {
-  position: relative;
-  display: block;
-  width: 38px;
+  display: flex;
+  width: 44px;
   height: 44px;
-  flex: 0 0 auto;
-  background: #fff7ad;
-  border: 1px solid var(--retro-black);
-  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+  flex: 0 0 44px;
+  align-items: center;
+  justify-content: center;
+  background: var(--retro-surface-light);
+  border-top: 2px solid var(--retro-white);
+  border-left: 2px solid var(--retro-white);
+  border-right: 2px solid var(--retro-black);
+  border-bottom: 2px solid var(--retro-black);
 }
 
-.experience-viewer__entry-icon::before {
-  content: "";
-  position: absolute;
-  top: 10px;
-  left: 7px;
-  width: 22px;
-  height: 2px;
-  background: #000080;
-  box-shadow:
-    0 7px 0 #000080,
-    0 14px 0 #000080;
-}
-
-.experience-viewer__entry-icon::after {
-  content: "";
-  position: absolute;
-  top: -1px;
-  right: -1px;
-  width: 11px;
-  height: 11px;
-  background: var(--retro-surface);
-  border-left: 1px solid var(--retro-black);
-  border-bottom: 1px solid var(--retro-black);
+.experience-viewer__entry-icon img {
+  display: block;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .experience-viewer__entry-label {
@@ -690,7 +610,6 @@
   background: #fff0b5;
 }
 
-
 /* =========================================================
    TABS
    ========================================================= */
@@ -735,11 +654,10 @@
   min-height: 30px;
   margin-bottom: -1px;
   padding-top: 5px;
+  font-weight: 700;
   background: var(--retro-surface);
   border-bottom-color: var(--retro-surface);
-  font-weight: 700;
 }
-
 
 /* =========================================================
    ENTRY CONTENT
@@ -790,9 +708,9 @@
 }
 
 .experience-viewer__properties dt {
+  font-weight: 700;
   background: var(--retro-surface);
   border-right: 1px solid #d4d0c8;
-  font-weight: 700;
 }
 
 .experience-viewer__properties dd {
@@ -851,7 +769,6 @@
   font-weight: 700;
 }
 
-
 /* =========================================================
    TAB CONTENT
    ========================================================= */
@@ -886,13 +803,13 @@
   font-size: 10px;
 }
 
-.experience-viewer__list-icon,
-.experience-viewer__system-icon {
-  position: relative;
-  display: block;
-  width: 31px;
-  height: 31px;
-  flex: 0 0 auto;
+.experience-viewer__content-image {
+  display: flex;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  align-items: center;
+  justify-content: center;
   background: var(--retro-surface);
   border-top: 1px solid var(--retro-white);
   border-left: 1px solid var(--retro-white);
@@ -900,38 +817,14 @@
   border-bottom: 1px solid var(--retro-black);
 }
 
-.experience-viewer__list-icon::before {
-  content: "";
-  position: absolute;
-  top: 7px;
-  left: 7px;
-  width: 16px;
-  height: 2px;
-  background: #000080;
-  box-shadow:
-    0 6px 0 #000080,
-    0 12px 0 #000080;
+.experience-viewer__content-image img {
+  display: block;
+  width: 29px;
+  height: 29px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
-
-.experience-viewer__system-icon::before {
-  content: "";
-  position: absolute;
-  inset: 6px;
-  background: #000080;
-  border: 2px solid #8080ff;
-}
-
-.experience-viewer__system-icon::after {
-  content: "";
-  position: absolute;
-  right: 3px;
-  bottom: 3px;
-  width: 7px;
-  height: 7px;
-  background: #008000;
-  border: 1px solid var(--retro-black);
-}
-
 
 /* =========================================================
    ACHIEVEMENTS
@@ -971,7 +864,6 @@
   line-height: 1.5;
 }
 
-
 /* =========================================================
    TECHNOLOGIES
    ========================================================= */
@@ -984,9 +876,9 @@
 
 .experience-viewer__technology {
   display: flex;
+  min-width: 0;
   align-items: center;
   gap: 9px;
-  min-width: 0;
   padding: 8px;
   background: var(--retro-surface);
   border-top: 1px solid var(--retro-white);
@@ -996,8 +888,8 @@
 }
 
 .experience-viewer__technology > div {
-  min-width: 0;
   display: grid;
+  min-width: 0;
   gap: 3px;
 }
 
@@ -1016,39 +908,22 @@
 }
 
 .experience-viewer__technology-icon {
-  position: relative;
+  display: flex;
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  align-items: center;
+  justify-content: center;
+}
+
+.experience-viewer__technology-icon img {
   display: block;
   width: 23px;
-  height: 20px;
-  flex: 0 0 auto;
-  background: #c0c0c0;
-  border-top: 1px solid #ffffff;
-  border-left: 1px solid #ffffff;
-  border-right: 1px solid #404040;
-  border-bottom: 1px solid #404040;
+  height: 23px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
-
-.experience-viewer__technology-icon::before {
-  content: "";
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  width: 11px;
-  height: 7px;
-  background: #000080;
-  border: 1px solid #000040;
-}
-
-.experience-viewer__technology-icon::after {
-  content: "";
-  position: absolute;
-  right: 2px;
-  bottom: 2px;
-  width: 5px;
-  height: 5px;
-  background: #008000;
-}
-
 
 /* =========================================================
    ACTIONS
@@ -1056,17 +931,27 @@
 
 .experience-viewer__entry-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 7px;
-  padding: 10px 8px 8px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 8px;
   background: var(--retro-surface);
 }
 
-.experience-viewer__entry-actions .retro-button {
-  min-width: 78px;
-  min-height: 25px;
+.experience-viewer__entry-actions > span {
+  overflow: hidden;
+  color: #555555;
+  font-family: var(--font-document);
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
+.experience-viewer__entry-actions .retro-button {
+  min-width: 88px;
+  min-height: 25px;
+}
 
 /* =========================================================
    EMPTY STATE
@@ -1075,13 +960,12 @@
 .experience-viewer__empty {
   display: grid;
   flex: 1;
-  place-items: center;
   min-height: 350px;
+  place-items: center;
   color: #555555;
   font-family: var(--font-retro);
   font-size: 11px;
 }
-
 
 /* =========================================================
    STATUS BAR
@@ -1107,7 +991,6 @@
   white-space: nowrap;
 }
 
-
 /* =========================================================
    TABLET
    ========================================================= */
@@ -1130,7 +1013,10 @@
   }
 
   .experience-card {
-    grid-template-columns: 22px minmax(0, 1fr);
+    grid-template-columns:
+      22px
+      25px
+      minmax(0, 1fr);
   }
 
   .experience-card__state {
@@ -1145,7 +1031,6 @@
     display: none;
   }
 }
-
 
 /* =========================================================
    MOBILE
@@ -1165,11 +1050,16 @@
   }
 
   .experience-viewer__toolbar {
-    align-items: stretch;
+    min-height: 52px;
+    padding: 6px 8px;
   }
 
   .experience-viewer__toolbar-title {
-    min-width: 180px;
+    min-width: 0;
+  }
+
+  .experience-viewer__toolbar-details {
+    display: none;
   }
 
   .experience-viewer__workspace {
@@ -1208,11 +1098,15 @@
   }
 
   .experience-viewer__entry-actions {
-    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .experience-viewer__entry-actions > span {
+    display: none;
   }
 
   .experience-viewer__entry-actions .retro-button {
-    flex: 1 1 90px;
+    min-width: 100px;
   }
 
   .experience-viewer__statusbar {
@@ -1220,18 +1114,24 @@
   }
 }
 
-
 /* =========================================================
    SMALL MOBILE
    ========================================================= */
 
 @media (max-width: 460px) {
-  .experience-viewer__toolbar-title {
-    display: none;
+  .experience-viewer__toolbar-title strong {
+    white-space: normal;
   }
 
-  .experience-viewer__toolbar-separator {
-    display: none;
+  .experience-viewer__toolbar-image {
+    width: 31px;
+    height: 31px;
+    flex-basis: 31px;
+  }
+
+  .experience-viewer__toolbar-image img {
+    width: 28px;
+    height: 28px;
   }
 
   .experience-viewer__log-summary {
@@ -1245,6 +1145,16 @@
   .experience-card {
     min-height: 84px;
     padding-inline: 5px;
+  }
+
+  .experience-card__role-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .experience-card__role-icon img {
+    width: 20px;
+    height: 20px;
   }
 
   .experience-card__top-row {
@@ -1280,8 +1190,8 @@
   }
 
   .experience-viewer__entry-content {
-    margin-inline: 5px;
     min-height: 360px;
+    margin-inline: 5px;
     padding: 8px;
   }
 

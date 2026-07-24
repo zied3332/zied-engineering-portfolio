@@ -1,24 +1,36 @@
-
 import { useMemo, useState } from "react";
+
 import RetroWindow from "../retro/RetroWindow";
 import ExperienceCard from "./ExperienceCard";
+
 import {
   careerSummary,
   experiences,
   type ExperienceStatus,
 } from "../../data/experience";
+
+import aboutMeFileIcon from "../../assets/icons/about-me-file.png";
+import appIcon from "../../assets/icons/app-icon.png";
+import profileUserIcon from "../../assets/icons/profile-user.png";
+import statusCheckIcon from "../../assets/icons/status-check.png";
+import systemComputerIcon from "../../assets/icons/system-computer.png";
+
 import "./experience-section.css";
 
-type ExperienceTab = "Overview" | "Achievements" | "Technologies";
+type ExperienceTab =
+  | "Overview"
+  | "Achievements"
+  | "Technologies";
 
-function getStatusClassName(status: ExperienceStatus): string {
+function getStatusClassName(
+  status: ExperienceStatus
+): string {
   return `experience-viewer__status experience-viewer__status--${status.toLowerCase()}`;
 }
 
 function ExperienceSection() {
-  const [selectedExperienceId, setSelectedExperienceId] = useState(
-    experiences[0]?.id ?? 0
-  );
+  const [selectedExperienceId, setSelectedExperienceId] =
+    useState(experiences[0]?.id ?? 0);
 
   const [activeTab, setActiveTab] =
     useState<ExperienceTab>("Overview");
@@ -26,48 +38,21 @@ function ExperienceSection() {
   const selectedExperience = useMemo(
     () =>
       experiences.find(
-        (experience) => experience.id === selectedExperienceId
+        (experience) =>
+          experience.id === selectedExperienceId
       ) ?? experiences[0],
     [selectedExperienceId]
-  );
-
-  const selectedIndex = experiences.findIndex(
-    (experience) => experience.id === selectedExperience?.id
   );
 
   const activeExperiences = experiences.filter(
     (experience) => experience.status === "Active"
   ).length;
 
-  const handleSelectExperience = (experienceId: number) => {
+  const handleSelectExperience = (
+    experienceId: number
+  ) => {
     setSelectedExperienceId(experienceId);
     setActiveTab("Overview");
-  };
-
-  const handlePreviousExperience = () => {
-    if (experiences.length === 0) {
-      return;
-    }
-
-    const previousIndex =
-      selectedIndex <= 0
-        ? experiences.length - 1
-        : selectedIndex - 1;
-
-    handleSelectExperience(experiences[previousIndex].id);
-  };
-
-  const handleNextExperience = () => {
-    if (experiences.length === 0) {
-      return;
-    }
-
-    const nextIndex =
-      selectedIndex >= experiences.length - 1
-        ? 0
-        : selectedIndex + 1;
-
-    handleSelectExperience(experiences[nextIndex].id);
   };
 
   return (
@@ -114,52 +99,27 @@ function ExperienceSection() {
           </button>
         </nav>
 
-        <div
-          className="experience-viewer__toolbar"
-          role="toolbar"
-          aria-label="Experience navigation"
-        >
-          <button
-            type="button"
-            className="experience-viewer__toolbar-button"
-            onClick={handlePreviousExperience}
-          >
-            <span
-              className="experience-viewer__toolbar-icon experience-viewer__toolbar-icon--previous"
-              aria-hidden="true"
-            />
-
-            <span>Previous</span>
-          </button>
-
-          <button
-            type="button"
-            className="experience-viewer__toolbar-button"
-            onClick={handleNextExperience}
-          >
-            <span
-              className="experience-viewer__toolbar-icon experience-viewer__toolbar-icon--next"
-              aria-hidden="true"
-            />
-
-            <span>Next</span>
-          </button>
-
-          <span
-            className="experience-viewer__toolbar-separator"
-            aria-hidden="true"
-          />
-
+        <div className="experience-viewer__toolbar">
           <div className="experience-viewer__toolbar-title">
             <span
-              className="experience-viewer__log-icon"
+              className="experience-viewer__toolbar-image"
               aria-hidden="true"
-            />
+            >
+              <img src={aboutMeFileIcon} alt="" />
+            </span>
 
             <div>
               <strong>Professional Experience Log</strong>
-              <span>Local Computer</span>
+              <span>ZIED-ENGINEERING-PC</span>
             </div>
+          </div>
+
+          <div className="experience-viewer__toolbar-details">
+            <span>Read-only career database</span>
+
+            <strong>
+              {experiences.length} entries detected
+            </strong>
           </div>
         </div>
 
@@ -232,7 +192,9 @@ function ExperienceSection() {
                     <span
                       className="experience-viewer__entry-icon"
                       aria-hidden="true"
-                    />
+                    >
+                      <img src={profileUserIcon} alt="" />
+                    </span>
 
                     <div>
                       <span className="experience-viewer__entry-label">
@@ -241,7 +203,9 @@ function ExperienceSection() {
 
                       <h3>{selectedExperience.title}</h3>
 
-                      <p>{selectedExperience.organization}</p>
+                      <p>
+                        {selectedExperience.organization}
+                      </p>
                     </div>
                   </div>
 
@@ -286,25 +250,51 @@ function ExperienceSection() {
                 <div className="experience-viewer__entry-content">
                   {activeTab === "Overview" && (
                     <div className="experience-viewer__overview">
+                      <div className="experience-viewer__content-heading">
+                        <span
+                          className="experience-viewer__content-image"
+                          aria-hidden="true"
+                        >
+                          <img src={aboutMeFileIcon} alt="" />
+                        </span>
+
+                        <div>
+                          <h4>Experience Properties</h4>
+
+                          <p>
+                            Information stored in the selected
+                            career log entry.
+                          </p>
+                        </div>
+                      </div>
+
                       <dl className="experience-viewer__properties">
                         <div>
                           <dt>Log file</dt>
-                          <dd>{selectedExperience.fileName}</dd>
+                          <dd>
+                            {selectedExperience.fileName}
+                          </dd>
                         </div>
 
                         <div>
                           <dt>Organization</dt>
-                          <dd>{selectedExperience.organization}</dd>
+                          <dd>
+                            {selectedExperience.organization}
+                          </dd>
                         </div>
 
                         <div>
                           <dt>Period</dt>
-                          <dd>{selectedExperience.period}</dd>
+                          <dd>
+                            {selectedExperience.period}
+                          </dd>
                         </div>
 
                         <div>
                           <dt>Location</dt>
-                          <dd>{selectedExperience.location}</dd>
+                          <dd>
+                            {selectedExperience.location}
+                          </dd>
                         </div>
 
                         <div>
@@ -330,12 +320,16 @@ function ExperienceSection() {
                         <dl className="experience-viewer__career-context">
                           <div>
                             <dt>Current status</dt>
-                            <dd>{careerSummary.currentStatus}</dd>
+                            <dd>
+                              {careerSummary.currentStatus}
+                            </dd>
                           </div>
 
                           <div>
                             <dt>Main direction</dt>
-                            <dd>{careerSummary.mainDirection}</dd>
+                            <dd>
+                              {careerSummary.mainDirection}
+                            </dd>
                           </div>
                         </dl>
                       </fieldset>
@@ -346,9 +340,11 @@ function ExperienceSection() {
                     <div className="experience-viewer__tab-content">
                       <div className="experience-viewer__content-heading">
                         <span
-                          className="experience-viewer__list-icon"
+                          className="experience-viewer__content-image"
                           aria-hidden="true"
-                        />
+                        >
+                          <img src={statusCheckIcon} alt="" />
+                        </span>
 
                         <div>
                           <h4>
@@ -356,7 +352,8 @@ function ExperienceSection() {
                           </h4>
 
                           <p>
-                            Recorded outcomes from this experience.
+                            Recorded outcomes from this
+                            experience.
                           </p>
                         </div>
                       </div>
@@ -378,16 +375,21 @@ function ExperienceSection() {
                     <div className="experience-viewer__tab-content">
                       <div className="experience-viewer__content-heading">
                         <span
-                          className="experience-viewer__system-icon"
+                          className="experience-viewer__content-image"
                           aria-hidden="true"
-                        />
+                        >
+                          <img
+                            src={systemComputerIcon}
+                            alt=""
+                          />
+                        </span>
 
                         <div>
                           <h4>Technologies and Systems</h4>
 
                           <p>
-                            Tools associated with this professional
-                            entry.
+                            Tools associated with this
+                            professional entry.
                           </p>
                         </div>
                       </div>
@@ -402,10 +404,13 @@ function ExperienceSection() {
                               <span
                                 className="experience-viewer__technology-icon"
                                 aria-hidden="true"
-                              />
+                              >
+                                <img src={appIcon} alt="" />
+                              </span>
 
                               <div>
                                 <strong>{technology}</strong>
+
                                 <span>
                                   Installed career component
                                 </span>
@@ -419,21 +424,10 @@ function ExperienceSection() {
                 </div>
 
                 <div className="experience-viewer__entry-actions">
-                  <button
-                    type="button"
-                    className="retro-button"
-                    onClick={handlePreviousExperience}
-                  >
-                    Previous
-                  </button>
-
-                  <button
-                    type="button"
-                    className="retro-button"
-                    onClick={handleNextExperience}
-                  >
-                    Next
-                  </button>
+                  <span>
+                    Double-click a career entry to inspect its
+                    properties.
+                  </span>
 
                   <button
                     type="button"
@@ -459,7 +453,8 @@ function ExperienceSection() {
           <span>{experiences.length} log entries</span>
 
           <span>
-            Selected: {selectedExperience?.fileName ?? "None"}
+            Selected:{" "}
+            {selectedExperience?.fileName ?? "None"}
           </span>
 
           <span>Career log ready</span>
