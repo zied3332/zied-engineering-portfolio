@@ -21,7 +21,6 @@ function ContactIconGraphic({
     >
       {icon === "linkedin" && "in"}
       {icon === "github" && "GH"}
-      {icon === "upwork" && "up"}
     </span>
   );
 }
@@ -44,9 +43,7 @@ function ContactCard({
       aria-label={`Select ${contact.type} contact`}
     >
       <span className="contact-card__icon">
-        <ContactIconGraphic
-          icon={contact.icon}
-        />
+        <ContactIconGraphic icon={contact.icon} />
       </span>
 
       <span className="contact-card__content">

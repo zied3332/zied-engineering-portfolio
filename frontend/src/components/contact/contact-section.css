@@ -23,8 +23,8 @@
 .contact-section__heading h2 {
   margin: 0 0 14px;
   color: var(--retro-black);
-  font-family: var(--font-retro);
-  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-family: var(--font-document);
+  font-size: clamp(34px, 5vw, 54px);
   line-height: 1;
 }
 
@@ -37,21 +37,18 @@
   line-height: 1.7;
 }
 
-.contact-mail {
+.contact-directory {
   min-width: 0;
   box-shadow: var(--retro-window-shadow);
 }
 
-.contact-mail .retro-window__body {
+.contact-directory .retro-window__body {
   padding: 0;
   color: var(--retro-black);
   background: var(--retro-surface);
 }
 
-.contact-mail button,
-.contact-mail input,
-.contact-mail textarea,
-.contact-mail select {
+.contact-directory button {
   font: inherit;
 }
 
@@ -59,311 +56,150 @@
    MENU
    ========================================================= */
 
-.contact-mail__menu {
+.contact-directory__menu {
   display: flex;
+  min-height: 27px;
   align-items: center;
-  min-height: 28px;
   padding: 2px 5px;
   overflow-x: auto;
   background: var(--retro-surface);
   border-bottom: 1px solid var(--retro-border-medium);
-  scrollbar-width: thin;
 }
 
-.contact-mail__menu button {
-  flex: 0 0 auto;
-  min-height: 22px;
-  padding: 3px 9px;
+.contact-directory__menu button {
+  min-height: 21px;
+  padding: 2px 8px;
   color: var(--retro-black);
   background: transparent;
   border: 1px solid transparent;
   border-radius: 0;
   font-family: var(--font-retro);
-  font-size: 0.68rem;
+  font-size: 10px;
   cursor: pointer;
 }
 
-.contact-mail__menu button span {
+.contact-directory__menu button span {
   text-decoration: underline;
 }
 
-.contact-mail__menu button:hover,
-.contact-mail__menu button:focus-visible {
+.contact-directory__menu button:hover,
+.contact-directory__menu button:focus-visible {
   color: var(--retro-white);
   background: var(--retro-title-active);
   outline: none;
 }
 
 /* =========================================================
-   TOOLBAR
+   INTRO
    ========================================================= */
 
-.contact-mail__toolbar {
+.contact-directory__intro {
   display: flex;
-  align-items: stretch;
-  gap: 3px;
-  min-height: 58px;
-  padding: 5px;
-  overflow-x: auto;
+  min-height: 70px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 13px;
   background: var(--retro-surface);
   border-top: 1px solid var(--retro-white);
   border-bottom: 1px solid var(--retro-border-medium);
-  scrollbar-width: thin;
 }
 
-.contact-mail__toolbar-button {
-  display: grid;
-  flex: 0 0 auto;
-  min-width: 64px;
-  min-height: 46px;
-  padding: 4px 7px;
-  place-items: center;
-  gap: 2px;
-  color: var(--retro-black);
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 0;
-  font-family: var(--font-retro);
-  font-size: 0.62rem;
-  cursor: pointer;
-}
-
-.contact-mail__toolbar-button:hover:not(:disabled) {
+.contact-directory__profile-icon {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  align-items: center;
+  justify-content: center;
   background: var(--retro-surface-light);
-  border-top-color: var(--retro-white);
-  border-left-color: var(--retro-white);
-  border-right-color: var(--retro-border-medium);
-  border-bottom-color: var(--retro-border-medium);
+  border-top: 2px solid var(--retro-white);
+  border-left: 2px solid var(--retro-white);
+  border-right: 2px solid var(--retro-black);
+  border-bottom: 2px solid var(--retro-black);
 }
 
-.contact-mail__toolbar-button:active:not(:disabled) {
-  transform: translate(1px, 1px);
-  border-top-color: var(--retro-border-medium);
-  border-left-color: var(--retro-border-medium);
-  border-right-color: var(--retro-white);
-  border-bottom-color: var(--retro-white);
-}
-
-.contact-mail__toolbar-button:focus-visible {
-  outline: 1px dotted var(--retro-black);
-  outline-offset: -5px;
-}
-
-.contact-mail__toolbar-button:disabled {
-  color: #808080;
-  cursor: default;
-  opacity: 0.7;
-}
-
-.contact-mail__toolbar-icon {
-  position: relative;
+.contact-directory__profile-icon img {
   display: block;
-  width: 27px;
-  height: 25px;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
-.contact-mail__toolbar-icon--new::before {
-  content: "";
-  position: absolute;
-  inset: 3px 2px 2px;
-  background: #fff7ad;
-  border: 1px solid var(--retro-black);
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+.contact-directory__intro > div {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
 }
 
-.contact-mail__toolbar-icon--new::after {
-  content: "";
-  position: absolute;
-  top: 7px;
-  left: 7px;
-  width: 12px;
-  height: 2px;
-  background: #000080;
-  box-shadow:
-    0 5px 0 #000080,
-    0 10px 0 #000080;
+.contact-directory__intro strong {
+  font-family: var(--font-retro);
+  font-size: 12px;
 }
 
-.contact-mail__toolbar-icon--send::before {
-  content: "";
-  position: absolute;
-  inset: 5px 1px 2px;
-  background: #ffffff;
-  border: 1px solid var(--retro-black);
-}
-
-.contact-mail__toolbar-icon--send::after {
-  content: "";
-  position: absolute;
-  top: 7px;
-  left: 4px;
-  width: 17px;
-  height: 12px;
-  background:
-    linear-gradient(
-      145deg,
-      transparent 47%,
-      #000080 48%,
-      #000080 53%,
-      transparent 54%
-    ),
-    linear-gradient(
-      215deg,
-      transparent 47%,
-      #000080 48%,
-      #000080 53%,
-      transparent 54%
-    );
-}
-
-.contact-mail__toolbar-icon--copy::before,
-.contact-mail__toolbar-icon--copy::after {
-  content: "";
-  position: absolute;
-  width: 15px;
-  height: 18px;
-  background: #ffffff;
-  border: 1px solid var(--retro-black);
-}
-
-.contact-mail__toolbar-icon--copy::before {
-  top: 2px;
-  left: 8px;
-}
-
-.contact-mail__toolbar-icon--copy::after {
-  top: 6px;
-  left: 3px;
-  box-shadow:
-    inset 3px 4px 0 #ffffff,
-    inset 3px 6px 0 #000080,
-    inset 3px 10px 0 #000080;
-}
-
-.contact-mail__toolbar-icon--open::before {
-  content: "";
-  position: absolute;
-  top: 8px;
-  left: 2px;
-  width: 23px;
-  height: 14px;
-  background: #f2d047;
-  border: 1px solid var(--retro-black);
-  transform: skewX(-10deg);
-}
-
-.contact-mail__toolbar-icon--open::after {
-  content: "";
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  width: 12px;
-  height: 6px;
-  background: #f2d047;
-  border: 1px solid var(--retro-black);
-  border-bottom: 0;
-}
-
-.contact-mail__toolbar-separator {
-  flex: 0 0 auto;
-  width: 2px;
-  margin: 4px 5px;
-  background: var(--retro-border-medium);
-  border-right: 1px solid var(--retro-white);
+.contact-directory__intro > div > span {
+  color: #505050;
+  font-family: var(--font-document);
+  font-size: 11px;
+  line-height: 1.45;
 }
 
 /* =========================================================
    WORKSPACE
    ========================================================= */
 
-.contact-mail__workspace {
+.contact-directory__workspace {
   display: grid;
-  grid-template-columns: minmax(230px, 285px) minmax(0, 1fr);
-  min-height: 630px;
-  padding: 5px;
+  grid-template-columns:
+    minmax(220px, 0.7fr)
+    minmax(0, 1.3fr);
+  min-height: 410px;
   gap: 5px;
+  padding: 5px;
   background: var(--retro-surface);
 }
 
-/* =========================================================
-   ADDRESS BOOK
-   ========================================================= */
-
-.contact-mail__address-book {
-  display: flex;
+.contact-directory__list-panel,
+.contact-directory__details-panel {
   min-width: 0;
-  min-height: 0;
-  flex-direction: column;
-  background: var(--retro-surface);
+  background: var(--retro-white);
   border-top: 2px solid var(--retro-black);
   border-left: 2px solid var(--retro-black);
   border-right: 2px solid var(--retro-white);
   border-bottom: 2px solid var(--retro-white);
 }
 
-.contact-mail__address-header {
+/* =========================================================
+   CONTACT LIST
+   ========================================================= */
+
+.contact-directory__list-panel {
   display: flex;
-  align-items: center;
-  gap: 9px;
-  min-height: 52px;
-  padding: 8px 10px;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.contact-directory__panel-header {
+  min-height: 55px;
+  padding: 9px 10px;
   color: var(--retro-white);
   background: var(--retro-title-active);
 }
 
-.contact-mail__address-header > div {
-  display: grid;
-  min-width: 0;
-  gap: 2px;
-}
-
-.contact-mail__address-header h3 {
-  margin: 0;
+.contact-directory__panel-header h3 {
+  margin: 0 0 4px;
   font-family: var(--font-retro);
-  font-size: 0.76rem;
+  font-size: 11px;
 }
 
-.contact-mail__address-header span {
+.contact-directory__panel-header span {
   font-family: var(--font-document);
-  font-size: 0.62rem;
+  font-size: 9px;
 }
 
-.contact-mail__address-icon {
-  position: relative;
-  display: block;
-  width: 30px;
-  height: 27px;
-  flex: 0 0 auto;
-  background: #fff7ad;
-  border: 1px solid var(--retro-black);
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.45);
-}
-
-.contact-mail__address-icon::before {
-  content: "";
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  width: 7px;
-  height: 7px;
-  background: #000080;
-  border-radius: 50%;
-}
-
-.contact-mail__address-icon::after {
-  content: "";
-  position: absolute;
-  right: 4px;
-  bottom: 5px;
-  left: 4px;
-  height: 7px;
-  background: #000080;
-  box-shadow: inset 0 2px 0 #8080ff;
-}
-
-.contact-mail__contact-list {
+.contact-directory__contact-list {
   flex: 1;
-  min-height: 0;
   padding: 3px;
   overflow-y: auto;
   background: var(--retro-white);
@@ -375,12 +211,12 @@
 
 .contact-card {
   display: grid;
-  grid-template-columns: 34px minmax(0, 1fr) 8px;
-  align-items: center;
-  gap: 8px;
+  grid-template-columns: 36px minmax(0, 1fr) 8px;
   width: 100%;
   min-width: 0;
-  padding: 8px 7px;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 7px;
   color: var(--retro-black);
   text-align: left;
   background: var(--retro-white);
@@ -405,8 +241,8 @@
 
 .contact-card__icon {
   display: grid;
-  width: 31px;
-  height: 31px;
+  width: 32px;
+  height: 32px;
   place-items: center;
 }
 
@@ -421,26 +257,26 @@
   border: 1px solid var(--retro-black);
   box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.45);
   font-family: Arial, sans-serif;
-  font-size: 0.63rem;
+  font-size: 10px;
   font-weight: 900;
   line-height: 1;
 }
 
 .contact-card__graphic--email::before {
-  content: "";
   position: absolute;
   inset: 5px 3px 4px;
+  content: "";
   background: #ffffff;
   border: 1px solid var(--retro-black);
 }
 
 .contact-card__graphic--email::after {
-  content: "";
   position: absolute;
   top: 7px;
   left: 6px;
   width: 15px;
   height: 10px;
+  content: "";
   background:
     linear-gradient(
       145deg,
@@ -461,30 +297,22 @@
 .contact-card__graphic--linkedin {
   color: #ffffff;
   background: #000080;
-  border-color: var(--retro-black);
-  font-size: 0.76rem;
+  font-size: 12px;
 }
 
 .contact-card__graphic--github {
   color: #ffffff;
   background: #202020;
-  font-size: 0.57rem;
-}
-
-.contact-card__graphic--upwork {
-  color: #ffffff;
-  background: #167d24;
-  font-size: 0.6rem;
-  text-transform: lowercase;
+  font-size: 9px;
 }
 
 .contact-card__graphic--location::before {
-  content: "";
   position: absolute;
   top: 4px;
   left: 8px;
   width: 11px;
   height: 14px;
+  content: "";
   background: #d00000;
   border: 1px solid var(--retro-black);
   border-radius: 50% 50% 50% 0;
@@ -492,12 +320,12 @@
 }
 
 .contact-card__graphic--location::after {
-  content: "";
   position: absolute;
   top: 7px;
   left: 11px;
   width: 5px;
   height: 5px;
+  content: "";
   background: #ffffff;
   border: 1px solid var(--retro-black);
   border-radius: 50%;
@@ -518,13 +346,13 @@
 
 .contact-card__title {
   font-family: var(--font-retro);
-  font-size: 0.69rem;
+  font-size: 11px;
 }
 
 .contact-card__subtitle {
   margin-top: 4px;
   font-family: var(--font-document);
-  font-size: 0.64rem;
+  font-size: 10px;
   line-height: 1.35;
 }
 
@@ -532,345 +360,170 @@
   width: 0;
   height: 0;
   justify-self: end;
+  opacity: 0;
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
   border-left: 5px solid currentColor;
-  opacity: 0;
 }
 
-.contact-card--selected .contact-card__selection-arrow {
+.contact-card--selected
+  .contact-card__selection-arrow {
   opacity: 1;
 }
 
 /* =========================================================
-   SELECTED CONTACT
+   DETAILS PANEL
    ========================================================= */
 
-.contact-mail__selected-contact {
+.contact-directory__details-panel {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.contact-directory__details-header {
+  padding: 18px;
+  background: var(--retro-surface);
+  border-bottom: 1px solid var(--retro-border-medium);
+}
+
+.contact-directory__details-header > div > span {
+  display: block;
+  margin-bottom: 5px;
+  color: #555555;
+  font-family: var(--font-retro);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.contact-directory__details-header h3 {
+  margin: 0;
+  font-family: var(--font-document);
+  font-size: clamp(17px, 2.4vw, 23px);
+  line-height: 1.3;
+}
+
+.contact-directory__details-header p {
+  max-width: 600px;
+  margin: 7px 0 0;
+  color: #505050;
+  font-family: var(--font-document);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.contact-directory__details-content {
+  display: grid;
+  flex: 1;
+  align-content: start;
+  gap: 18px;
+  padding: 18px;
+}
+
+.contact-directory__properties {
+  margin: 0;
+  background: var(--retro-white);
+  box-shadow: var(--retro-pressed-border);
+}
+
+.contact-directory__properties > div {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  border-bottom: 1px solid #d4d0c8;
+}
+
+.contact-directory__properties > div:last-child {
+  border-bottom: 0;
+}
+
+.contact-directory__properties dt,
+.contact-directory__properties dd {
+  min-width: 0;
+  margin: 0;
+  padding: 9px 10px;
+  font-family: var(--font-document);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.contact-directory__properties dt {
+  font-weight: 700;
+  background: var(--retro-surface);
+  border-right: 1px solid #d4d0c8;
+}
+
+.contact-directory__properties dd {
+  overflow-wrap: anywhere;
+}
+
+.contact-directory__availability {
+  min-width: 0;
+  margin: 0;
+  padding: 13px;
+  background: var(--retro-surface);
+  border-top: 1px solid var(--retro-white);
+  border-left: 1px solid var(--retro-white);
+  border-right: 1px solid var(--retro-border-medium);
+  border-bottom: 1px solid var(--retro-border-medium);
+}
+
+.contact-directory__availability legend {
+  padding-inline: 5px;
+  font-family: var(--font-retro);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.contact-directory__availability p {
+  margin: 0;
+  font-family: var(--font-document);
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.contact-directory__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
   padding: 10px;
   background: var(--retro-surface);
   border-top: 1px solid var(--retro-border-medium);
 }
 
-.contact-mail__selected-label {
-  display: block;
-  margin-bottom: 5px;
-  color: var(--page-muted);
-  font-family: var(--font-retro);
-  font-size: 0.56rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.contact-mail__selected-contact > strong {
-  display: block;
-  overflow-wrap: anywhere;
-  font-family: var(--font-document);
-  font-size: 0.75rem;
-  line-height: 1.35;
-}
-
-.contact-mail__selected-contact > p {
-  margin: 6px 0 9px;
-  color: #444444;
-  font-family: var(--font-document);
-  font-size: 0.66rem;
-  line-height: 1.5;
-}
-
-.contact-mail__selected-contact dl {
-  margin: 0 0 10px;
-  padding: 7px;
-  background: var(--retro-white);
-  border-top: 2px solid var(--retro-black);
-  border-left: 2px solid var(--retro-black);
-  border-right: 2px solid var(--retro-white);
-  border-bottom: 2px solid var(--retro-white);
-}
-
-.contact-mail__selected-contact dl > div {
-  display: grid;
-  grid-template-columns: 72px minmax(0, 1fr);
-  gap: 5px;
-  padding-block: 4px;
-  border-bottom: 1px dotted var(--retro-border-medium);
-}
-
-.contact-mail__selected-contact dl > div:last-child {
-  border-bottom: 0;
-}
-
-.contact-mail__selected-contact dt,
-.contact-mail__selected-contact dd {
-  min-width: 0;
-  margin: 0;
-  overflow-wrap: anywhere;
-  font-family: var(--font-document);
-  font-size: 0.58rem;
-  line-height: 1.4;
-}
-
-.contact-mail__selected-contact dt {
-  font-weight: 700;
-}
-
-.contact-mail__selected-contact .retro-button {
-  width: 100%;
-}
-
-/* =========================================================
-   COMPOSER
-   ========================================================= */
-
-.contact-mail__composer {
-  display: flex;
-  min-width: 0;
-  min-height: 0;
-  flex-direction: column;
-  background: var(--retro-surface);
-  border-top: 2px solid var(--retro-black);
-  border-left: 2px solid var(--retro-black);
-  border-right: 2px solid var(--retro-white);
-  border-bottom: 2px solid var(--retro-white);
-}
-
-.contact-mail__message-fields {
-  padding: 7px 8px 6px;
-  background: var(--retro-surface);
-  border-bottom: 1px solid var(--retro-border-medium);
-}
-
-.contact-mail__field-row {
-  display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
-  align-items: center;
-  gap: 7px;
-  margin-bottom: 5px;
-}
-
-.contact-mail__field-row:last-child {
-  margin-bottom: 0;
-}
-
-.contact-mail__field-row > label {
-  font-family: var(--font-retro);
-  font-size: 0.66rem;
-  font-weight: 700;
-}
-
-.contact-mail__recipient-field {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
+.contact-directory__actions .retro-button {
+  min-width: 90px;
   min-height: 27px;
-  padding: 2px 5px;
-  background: var(--retro-white);
-  border-top: 2px solid var(--retro-black);
-  border-left: 2px solid var(--retro-black);
-  border-right: 2px solid var(--retro-white);
-  border-bottom: 2px solid var(--retro-white);
 }
 
-.contact-mail__recipient-field input {
-  flex: 1;
-  min-width: 0;
-  padding: 0;
-  color: var(--retro-black);
-  background: transparent;
-  border: 0;
-  outline: none;
-  font-family: var(--font-document);
-  font-size: 0.72rem;
-}
-
-.contact-mail__recipient-icon {
-  position: relative;
-  display: block;
-  width: 18px;
-  height: 16px;
-  flex: 0 0 auto;
-  background: #fff7ad;
-  border: 1px solid var(--retro-black);
-}
-
-.contact-mail__recipient-icon::before {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 5px;
-  width: 6px;
-  height: 6px;
-  background: #000080;
-  border-radius: 50%;
-}
-
-.contact-mail__recipient-icon::after {
-  content: "";
-  position: absolute;
-  right: 3px;
-  bottom: 2px;
-  left: 3px;
-  height: 5px;
-  background: #000080;
-}
-
-.contact-mail__field-row .retro-input {
-  width: 100%;
-  min-width: 0;
-  font-family: var(--font-document);
-  font-size: 0.72rem;
+.contact-directory__primary-action {
+  font-weight: 700;
+  outline: 1px dotted var(--retro-black);
+  outline-offset: -6px;
 }
 
 /* =========================================================
-   MESSAGE FORM
+   EMPTY STATE
    ========================================================= */
 
-.contact-compose {
-  display: flex;
+.contact-directory__empty {
+  display: grid;
   flex: 1;
-  min-height: 0;
-  flex-direction: column;
-}
-
-.contact-compose__sender-fields {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-  padding: 8px;
-  background: var(--retro-surface);
-  border-bottom: 1px solid var(--retro-border-medium);
-}
-
-.contact-compose__field {
-  display: grid;
-  min-width: 0;
-  gap: 4px;
-}
-
-.contact-compose__field label {
-  font-family: var(--font-retro);
-  font-size: 0.62rem;
-  font-weight: 700;
-}
-
-.contact-compose__field .retro-input {
-  width: 100%;
-  min-width: 0;
-  font-family: var(--font-document);
-  font-size: 0.72rem;
-}
-
-.contact-compose__formatbar {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  min-height: 36px;
-  padding: 4px 6px;
-  overflow-x: auto;
-  background: var(--retro-surface);
-  border-top: 1px solid var(--retro-white);
-  border-bottom: 1px solid var(--retro-border-medium);
-}
-
-.contact-compose__formatbar select {
-  flex: 0 0 auto;
-  min-height: 24px;
-  color: var(--retro-black);
-  background: var(--retro-white);
-  border-top: 2px solid var(--retro-black);
-  border-left: 2px solid var(--retro-black);
-  border-right: 2px solid var(--retro-white);
-  border-bottom: 2px solid var(--retro-white);
-  border-radius: 0;
-  font-family: var(--font-document);
-  font-size: 0.66rem;
-}
-
-.contact-compose__formatbar select:first-child {
-  width: 135px;
-}
-
-.contact-compose__formatbar select:nth-child(2) {
-  width: 52px;
-}
-
-.contact-compose__formatbar button {
-  display: grid;
-  width: 27px;
-  height: 25px;
-  flex: 0 0 auto;
-  place-items: center;
-  color: var(--retro-black);
-  background: var(--retro-surface);
-  border-top: 2px solid var(--retro-white);
-  border-left: 2px solid var(--retro-white);
-  border-right: 2px solid var(--retro-black);
-  border-bottom: 2px solid var(--retro-black);
-  border-radius: 0;
-  font-family: serif;
-  font-size: 0.78rem;
-  cursor: pointer;
-}
-
-.contact-compose__formatbar button:active {
-  border-top-color: var(--retro-black);
-  border-left-color: var(--retro-black);
-  border-right-color: var(--retro-white);
-  border-bottom-color: var(--retro-white);
-}
-
-.contact-compose__message {
-  flex: 1;
-  width: 100%;
   min-height: 300px;
-  padding: 13px;
-  resize: vertical;
-  color: var(--retro-black);
-  background: var(--retro-white);
-  border: 0;
-  border-radius: 0;
-  outline: none;
-  font-family: Arial, sans-serif;
-  font-size: 0.83rem;
-  line-height: 1.6;
-}
-
-.contact-compose__message:focus {
-  box-shadow: inset 0 0 0 1px #000080;
-}
-
-.contact-compose__message::placeholder {
-  color: #777777;
-}
-
-.contact-compose__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 8px;
-  background: var(--retro-surface);
-  border-top: 1px solid var(--retro-border-medium);
-}
-
-.contact-compose__footer > span {
-  color: var(--page-muted);
-  font-family: var(--font-document);
-  font-size: 0.62rem;
-  line-height: 1.4;
-}
-
-.contact-compose__send {
-  min-width: 105px;
-  flex: 0 0 auto;
+  place-items: center;
+  color: #555555;
+  font-family: var(--font-retro);
+  font-size: 11px;
 }
 
 /* =========================================================
    STATUS BAR
    ========================================================= */
 
-.contact-mail__statusbar {
+.contact-directory__statusbar {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 3px;
@@ -879,7 +532,7 @@
   border-top: 1px solid var(--retro-white);
 }
 
-.contact-mail__statusbar span {
+.contact-directory__statusbar span {
   min-width: 0;
   padding: 4px 7px;
   overflow: hidden;
@@ -888,7 +541,7 @@
   border-right: 1px solid var(--retro-white);
   border-bottom: 1px solid var(--retro-white);
   font-family: var(--font-document);
-  font-size: 0.61rem;
+  font-size: 9px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -902,17 +555,14 @@
     padding-block: 76px;
   }
 
-  .contact-mail__workspace {
-    grid-template-columns: 220px minmax(0, 1fr);
+  .contact-directory__workspace {
+    grid-template-columns:
+      minmax(190px, 0.65fr)
+      minmax(0, 1.35fr);
   }
 
-  .contact-mail__selected-contact dl > div {
-    grid-template-columns: 1fr;
-    gap: 2px;
-  }
-
-  .contact-compose__sender-fields {
-    grid-template-columns: 1fr;
+  .contact-directory__properties > div {
+    grid-template-columns: 105px minmax(0, 1fr);
   }
 }
 
@@ -933,23 +583,22 @@
     font-size: 0.92rem;
   }
 
-  .contact-mail__workspace {
+  .contact-directory__workspace {
     display: block;
     min-height: 0;
     padding: 3px;
   }
 
-  .contact-mail__address-book {
-    max-height: 390px;
+  .contact-directory__list-panel {
+    max-height: 280px;
   }
 
-  .contact-mail__contact-list {
+  .contact-directory__contact-list {
     display: grid;
     grid-template-columns: repeat(
-      5,
+      4,
       minmax(145px, 1fr)
     );
-    max-height: none;
     overflow-x: auto;
     overflow-y: hidden;
   }
@@ -963,20 +612,16 @@
     display: none;
   }
 
-  .contact-mail__selected-contact {
-    max-height: 180px;
-    overflow-y: auto;
-  }
-
-  .contact-mail__composer {
+  .contact-directory__details-panel {
     margin-top: 3px;
   }
 
-  .contact-compose__message {
-    min-height: 340px;
+  .contact-directory__details-header,
+  .contact-directory__details-content {
+    padding: 13px;
   }
 
-  .contact-mail__statusbar {
+  .contact-directory__statusbar {
     grid-template-columns: 1fr;
   }
 }
@@ -986,45 +631,40 @@
    ========================================================= */
 
 @media (max-width: 480px) {
-  .contact-mail__toolbar-button {
-    min-width: 56px;
-    padding-inline: 5px;
+  .contact-directory__intro {
+    align-items: flex-start;
   }
 
-  .contact-mail__toolbar-separator {
-    margin-inline: 2px;
+  .contact-directory__profile-icon {
+    width: 38px;
+    height: 38px;
+    flex-basis: 38px;
   }
 
-  .contact-mail__field-row {
+  .contact-directory__profile-icon img {
+    width: 31px;
+    height: 31px;
+  }
+
+  .contact-directory__details-header h3 {
+    font-size: 17px;
+  }
+
+  .contact-directory__properties > div {
+    display: block;
+  }
+
+  .contact-directory__properties dt {
+    border-right: 0;
+    border-bottom: 1px solid #d4d0c8;
+  }
+
+  .contact-directory__actions {
+    display: grid;
     grid-template-columns: 1fr;
-    gap: 3px;
-    margin-bottom: 8px;
   }
 
-  .contact-compose__sender-fields {
-    padding: 7px;
-  }
-
-  .contact-compose__formatbar {
-    padding-inline: 4px;
-  }
-
-  .contact-compose__formatbar select:first-child {
-    width: 110px;
-  }
-
-  .contact-compose__message {
-    min-height: 310px;
-    padding: 10px;
-    font-size: 0.78rem;
-  }
-
-  .contact-compose__footer {
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  .contact-compose__send {
+  .contact-directory__actions .retro-button {
     width: 100%;
   }
 }

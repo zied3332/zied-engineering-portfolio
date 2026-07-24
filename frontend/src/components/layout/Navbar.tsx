@@ -6,7 +6,6 @@ const navigationItems = [
   { label: "About", href: "#about", id: "about" },
   { label: "Projects", href: "#projects", id: "projects" },
   { label: "Skills", href: "#skills", id: "skills" },
-  { label: "Reviews", href: "#reviews", id: "reviews" },
   { label: "Experience", href: "#experience", id: "experience" },
   { label: "Contact", href: "#contact", id: "contact" },
 ];
