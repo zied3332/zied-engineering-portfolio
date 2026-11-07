@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { handleTabKeyDown } from "../../utils/tabs";
 
 
 import RetroWindow from "../retro/RetroWindow";
@@ -116,6 +117,7 @@ function AboutSection() {
           <div
             className="about-properties__tabs"
             role="tablist"
+            onKeyDown={handleTabKeyDown}
             aria-label="Profile information"
           >
             <button
@@ -128,6 +130,7 @@ function AboutSection() {
                   : ""
               }`}
               aria-selected={activeTab === "general"}
+              tabIndex={activeTab === "general" ? 0 : -1}
               aria-controls="about-general-panel"
               onClick={() => setActiveTab("general")}
             >
@@ -144,6 +147,7 @@ function AboutSection() {
                   : ""
               }`}
               aria-selected={activeTab === "details"}
+              tabIndex={activeTab === "details" ? 0 : -1}
               aria-controls="about-details-panel"
               onClick={() => setActiveTab("details")}
             >
@@ -157,6 +161,7 @@ function AboutSection() {
                 id="about-general-panel"
                 className="about-properties__panel"
                 role="tabpanel"
+                tabIndex={0}
                 aria-labelledby="about-general-tab"
               >
                 <div className="about-properties__profile">

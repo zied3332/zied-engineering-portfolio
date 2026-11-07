@@ -162,3 +162,9 @@
     gap: 4px;
   }
 }
+
+.project-card__filename {
+  margin-bottom: 12px;
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}

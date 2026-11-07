@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { handleTabKeyDown } from "../../utils/tabs";
 import ExperienceCard from "./ExperienceCard";
 import { careerSummary, experiences } from "../../data/experience";
 import "./experience-section.css";
@@ -68,12 +69,13 @@ function ExperienceSection() {
                 <p>{selectedExperience.organization}</p>
                 <span>{selectedExperience.status}</span>
               </header>
-              <div className="experience-viewer__tabs" role="tablist" aria-label="Experience information">
+              <div className="experience-viewer__tabs" role="tablist" onKeyDown={handleTabKeyDown} aria-label="Experience information">
                 {(["Overview", "Achievements", "Technologies"] as ExperienceTab[]).map((tab) => (
                   <button key={tab} type="button" role="tab"
                     id={"experience-tab-" + tab.toLowerCase()}
                     aria-controls="experience-panel"
                     aria-selected={activeTab === tab}
+                    tabIndex={activeTab === tab ? 0 : -1}
                     onClick={() => setActiveTab(tab)}>
                     {tab}
                   </button>

@@ -37,12 +37,13 @@ function Navbar() {
         .map((item) => document.getElementById(item.id))
         .filter((section): section is HTMLElement => section !== null);
 
-      const scrollPosition = window.scrollY + 140;
+      const headerHeight = document.querySelector(".navbar")?.getBoundingClientRect().height ?? 72;
+      const scrollPosition = window.scrollY + headerHeight + 24;
 
       let currentSection = "home";
 
       sections.forEach((section) => {
-        if (section.offsetTop <= scrollPosition) {
+        if (section.getBoundingClientRect().top + window.scrollY <= scrollPosition) {
           currentSection = section.id;
         }
       });
@@ -67,17 +68,23 @@ function Navbar() {
   };
 
   return (
-    <header className="navbar">
+    <header className="navbar" onKeyDown={(event) => {
+      if (event.key === "Escape" && isMenuOpen) {
+        setIsMenuOpen(false);
+        document.getElementById("navigation-toggle")?.focus();
+      }
+    }}>
       <div className="navbar__inner">
         <a
           className="navbar__brand"
           href="#home"
           onClick={() => handleNavigationClick("home")}
         >
-<span>Zied Portfolio</span>
+          <span>Zied Portfolio</span>
         </a>
 
         <button
+          id="navigation-toggle"
           type="button"
           className={`navbar__menu-button ${
             isMenuOpen ? "navbar__menu-button--active" : ""

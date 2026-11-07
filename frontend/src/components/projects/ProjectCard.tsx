@@ -54,6 +54,7 @@ function ProjectCard({
       onClick={() => onSelect(project.id)}
       onKeyDown={handleKeyDown}
     >
+      <p className="project-card__filename">{project.fileName}</p>
       <div className="project-card__preview">
         <img
           src={project.image}
