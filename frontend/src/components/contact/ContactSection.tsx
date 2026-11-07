@@ -8,7 +8,6 @@ import {
   type ContactRecord,
 } from "../../data/contact";
 
-import profileUserIcon from "../../assets/icons/profile-user.png";
 
 import "./contact-section.css";
 
@@ -115,35 +114,11 @@ function ContactSection() {
       </header>
 
       <RetroWindow
-        title="Contact Directory - Zied Alimi"
+        title="Contact methods"
         className="contact-directory"
       >
-        <nav
-          className="contact-directory__menu"
-          aria-label="Contact directory menu"
-        >
-          <button type="button">
-            <span>F</span>ile
-          </button>
-
-          <button type="button">
-            <span>V</span>iew
-          </button>
-
-          <button type="button">
-            <span>H</span>elp
-          </button>
-        </nav>
-
-        <div className="contact-directory__intro">
-          <span
-            className="contact-directory__profile-icon"
-            aria-hidden="true"
-          >
-            <img src={profileUserIcon} alt="" />
-          </span>
-
-          <div>
+<div className="contact-directory__intro">
+<div>
             <strong>Zied Alimi</strong>
 
             <span>
@@ -183,7 +158,7 @@ function ContactSection() {
             </div>
           </aside>
 
-          <main
+          <div
             className="contact-directory__details-panel"
             aria-live="polite"
           >
@@ -249,7 +224,7 @@ function ContactSection() {
                 No contact method selected.
               </div>
             )}
-          </main>
+          </div>
         </div>
 
         <footer
