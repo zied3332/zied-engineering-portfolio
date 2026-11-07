@@ -117,8 +117,8 @@ function ContactSection() {
         title="Contact methods"
         className="contact-directory"
       >
-<div className="contact-directory__intro">
-<div>
+        <div className="contact-directory__intro">
+          <div>
             <strong>Zied Alimi</strong>
 
             <span>

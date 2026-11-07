@@ -61,7 +61,7 @@ function SkillsSection() {
   return (
     <section id="skills" className="section skills-section" aria-labelledby="skills-heading">
       <div className="skills-section__heading">
-        <span className="skills-section__label">03 ? Technical Toolbox</span>
+        <span className="skills-section__label">03 — Technical Toolbox</span>
         <h2 id="skills-heading">Skills</h2>
         <p>Technologies used across academic, personal, and freelance projects.</p>
       </div>

@@ -44,7 +44,7 @@ function Footer() {
         <div className="footer__statusbar">
           <span>© {currentYear} Zied Alimi</span>
           <span>React + TypeScript</span>
-          <span>System status: Available</span>
+          <span>Status: Available</span>
         </div>
       </div>
     </footer>

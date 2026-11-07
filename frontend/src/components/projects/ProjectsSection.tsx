@@ -100,28 +100,6 @@ function ProjectsSection() {
         title="Project collection"
         className="projects-explorer"
       >
-<div className="retro-addressbar projects-explorer__address">
-          <span className="retro-addressbar__label">
-            Address
-          </span>
-
-          <div
-            className="retro-addressbar__field"
-            role="textbox"
-            aria-label="Current folder address"
-            aria-readonly="true"
-          >
-            <span
-              className="projects-explorer__folder-icon"
-              aria-hidden="true"
-            />
-
-            <span className="retro-addressbar__path">
-              {String.raw`C:\Zied\Portfolio\Projects`}
-            </span>
-          </div>
-        </div>
-
         <div className="projects-explorer__layout">
           <aside
             className="projects-explorer__sidebar"
@@ -133,12 +111,8 @@ function ProjectsSection() {
 
             <div className="projects-explorer__sidebar-content">
               <div className="projects-explorer__task-heading">
-                <span
-                  className="projects-explorer__folder-icon"
-                  aria-hidden="true"
-                />
 
-                <span>Browse project folders</span>
+                <span>Browse project categories</span>
               </div>
 
               <div className="projects-explorer__filters">
@@ -160,10 +134,6 @@ function ProjectsSection() {
                         setActiveFilter(filter)
                       }
                     >
-                      <span
-                        className="projects-explorer__document-icon"
-                        aria-hidden="true"
-                      />
 
                       <span>{filter}</span>
                     </button>
@@ -171,16 +141,7 @@ function ProjectsSection() {
                 })}
               </div>
 
-              <div
-                className="projects-explorer__sidebar-divider"
-                aria-hidden="true"
-              />
-
               <div className="projects-explorer__summary">
-                <span
-                  className="projects-explorer__folder-icon"
-                  aria-hidden="true"
-                />
 
                 <div>
                   <strong>
@@ -204,7 +165,7 @@ function ProjectsSection() {
             <header className="projects-explorer__content-header">
               <div>
                 <span>
-                  Current folder
+                  Current category
                 </span>
 
                 <strong>{activeFilter}</strong>
@@ -238,10 +199,6 @@ function ProjectsSection() {
               </div>
             ) : (
               <div className="projects-explorer__empty">
-                <span
-                  className="projects-explorer__folder-icon projects-explorer__folder-icon--large"
-                  aria-hidden="true"
-                />
 
                 <p>
                   No projects found in this
@@ -257,7 +214,7 @@ function ProjectsSection() {
           role="status"
         >
           <span>
-            {filteredProjects.length} object
+            {filteredProjects.length} project
             {filteredProjects.length === 1
               ? ""
               : "s"}

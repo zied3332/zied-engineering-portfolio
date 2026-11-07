@@ -7,7 +7,6 @@ import ExperienceSection from "./components/experience/ExperienceSection";
 import ContactSection from "./components/contact/ContactSection";
 import Footer from "./components/layout/Footer";
 
-import "./App.css";
 
 function App() {
   return (

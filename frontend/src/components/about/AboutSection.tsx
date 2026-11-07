@@ -165,7 +165,7 @@ function AboutSection() {
                 aria-labelledby="about-general-tab"
               >
                 <div className="about-properties__profile">
-<div className="about-properties__identity">
+                  <div className="about-properties__identity">
                     <span className="about-properties__profile-label">
                       Profile
                     </span>
@@ -175,8 +175,6 @@ function AboutSection() {
                     <p>Full-Stack Developer</p>
                   </div>
                 </div>
-
-                <div className="about-properties__divider" />
 
                 <fieldset className="about-properties__group">
                   <legend>Profile information</legend>
@@ -212,7 +210,7 @@ function AboutSection() {
                   className="about-properties__status"
                   role="status"
                 >
-<p>
+                  <p>
                     Profile loaded successfully. Currently
                     building a complete full-stack web platform
                     and available for selected freelance
@@ -228,7 +226,7 @@ function AboutSection() {
                 aria-labelledby="about-details-tab"
               >
                 <div className="about-properties__details-header">
-<div>
+                  <div>
                     <h3>Engineering Profile</h3>
 
                     <p>
