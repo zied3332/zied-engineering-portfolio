@@ -8,7 +8,6 @@ function Hero() {
       aria-labelledby="hero-heading"
     >
       <div className="hero-section__content">
-        <p className="hero-section__label">ZIED_PORTFOLIO.EXE</p>
 
         <h1 id="hero-heading">Zied Alimi</h1>
 
