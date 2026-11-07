@@ -1,18 +1,15 @@
 import type { ReactNode } from "react";
-import RetroTitleBar from "./RetroTitleBar";
 
 type RetroWindowProps = {
   title: string;
   children: ReactNode;
   className?: string;
-  showControls?: boolean;
 };
 
 function RetroWindow({
   title,
   children,
   className = "",
-  showControls = true,
 }: RetroWindowProps) {
   return (
     <section
