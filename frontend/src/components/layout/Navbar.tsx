@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./navbar.css";
-import appIcon from "../../assets/icons/app-icon.png";
 const navigationItems = [
   { label: "Home", href: "#home", id: "home" },
   { label: "About", href: "#about", id: "about" },
@@ -75,12 +74,7 @@ function Navbar() {
           href="#home"
           onClick={() => handleNavigationClick("home")}
         >
-          <img
-  src={appIcon}
-  alt="Portfolio application icon"
-  className="navbar__brand-icon"
-/>
-          <span>Zied Portfolio</span>
+<span>Zied Portfolio</span>
         </a>
 
         <button
@@ -91,13 +85,13 @@ function Navbar() {
           onClick={() => setIsMenuOpen((current) => !current)}
           aria-label="Toggle navigation menu"
           aria-expanded={isMenuOpen}
+          aria-controls="portfolio-navigation"
         >
-          <span />
-          <span />
-          <span />
+          Menu
         </button>
 
         <nav
+          id="portfolio-navigation"
           className={`navbar__navigation ${
             isMenuOpen ? "navbar__navigation--open" : ""
           }`}
@@ -107,6 +101,7 @@ function Navbar() {
             <a
               key={item.href}
               href={item.href}
+              aria-current={activeSection === item.id ? "location" : undefined}
               className={
                 activeSection === item.id
                   ? "navbar__navigation-link--active"

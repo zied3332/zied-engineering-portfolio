@@ -9,11 +9,8 @@ function Footer() {
       <div className="footer__inner">
         <div className="footer__main">
           <div className="footer__identity">
-            <span className="footer__icon">Z</span>
-
-            <div>
+<div>
               <strong>{personalInfo.name}</strong>
-              <span>Portfolio.exe</span>
             </div>
           </div>
 
