@@ -1,9 +1,5 @@
 import { useState } from "react";
 
-import aboutMeFileIcon from "../../assets/icons/about-me-file.png";
-import profileUserIcon from "../../assets/icons/profile-user.png";
-import systemComputerIcon from "../../assets/icons/system-computer.png";
-import statusCheckIcon from "../../assets/icons/status-check.png";
 
 import RetroWindow from "../retro/RetroWindow";
 
@@ -71,44 +67,10 @@ function AboutSection() {
 
       <div className="about-section__layout">
         <RetroWindow
-          title="ABOUT_ME.TXT - Notepad"
+          title="Biography"
           className="about-notepad"
         >
-          <nav
-            className="about-notepad__menu"
-            aria-label="Notepad menu"
-          >
-            <button type="button">
-              <span>F</span>ile
-            </button>
-
-            <button type="button">
-              <span>E</span>dit
-            </button>
-
-            <button type="button">
-              <span>S</span>earch
-            </button>
-
-            <button type="button">
-              <span>H</span>elp
-            </button>
-          </nav>
-
           <div className="about-notepad__document">
-            <div className="about-notepad__document-header">
-              <img
-                className="about-notepad__file-icon"
-                src={aboutMeFileIcon}
-                alt=""
-                aria-hidden="true"
-              />
-
-              <div>
-                <strong>ABOUT_ME.TXT</strong>
-                <span>Plain Text Document</span>
-              </div>
-            </div>
 
             <div className="about-notepad__text">
               <p>Hello, my name is Zied Alimi.</p>
@@ -145,19 +107,10 @@ function AboutSection() {
             </div>
           </div>
 
-          <footer
-            className="about-notepad__statusbar"
-            aria-label="Document status"
-          >
-            <span>Ln 1, Col 1</span>
-            <span>100%</span>
-            <span>Windows (CRLF)</span>
-            <span>UTF-8</span>
-          </footer>
         </RetroWindow>
 
         <RetroWindow
-          title="System Properties"
+          title="Profile information"
           className="about-properties"
         >
           <div
@@ -207,19 +160,9 @@ function AboutSection() {
                 aria-labelledby="about-general-tab"
               >
                 <div className="about-properties__profile">
-                  <div
-                    className="about-properties__profile-icon"
-                    aria-hidden="true"
-                  >
-                    <img
-                      src={profileUserIcon}
-                      alt=""
-                    />
-                  </div>
-
-                  <div className="about-properties__identity">
+<div className="about-properties__identity">
                     <span className="about-properties__profile-label">
-                      Registered profile
+                      Profile
                     </span>
 
                     <h3>Zied Alimi</h3>
@@ -231,7 +174,7 @@ function AboutSection() {
                 <div className="about-properties__divider" />
 
                 <fieldset className="about-properties__group">
-                  <legend>System information</legend>
+                  <legend>Profile information</legend>
 
                   <dl className="about-properties__list">
                     <div>
@@ -264,17 +207,7 @@ function AboutSection() {
                   className="about-properties__status"
                   role="status"
                 >
-                  <span
-                    className="about-properties__status-icon"
-                    aria-hidden="true"
-                  >
-                    <img
-                      src={statusCheckIcon}
-                      alt=""
-                    />
-                  </span>
-
-                  <p>
+<p>
                     Profile loaded successfully. Currently
                     building a complete full-stack web platform
                     and available for selected freelance
@@ -290,17 +223,7 @@ function AboutSection() {
                 aria-labelledby="about-details-tab"
               >
                 <div className="about-properties__details-header">
-                  <span
-                    className="about-properties__details-icon"
-                    aria-hidden="true"
-                  >
-                    <img
-                      src={systemComputerIcon}
-                      alt=""
-                    />
-                  </span>
-
-                  <div>
+<div>
                     <h3>Engineering Profile</h3>
 
                     <p>
