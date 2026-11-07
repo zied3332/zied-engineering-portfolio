@@ -20,11 +20,6 @@ function RetroWindow({
       role="group"
       aria-label={title}
     >
-      <RetroTitleBar
-        title={title}
-        showControls={showControls}
-      />
-
       <div className="retro-window__body">
         {children}
       </div>
