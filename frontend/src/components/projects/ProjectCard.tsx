@@ -23,6 +23,8 @@ function ProjectCard({
   const handleKeyDown = (
     event: KeyboardEvent<HTMLElement>
   ) => {
+    if (event.target !== event.currentTarget) return;
+
     if (
       event.key === "Enter" ||
       event.key === " "
@@ -52,26 +54,6 @@ function ProjectCard({
       onClick={() => onSelect(project.id)}
       onKeyDown={handleKeyDown}
     >
-      <div className="project-card__top">
-        <div
-          className="project-card__folder"
-          aria-hidden="true"
-        >
-          <span className="project-card__folder-front" />
-          <span className="project-card__folder-paper" />
-        </div>
-
-        <div className="project-card__file-info">
-          <span className="project-card__filename">
-            {project.fileName}
-          </span>
-
-          <span className="project-card__file-type">
-            Project Folder
-          </span>
-        </div>
-      </div>
-
       <div className="project-card__preview">
         <img
           src={project.image}

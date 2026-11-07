@@ -97,43 +97,10 @@ function ProjectsSection() {
       </div>
 
       <RetroWindow
-        title={String.raw`C:\ZIED\PORTFOLIO\PROJECTS`}
+        title="Project collection"
         className="projects-explorer"
       >
-        <nav
-          className="retro-menu projects-explorer__menu"
-          aria-label="Projects Explorer menu"
-        >
-          <button type="button">
-            <span className="projects-explorer__menu-shortcut">
-              F
-            </span>
-            ile
-          </button>
-
-          <button type="button">
-            <span className="projects-explorer__menu-shortcut">
-              E
-            </span>
-            dit
-          </button>
-
-          <button type="button">
-            <span className="projects-explorer__menu-shortcut">
-              V
-            </span>
-            iew
-          </button>
-
-          <button type="button">
-            <span className="projects-explorer__menu-shortcut">
-              H
-            </span>
-            elp
-          </button>
-        </nav>
-
-        <div className="retro-addressbar projects-explorer__address">
+<div className="retro-addressbar projects-explorer__address">
           <span className="retro-addressbar__label">
             Address
           </span>
@@ -230,7 +197,7 @@ function ProjectsSection() {
             </div>
           </aside>
 
-          <main
+          <div
             className="projects-explorer__content"
             aria-live="polite"
           >
@@ -282,7 +249,7 @@ function ProjectsSection() {
                 </p>
               </div>
             )}
-          </main>
+          </div>
         </div>
 
         <div
